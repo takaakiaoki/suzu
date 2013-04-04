@@ -1,7 +1,6 @@
 import Tkinter as tk
 
 import tktool.gui_abstract as ga
-import tktool.gui_testframe as gt
 
 import tktool.codedoptionmenu as coption
 
@@ -93,6 +92,14 @@ class Root(tk.Frame, ga.GUIAbstract):
         self.paramframe.grid(row=prow, column=0, columnspan=2, pady=5)
 
         self.clear()
+
+def _test
+    import tktool.gui_testframe as gt
+    app = tk.Tk()
+
+    gt.gui_testframe(app, Root, Root.exampleparam)
+
+    app.mainloop()
 
 if __name__ == '__main__':
     app = tk.Tk()
