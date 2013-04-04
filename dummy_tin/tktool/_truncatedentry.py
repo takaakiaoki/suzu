@@ -39,25 +39,37 @@ class TruncatedEntry(tk.Entry):
         self.cv.set(v)
 
     def get(self):
+        if self.is_disabled():
+            return None
+        return self.cv.get()
+
+    def get_nostatechk(self):
         return self.cv.get()
 
     def validate(self):
-        stat, reason = True, None
+        reason = None
         try:
             v = self.get()
         except ValueError:
-            stat = False
             reason = 'ValueError occured in self.cv.get()'
         # check length of the text
         if self.limitwidth and len(v) > self.limitwidth:
-            stat = False
             reason = 'text length is larger than limitation'
 
-        if stat:
+        if not reason:
             self.config(bg='white')
         else:
             self.config(bg='red')
-        return stat, reason
+        return reason
+
+    def enable(self):
+        self.config(state=tk.NORMAL)
+
+    def disable(self):
+        self.config(state=tk.DISABLED)
+
+    def is_disabled(self):
+        return self.cget('state') == tk.DISABLED
 
 
 if __name__ == '__main__':

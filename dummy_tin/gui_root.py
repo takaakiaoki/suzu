@@ -5,9 +5,11 @@ import tktool.gui_testframe as gt
 
 import tktool.codedoptionmenu as coption
 
+import proj
+
 class Root(tk.Frame, ga.GUIAbstract):
-    defaultparam = {'damage':1, 'plots':0}
-    exampleparam = {'damage':3, 'plots':4}
+    defaultparam = {'damage':1, 'plots':0, 'proj':proj.Proj.defaultparam}
+    exampleparam = {'damage':3, 'plots':4, 'proj':proj.Proj.exampleparam}
 
     def __init__(self, master, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
@@ -44,6 +46,14 @@ class Root(tk.Frame, ga.GUIAbstract):
 
         self.plotslabel.grid(row=prow, column=0)
         self.plots.grid(row=prow, column=1)
+        prow += 1
+
+        # projectile
+        self.projframe = tk.LabelFrame(self, text='Projectile')
+        self.proj = proj.Proj(self.projframe)
+        self.add_widget('proj', self.proj)
+        self.proj.pack()
+        self.projframe.grid(row=prow, column=0, columnspan=2)
         prow += 1
 
         self.clear()
