@@ -1,0 +1,115 @@
+=============
+suzu README
+=============
+
+version 0.0.0
+
+Apr 04, 2013
+
+Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
+
+About suzu
+==========
+
+suzu is faken gui program compatible with tin.exe in SRIM (http://www.srim.org/)
+
+
+Install & Run
+=============
+
+For windows, 2 options are avaliable to setup this program.
+The second option is also available for unix or mac user.
+
+Option 1: Use standalone package (for Windows)
+-----------------------------------------------
+
+1. Download Standalone package
+
+   Download suzu-(version).w32standalone.zip. Expand contents of zip file and put them in appropriate place 
+
+2. run
+
+  Double-click suzu.exe  
+
+Option 2: Install as python package
+-----------------------------------
+
+The second option is that intall suzu as a package of python library
+
+Environment
++++++++++++
+
+suzu is developed on python 2.7. In addition Tkinter (linked with tcl8.5) is adopted as GUI toolkit. In order to confirm the version of Tcl/Tk
+
+::
+
+  import Tkinter
+  print Tkinter.TclVersion
+  print Tkinter.TkVersion
+
+
+Install (for Windows)
++++++++++++++++++++++
+
+Download and start suzu-(version).win32.exe. The installer will find the path to install automatically (i.e. C:\Python27).
+The installer will put following files and folders, for example,
+
+- C:\Python27\Script\suzu.py
+- C:\Python27\lib\site-package\malowe_ui
+- C:\Python27\lib\site-package\suzu-0.01-pyxxx.egg-info
+
+To install on virtualenv, see
+http://stackoverflow.com/questions/3271590/can-i-install-python-windows-packages-into-virtualenvs
+and marlowe_ui/doc/virtualenv_win.txt
+
+Install from source code (for unix and mac)
++++++++++++++++++++++++++++++++++++++++++++
+
+1. Download package archive suzu-(version).tar.gz or suzu-(version).zip
+2. If you have already installed easy_install or pip, run
+
+  ::
+
+    easy_install suzu-(version).tar.gz
+
+  , or
+
+  ::
+
+    pip install suzu-(version).tar.gz
+
+2'. If you do not have easy_install nor pip, expand above package archive and find setup.py. Then,
+
+  ::
+
+    python setup.py install
+
+
+Run
++++
+
+- type suzu.py in command prompt
+- find suzu.py using explore (i.e. C:\Python27\Script\suzu.py) and click it.
+
+Usage and current limitation
+=============================
+
+(to be )
+
+
+Access to source code for developers
+====================================
+
+Source code is maintaned at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+
+Code is managed using mercurial (http://mercurial.selenic.com/). So you can access the latest source code set by ...
+
+::
+
+  hg clone http://[user]:[passwd]@sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+
+
+Bugs, issues, discussion for developers
+=======================================
+
+(to be )

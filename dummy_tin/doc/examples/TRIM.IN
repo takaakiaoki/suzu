@@ -1,0 +1,36 @@
+==> SRIM-2013.00 This file controls TRIM Calculations.
+Ion: Z1 ,  M1,  Energy (keV), Angle,Number,Bragg Corr,AutoSave Number.
+     1   1.008         10       0   99999        1    10000
+Cascades(1=No;2=Full;3=Sputt;4-5=Ions;6-7=Neutrons), Random Number Seed, Reminders
+                      1                                   0       0
+Diskfiles (0=no,1=yes): Ranges, Backscatt, Transmit, Sputtered, Collisions(1=Ion;2=Ion+Recoils), Special EXYZ.txt file
+                          0       0           0       0               0                               0
+Target material : Number of Elements & Layers
+"H (10) into Glass Soda_Lime+Layer 2     "       8               2
+PlotType (0-5); Plot Depths: Xmin, Xmax(Ang.) [=0 0 for Viewing Full Target]
+       0                         0           10000
+Target Elements:    Z   Mass(amu)
+Atom 1 = O =       8  15.999
+Atom 2 = Si =      14  28.086
+Atom 3 = Na =      11   22.99
+Atom 4 = Ca =      20   40.08
+Atom 5 = Mg =      12  24.305
+Atom 6 = Al =      13  26.982
+Atom 7 = O =       8  15.999
+Atom 8 = Si =      14  28.086
+Layer   Layer Name /               Width Density      O(8)  Si(14)  Na(11)  Ca(20)  Mg(12)  Al(13)    O(8)  Si(14)
+Numb.   Description                (Ang) (g/cm3)    Stoich  Stoich  Stoich  Stoich  Stoich  Stoich  Stoich  Stoich
+ 1      "Glass Soda_Lime"           5000  2.33      .6     .25      .1     .03     .01     .01       0       0
+ 2      "SiO2 - quartz (ICRU-245)"           5000  2.32       0       0       0       0       0       0 .666667 .333333
+0  Target layer phases (0=Solid, 1=Gas)
+0 0 
+Target Compound Corrections (Bragg)
+ 1   1  
+Individual target atom displacement energies (eV)
+      28      15      25      25      25      25      28      15
+Individual target atom lattice binding energies (eV)
+       3       2       3       3       3       3       3       2
+Individual target atom surface binding energies (eV)
+       2     4.7    1.12    1.83    1.54    3.36       2     4.7
+Stopping Power Version (1=2011, 0=2011)
+ 0 

@@ -1,0 +1,3 @@
+include README README.html LICENSE
+include marlowe_ui/doc/*.txt
+exclude marlowe_ui/doc/*.txt~
