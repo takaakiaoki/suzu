@@ -33,9 +33,9 @@ setup(name = "suzu",
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 
     #recursively.)
-    packages = ['dummy_tin', 'dummy_tin.tktool'],
+    packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics'],
     package_dir = {'dummy_tin':'dummy_tin'},
-    package_data = {'dummy_tin':['doc/*']},
+    # package_data = {'dummy_tin':['doc/*', 'doc/examples/*']},
     #'runner' is in the root.
     scripts = ["suzu.py"],
     long_description = """ """,
