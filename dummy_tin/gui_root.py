@@ -7,15 +7,18 @@ import tktool.codedoptionmenu as coption
 
 import proj
 import param1
+import param2
 
 class Root(tk.Frame, ga.GUIAbstract):
     defaultparam = {'damage':1, 'plots':0,
             'proj':proj.Proj.defaultparam,
-            'param1':param1.Param1.defaultparam
+            'param1':param1.Param1.defaultparam,
+            'param2':param2.Param2.defaultparam
             }
     exampleparam = {'damage':3, 'plots':4,
             'proj':proj.Proj.exampleparam,
-            'param1':param1.Param1.exampleparam
+            'param1':param1.Param1.exampleparam,
+            'param2':param2.Param2.exampleparam
             }
 
     def __init__(self, master, *args, **kw):
@@ -68,9 +71,14 @@ class Root(tk.Frame, ga.GUIAbstract):
         # parameter1
         self.param1 = param1.Param1(self.paramframe)
         self.add_widget('param1', self.param1)
-        self.param1.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+        self.param1.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W, padx=5)
 
-        self.paramframe.grid(row=prow, column=0, columnspan=2)
+        # parameter2
+        self.param2 = param2.Param2(self.paramframe)
+        self.add_widget('param2', self.param2)
+        self.param2.grid(row=0, column=1, sticky=tk.N+tk.S+tk.E+tk.W, padx=5)
+
+        self.paramframe.grid(row=prow, column=0, columnspan=2, pady=5)
 
         self.clear()
 

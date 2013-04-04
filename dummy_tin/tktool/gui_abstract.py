@@ -121,3 +121,43 @@ class TunedEntry(tk.Entry):
 
     def is_disabled(self):
         return self.cget('state') == tk.DISABLED
+
+class TunedCheckbuttonTF(tk.Checkbutton):
+    """arranged tk.Checkbutton class to satisfy GUIAbstract convension
+    get, set methods treats boolean value
+    """
+    def __init__(self, master=None, *args, **kw):
+        tk.Checkbutton.__init__(self, master, *args, **kw)
+
+        if 'variable' not in kw:
+            self.cv = tk.IntVar(self)
+        else:
+            self.cv = kw['variable']
+
+        self.config(variable=self.cv)
+
+    def set(self, d):
+        if d:
+            self.cv.set(1)
+        else:
+            self.cv.set(0)
+
+    def get(self):
+        if self.is_disabled():
+            return None
+        return self.cv.get() == 1
+
+    def get_nostatechk(self):
+        return self.cv.get() == 1
+
+    def validate(self):
+        return None
+
+    def enable(self):
+        self.config(state=tk.NORMAL)
+
+    def disable(self):
+        self.config(state=tk.DISABLED)
+
+    def is_disabled(self):
+        return self.cget('state') == tk.DISABLED

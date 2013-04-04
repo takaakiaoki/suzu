@@ -8,7 +8,7 @@ import tktool.gui_testframe as gt
 import tktool.codedoptionmenu as coption
 import tktool.validateentry
 
-class Param1(tk.Frame, ga.GUIAbstract):
+class Param1(tk.LabelFrame, ga.GUIAbstract):
     defaultparam = {
             'calcname':'',
             'autosave':10000,
@@ -25,7 +25,7 @@ class Param1(tk.Frame, ga.GUIAbstract):
             'windowmax':1000}
 
     def __init__(self, master, *args, **kw):
-        tk.Frame.__init__(self, master, *args, **kw)
+        tk.LabelFrame.__init__(self, master, *args, **kw)
         ga.GUIAbstract.__init__(self, defaultparam=Param1.defaultparam)
 
         # calcuname
