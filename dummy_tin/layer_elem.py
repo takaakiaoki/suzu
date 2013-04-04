@@ -7,6 +7,8 @@ import tktool.gui_abstract as ga
 import tktool.codedoptionmenu as coption
 import tktool.validateentry
 
+import atomtbl
+
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = {
             'name':'Layer',
@@ -14,7 +16,8 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
             'wunit': 'Ang',
             'dens': 0.0,
             'corr': 1.0,
-            'gas': False
+            'gas': False,
+            'atomtbl':[]
             }
     exampleparam = {
             'name':'Silicon',
@@ -22,7 +25,8 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
             'wunit': 'um',
             'dens': 2.312,
             'corr': 1.0,
-            'gas': True
+            'gas': True,
+            'atomtbl':atomtbl.exampleparam
             }
 
     def __init__(self, master=None, *args, **kw):
@@ -87,6 +91,13 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
         self.gas = ga.TunedCheckbuttonTF(self, text='Gas Material')
         self.add_widget('gas', self.gas)
         self.gas.grid(row=prow, column=0, columnspan=3, sticky=tk.W)
+
+        # atomtbl
+        self.atomtblfrm = tk.LabelFrame(self, text='Atoms')
+        self.atomtbl = atomtbl.AtomTbl(self.atomtblfrm)
+        self.atomtbl.pack()
+        self.add_widget('atomtbl', self.atomtbl)
+        self.atomtblfrm.grid(row=0, column=4, rowspan=prow, padx=10)
 
 if __name__ == '__main__':
     import tktool.gui_testframe as gt

@@ -25,7 +25,7 @@ class AtomTbl(tk.Frame):
 
         # number of valid atoms
         self.nsymbolfrm = tk.Frame(self)
-        self.nsymbollabel = tk.Label(self.nsymbolfrm, text='Atoms')
+        self.nsymbollabel = tk.Label(self.nsymbolfrm, text='size')
         self.nsymbolvar = tk.IntVar(self)
 
         self.nsymbol = tk.Spinbox(self.nsymbolfrm, textvariable=self.nsymbolvar,
