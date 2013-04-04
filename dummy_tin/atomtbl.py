@@ -49,7 +49,7 @@ class AtomTbl(tk.Frame):
             fill = tk.Button(self, text='>',
                     command=self.fill_by_symbol_skel(i))
             # z
-            z = tktool.validateentry.DoublePositive(self, width=8)
+            z = tktool.validateentry.IntPositive(self, width=8)
             # w
             w = tktool.validateentry.DoublePositive(self, width=8)
 
@@ -208,6 +208,7 @@ class AtomTbl(tk.Frame):
         self.set([])
 
     def enable(self):
+        self.disabled = False
         self.nsymbol.config(state=tk.NORMAL)
         nsymbol = self.nsymbolvar.get()
         for i in range(maxatoms):
@@ -215,7 +216,6 @@ class AtomTbl(tk.Frame):
                 self._enable_elem(i)
             else:
                 self._disable_elem(i)
-        self.disabled = False
 
     def disable(self):
         self.nsymbol.config(state=tk.DISABLED)

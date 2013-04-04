@@ -16,7 +16,7 @@ class Root(tk.Frame, ga.GUIAbstract):
             'param1':param1.Param1.defaultparam,
             'param2':param2.Param2.defaultparam
             }
-    exampleparam = {'damage':3, 'plots':4,
+    exampleparam = {'damage':2, 'plots':4,
             'proj':proj.Proj.exampleparam,
             'layer':layer.exampleparam,
             'param1':param1.Param1.exampleparam,
@@ -93,15 +93,8 @@ class Root(tk.Frame, ga.GUIAbstract):
 
         self.clear()
 
-def _test
-    import tktool.gui_testframe as gt
-    app = tk.Tk()
-
-    gt.gui_testframe(app, Root, Root.exampleparam)
-
-    app.mainloop()
-
 if __name__ == '__main__':
+    import tktool.gui_testframe as gt
     app = tk.Tk()
 
     gt.gui_testframe(app, Root, Root.exampleparam)

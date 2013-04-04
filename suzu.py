@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 
 import Tkinter as tk
-import dummy_tin.gui_root
+import dummy_tin.run
 
-app = tk.Tk()
-
-root = dummy_tin.gui_root.Root(app)
-root.pack()
-
-app.mainloop()
+dummy_tin.run.run()

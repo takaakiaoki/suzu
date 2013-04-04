@@ -27,7 +27,7 @@ class Proj(tk.Frame, ga.GUIAbstract):
 
         # z
         self.zlabel = tk.Label(self, text='Atomic\nNumber')
-        self.z = tktool.validateentry.DoublePositive(self, width=5)
+        self.z = tktool.validateentry.IntPositive(self, width=5)
         self.add_widget('z', self.z)
         self.zlabel.grid(row=0, column=2, sticky=tk.S)
         self.z.grid(row=1, column=2)

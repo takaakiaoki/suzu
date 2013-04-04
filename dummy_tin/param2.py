@@ -3,21 +3,22 @@ import Tkinter as tk
 import tktool
 import tktool.gui_abstract as ga
 import tktool.validateentry
+import tktool.codedoptionmenu as coption
 
 class Param2(tk.LabelFrame, ga.GUIAbstract):
     defaultparam = {
             'ionrange':False,
             'bscatter':False,
-            'transmit':False,
+            'transmit':0,
             'sputter':False,
-            'collidetail':False,
+            'collidetail':0,
             'einterval':0}
     exampleparam = {
             'ionrange':True,
             'bscatter':True,
-            'transmit':True,
+            'transmit':1,
             'sputter':True,
-            'collidetail':True,
+            'collidetail':1,
             'einterval':25}
 
     def __init__(self, master, *args, **kw):
@@ -41,9 +42,20 @@ class Param2(tk.LabelFrame, ga.GUIAbstract):
         prow += 1
 
         # transmit
-        self.transmit = ga.TunedCheckbuttonTF(self, text='Transmitted Ions/Recoils')
+        self.transmitframe = tk.Frame(self)
+        self.transmitlabel = tk.Label(self.transmitframe, text='Transmitted Ions/Recoils')
+        self.transmitopts = [
+                (0,'0 = No file of Tranmitted Atoms'),
+                (1,'1 = NEW file of Tranmitted Ions (TRANSMIT.txt)'),
+                (2,'2 = APPEND to old file of TRANSMIT.txt'),
+                (3,'3 = File of Transmitted Recoil Atoms (TRANSREC.txt)')
+                ]
+        self.transmit = coption.CodedOptionMenu(self.transmitframe, self.transmitopts)
+        self.transmit.config(width=10, anchor=tk.W)
         self.add_widget('transmit', self.transmit)
-        self.transmit.grid(row=prow, column=0, sticky=tk.W)
+        self.transmit.grid(row=0, column=0)
+        self.transmitlabel.grid(row=0, column=1)
+        self.transmitframe.grid(row=prow, column=0, sticky=tk.W)
         prow += 1
 
         # sputter
@@ -53,9 +65,20 @@ class Param2(tk.LabelFrame, ga.GUIAbstract):
         prow += 1
 
         # collidetail
-        self.collidetail = ga.TunedCheckbuttonTF(self, text='Collision Details')
+        self.collidetailframe = tk.Frame(self)
+        self.collidetaillabel = tk.Label(self.collidetailframe, text='Collision Details')
+        self.collidetailopts = [
+                (0,'0 = No file of Collision Details'),
+                (1,'1 = Store Ion data to COLLISION.text'),
+                (2,'2 = Store Ion and Recoil to COLLISION.txt (to heavy)')
+                ]
+        self.collidetail = coption.CodedOptionMenu(self.collidetailframe,
+                self.collidetailopts)
+        self.collidetail.config(width=10, anchor=tk.W)
         self.add_widget('collidetail', self.collidetail)
-        self.collidetail.grid(row=prow, column=0, sticky=tk.W)
+        self.collidetaillabel.grid(row=0, column=1)
+        self.collidetail.grid(row=0, column=0)
+        self.collidetailframe.grid(row=prow, column=0, sticky=tk.W)
         prow += 1
 
         # einterval
