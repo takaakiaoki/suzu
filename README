@@ -2,7 +2,7 @@
 suzu README
 =============
 
-version 0.0.0
+version 0.0.1
 
 Apr 04, 2013
 
@@ -94,7 +94,8 @@ Run
 Usage and current limitation
 =============================
 
-(to be )
+Fill parameters as you like and push [Save]
+[
 
 
 Access to source code for developers
@@ -112,4 +113,4 @@ Code is managed using mercurial (http://mercurial.selenic.com/). So you can acce
 Bugs, issues, discussion for developers
 =======================================
 
-(to be )
+If you find any bugs, issues, or you have request on it. Please do not hesitate to contact the author
