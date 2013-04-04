@@ -94,9 +94,15 @@ Run
 Usage and current limitation
 =============================
 
-Fill parameters as you like and push [Save]
-[
+Fill parameters as you like and push [Save] button.
+You will save file as TRIM.in and put this file in the folder where SRIM2013
+is installed. Then, double-clike **TRIM.exe**, which load TRIM.in file and run trim simulation.
 
+Currently suzu cannot parse TRIM.in format directory, but suzu saves TRIM.in.json data with TRIM.in simultaneoulsy. You may load this .json file by [Load .json] button.
+
+[Validation] button tests a contents of widgets. this validation routine also runs before [Save] action.
+
+[Set Example] [Dump to Console] are still remains for debugging.
 
 Access to source code for developers
 ====================================
