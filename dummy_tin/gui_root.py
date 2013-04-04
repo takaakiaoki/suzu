@@ -6,10 +6,17 @@ import tktool.gui_testframe as gt
 import tktool.codedoptionmenu as coption
 
 import proj
+import param1
 
 class Root(tk.Frame, ga.GUIAbstract):
-    defaultparam = {'damage':1, 'plots':0, 'proj':proj.Proj.defaultparam}
-    exampleparam = {'damage':3, 'plots':4, 'proj':proj.Proj.exampleparam}
+    defaultparam = {'damage':1, 'plots':0,
+            'proj':proj.Proj.defaultparam,
+            'param1':param1.Param1.defaultparam
+            }
+    exampleparam = {'damage':3, 'plots':4,
+            'proj':proj.Proj.exampleparam,
+            'param1':param1.Param1.exampleparam
+            }
 
     def __init__(self, master, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
@@ -55,6 +62,15 @@ class Root(tk.Frame, ga.GUIAbstract):
         self.proj.pack()
         self.projframe.grid(row=prow, column=0, columnspan=2)
         prow += 1
+
+        # buttom parameter frame
+        self.paramframe = tk.Frame(self)
+        # parameter1
+        self.param1 = param1.Param1(self.paramframe)
+        self.add_widget('param1', self.param1)
+        self.param1.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+
+        self.paramframe.grid(row=prow, column=0, columnspan=2)
 
         self.clear()
 
