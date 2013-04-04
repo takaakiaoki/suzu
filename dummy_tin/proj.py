@@ -4,8 +4,6 @@ import physics.element as elem
 
 import tktool
 import tktool.gui_abstract as ga
-import tktool.gui_testframe as gt
-import tktool.codedoptionmenu as coption
 import tktool.validateentry
 
 class Proj(tk.Frame, ga.GUIAbstract):
@@ -75,6 +73,8 @@ class Proj(tk.Frame, ga.GUIAbstract):
 
 
 if __name__ == '__main__':
+    import tktool.gui_testframe as gt
+
     app = tk.Tk()
 
     gt.gui_testframe(app, Proj, Proj.exampleparam)

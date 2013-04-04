@@ -8,15 +8,18 @@ import tktool.codedoptionmenu as coption
 import proj
 import param1
 import param2
+import layer
 
 class Root(tk.Frame, ga.GUIAbstract):
     defaultparam = {'damage':1, 'plots':0,
             'proj':proj.Proj.defaultparam,
+            'layer':layer.defaultparam,
             'param1':param1.Param1.defaultparam,
             'param2':param2.Param2.defaultparam
             }
     exampleparam = {'damage':3, 'plots':4,
             'proj':proj.Proj.exampleparam,
+            'layer':layer.exampleparam,
             'param1':param1.Param1.exampleparam,
             'param2':param2.Param2.exampleparam
             }
@@ -64,6 +67,15 @@ class Root(tk.Frame, ga.GUIAbstract):
         self.add_widget('proj', self.proj)
         self.proj.pack()
         self.projframe.grid(row=prow, column=0, columnspan=2)
+        prow += 1
+
+        # layer
+        self.layerframe = tk.LabelFrame(self, text='Target')
+        self.layer = layer.Layer(self.layerframe)
+        self.add_widget('layer', self.layer)
+        self.layer.pack()
+
+        self.layerframe.grid(row=prow, column=0, columnspan=2, sticky=tk.W+tk.E)
         prow += 1
 
         # buttom parameter frame

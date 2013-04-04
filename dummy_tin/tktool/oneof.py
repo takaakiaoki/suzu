@@ -61,6 +61,8 @@ def OneofFactory(GUIElem, defaultelem):
             self.view.grid(row=prow, column=0, columnspan=3)
             prow += 1
 
+            self.disabled = False
+
             self.clear()
 
         def store_currentview(self):
@@ -157,6 +159,14 @@ def OneofFactory(GUIElem, defaultelem):
             self.show_currentview()
 
         def get(self):
+            if self.is_disabled():
+                return None
+            # store current view 
+            self.store_currentview()
+            d = copy.deepcopy(self.elemdata)
+            return d
+
+        def get_nostatechk(self):
             # store current view 
             self.store_currentview()
             d = copy.deepcopy(self.elemdata)
@@ -169,6 +179,8 @@ def OneofFactory(GUIElem, defaultelem):
             self.set([])
 
         def validate(self):
+            if self.is_disabled():
+                return None
             return self.view.validate()
 
         def enable(self):
@@ -177,12 +189,17 @@ def OneofFactory(GUIElem, defaultelem):
             self.delete.config(state=tk.NORMAL)
             if len(self.elemdata):
                 self.view.enable()
+            self.disabled = False
 
         def disable(self):
             self.index.config(state=tk.DISABLED)
             self.append.config(state=tk.DISABLED)
             self.delete.config(state=tk.DISABLED)
             self.view.disable()
+            self.disabled = True
+
+        def is_disabled(self):
+            return self.disabled
 
     return C
 

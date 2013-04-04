@@ -1,11 +1,7 @@
 import Tkinter as tk
 
-import physics.element as elem
-
 import tktool
 import tktool.gui_abstract as ga
-import tktool.gui_testframe as gt
-import tktool.codedoptionmenu as coption
 import tktool.validateentry
 
 class Param1(tk.LabelFrame, ga.GUIAbstract):
@@ -62,14 +58,14 @@ class Param1(tk.LabelFrame, ga.GUIAbstract):
 
         # windowmin
         self.windowminlabel = tk.Label(self, text='Min (Ang)')
-        self.windowmin = tktool.validateentry.IntZeroPositive(self, width=8, justify=tk.RIGHT)
+        self.windowmin = tktool.validateentry.DoubleZeroPositive(self, width=8, justify=tk.RIGHT)
         self.add_widget('windowmin', self.windowmin)
         self.windowminlabel.grid(row=3, column=2, sticky=tk.E, padx=5)
         self.windowmin.grid(row=3, column=3, sticky=tk.W+tk.E)
 
         # windowmax
         self.windowmaxlabel = tk.Label(self, text='Max (Ang)')
-        self.windowmax = tktool.validateentry.IntZeroPositive(self, width=8, justify=tk.RIGHT)
+        self.windowmax = tktool.validateentry.DoubleZeroPositive(self, width=8, justify=tk.RIGHT)
         self.add_widget('windowmax', self.windowmax)
         self.windowmaxlabel.grid(row=4, column=2, sticky=tk.E, padx=5)
         self.windowmax.grid(row=4, column=3, sticky=tk.W+tk.E)
@@ -77,6 +73,8 @@ class Param1(tk.LabelFrame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
+    import tktool.gui_testframe as gt
+
     app = tk.Tk()
 
     gt.gui_testframe(app, Param1, Param1.exampleparam)

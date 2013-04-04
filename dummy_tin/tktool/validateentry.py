@@ -264,6 +264,57 @@ class DoublePositive(tk.Entry):
         return self.cget('state') == tk.DISABLED
 
 
+class DoubleZeroPositive(tk.Entry):
+    def __init__(self, master, textvariable=None, cnf={}, **kw):
+        """
+        @param textvariable Tkinter.IntVar object watched by this widget.
+               If not given, variable object is generate inside the class.
+        """
+        tk.Entry.__init__(self, master, cnf, bg='white', **kw)
+        if textvariable:
+            self.cv = textvariable
+        else:
+            self.cv = tk.DoubleVar(master, 1.0)
+        self.config(textvariable=self.cv)
+
+    def set(self, v):
+        self.cv.set(v)
+
+    def get(self):
+        return self.cv.get()
+
+    def get_nostatechk(self):
+        return self.get()
+
+    def validate(self):
+        reason = None
+        if self.is_disabled():
+            return reason
+
+        try:
+            tmp = self.cv.get()
+            if tmp < 0.0:
+                reason = 'double value is not zero or positive'
+        except ValueError:
+            reason = 'ValueError (should be Double)'
+
+        if reason:
+            self.config(bg='red')
+        else:
+            self.config(bg='white')
+
+        return reason
+
+    def enable(self):
+        self.config(state=tk.NORMAL)
+
+    def disable(self):
+        self.config(state=tk.DISABLED)
+
+    def is_disabled(self):
+        return self.cget('state') == tk.DISABLED
+
+
 def VecNdFactory(Base_, dim_):
     """factory class for N-dim double vector
         @param Base base widget class such like Int or Double defined above

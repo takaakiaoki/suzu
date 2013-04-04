@@ -1,11 +1,7 @@
 import Tkinter as tk
 
-import physics.element as elem
-
 import tktool
 import tktool.gui_abstract as ga
-import tktool.gui_testframe as gt
-import tktool.codedoptionmenu as coption
 import tktool.validateentry
 
 class Param2(tk.LabelFrame, ga.GUIAbstract):
@@ -75,6 +71,8 @@ class Param2(tk.LabelFrame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
+    import tktool.gui_testframe as gt
+
     app = tk.Tk()
 
     gt.gui_testframe(app, Param2, Param2.exampleparam)
