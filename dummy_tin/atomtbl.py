@@ -1,6 +1,7 @@
 import Tkinter as tk
 
 import physics.element as elem
+import db.disp as disp
 
 import tktool
 import tktool.validateentry
@@ -103,6 +104,9 @@ class AtomTbl(tk.Frame):
                 e = elem.table_bysym[symbol]
                 self.widgets[index]['z'].set(e.z)
                 self.widgets[index]['w'].set(e.mass)
+                # disp
+                self.widgets[index]['disp'].set(disp.disp.get(symbol,
+                            disp.default))
         return fill_by_symbol
 
     def set(self, d):
