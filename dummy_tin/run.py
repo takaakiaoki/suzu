@@ -1,5 +1,7 @@
+import sys
 import json
 import os.path
+import subprocess
 
 import Tkinter as tk
 import tkFileDialog
@@ -10,10 +12,42 @@ import tktool.error
 import root as _root
 import to_trim
 
-lastdir = ''
+import profile
+
+profile_pathinfo = None
+profile_config = None
+
+def spawn_trim(trim_in_path):
+    """spawn trim.exe"""
+    fname = os.path.basename(trim_in_path)
+    bname = os.path.dirname(trim_in_path)
+    texename = os.path.join(bname, u'trim.exe')
+
+    if fname.upper() == u'TRIM.IN' and os.path.exists(texename): 
+        s = tkMessageBox.askyesno('Start TRIM?','You have updated TRIM.in file where TRIM.exe exists\n Will you start TRIM.exe calculation?')
+
+        if s:
+            # spawn trim.exe
+            subprocess.Popen([texename], cwd=bname)
+
 
 def run():
+    # load profile data
+    global profile_config
+    global profile_pathinfo
+
+    try:
+        profile_pathinfo = profile.initialize()
+        profile_config = profile.load_config(open(profile_pathinfo['config'],'r'))
+    except profile.Error as e:
+        tkMessageBox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ e)
+        sys.exit(2)
+    except Exception as e:
+        tkMessageBox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ str(e))
+        sys.exit(2)
+
     app = tk.Tk()
+    # setup gui
 
     root = _root.Root(app)
 
@@ -54,15 +88,21 @@ def run():
     pcol += 1
 
     def load_action():
-        global lastdir
-        fname = tkFileDialog.askopenfilename(title=u'Load json file', defaultextension='.json', initialfile='TRIM.in.json', initialdir=lastdir, filetypes=[('JSON', '*.json'), ('All', '*')])
+        global profile_pathinfo
+        global profile_config
+        fname = tkFileDialog.askopenfilename(title=u'Load json file',
+                defaultextension='.json', initialfile='TRIM.in.json',
+                initialdir=profile_config['lastdir'],
+                filetypes=[('JSON', '*.json'), ('All', '*')])
         if fname:
             with open(fname, 'rt') as stream:
                 # save as json format
                 d = json.load(stream)
                 root.set(d)
                 # save lastdir
-                lastdir = os.path.dirname(fname)
+                profile_config['lastdir'] = os.path.dirname(fname)
+                profile.dump_config(profile_config,
+                        open(profile_pathinfo['config'], 'w'))
 
     loadbtn = tk.Button(menuframe, text='Load .json', command=load_action)
     loadbtn.grid(row=0, column=pcol, padx=5)
@@ -87,20 +127,29 @@ def run():
             tkMessageBox.showerror('exception error', 'exception received, save is aborted.\n'+e)
             return
 
-        global lastdir
+        global profile_pathinfo
+        global profile_config
 
-        fname = tkFileDialog.asksaveasfilename(title=u'Save marlowe (&json) control file', initialfile='TRIM.in', initialdir=lastdir, filetypes=[('TRIM input', '*.in'), ('All', '*')])
+        fname = tkFileDialog.asksaveasfilename(
+                title=u'Save TRIM input file',
+                initialfile='TRIM.in',
+                initialdir=profile_config['lastdir'],
+                filetypes=[('TRIM input', '*.in'), ('All', '*')])
         if fname:
-            # save as marlowe format 
+            # save as trim data format 
             stream = open(fname, 'wt')
             to_trim.to_trim(d, stream)
             # save as json format
             stream = open(fname+u'.json', 'wt')
-            json.dump(d, stream, indent=4, sort_keys=True)
+            json.dump(d, stream, indent=2, sort_keys=True)
 
-            lastdir = os.path.dirname(fname)
+            profile_config['lastdir'] = os.path.dirname(fname)
+            profile.dump_config(profile_config,
+                    open(profile_pathinfo['config'],'w'))
 
-    getandsavebtn = tk.Button(menuframe, text='Save', command=save_action)
+            spawn_trim(fname)
+
+    getandsavebtn = tk.Button(menuframe, text='Save (& run TRIM)', command=save_action)
     getandsavebtn.grid(row=0, column=pcol, padx=5)
 
     menuframe.pack(side=tk.TOP)

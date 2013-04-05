@@ -24,12 +24,3 @@ Material Database
 
 - user defined layer data will be helpful.
 
-Invoke TRIM.exe from suzu
-=========================
-
-- implement something to indicate the place of TRIM.exe.
-  Personal profile (i.e. ~/.suzu/rc for linux,  ~/_suzu/rc for wind) is needed
-
-- buckup previous TRIM.in and replace it by new one
-
-- invoke TRIM.exe

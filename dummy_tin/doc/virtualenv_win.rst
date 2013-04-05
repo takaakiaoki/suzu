@@ -107,4 +107,4 @@ to confirm it ... ::
   Python.File="C:\opt\Python27\python.exe" "%1" %*
   Python.NoConFile="C:\opt\Python27\pythonw.exe" "%1" %*
 
-Therefore, susu.py should be run in the form of 'python (path to susu.py)\susu.py' or 'python -m marlowe_ui.gui_root'
+Therefore, susu.py should be run in the form of 'python (path to susu.py)\susu.py'
