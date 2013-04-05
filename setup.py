@@ -1,6 +1,7 @@
 import sys
 import os
 from distutils.core import setup
+import glob
 
 # Test ttk installation. This check is needed only for python 2.6,
 # for python 2.7 ttk is a pre-installed package
@@ -22,6 +23,8 @@ except:
 ver_file = os.path.join('dummy_tin', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
+
+docfiles = glob.glob('doc/*.rst')
     
 setup(name = "suzu",
     version = vars['__version__'],
@@ -35,7 +38,12 @@ setup(name = "suzu",
     #recursively.)
     packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics'],
     package_dir = {'dummy_tin':'dummy_tin'},
-    # package_data = {'dummy_tin':['doc/*', 'doc/examples/*']},
+    #package_data = {'dummy_tin':['doc/*.rst', 'doc/*.html']},
+    # for py2win (py2win does not understand MANIFEST.in ?)
+    data_files = [('', ['README', 'README.html', 'LICENSE']),
+        ('dummy_tin/doc',glob.glob('dummy_tin/doc/*.rst')),
+        ('dummy_tin/doc',glob.glob('dummy_tin/doc/*.html'))],
+    include_package_data = True,
     #'runner' is in the root.
     scripts = ["suzu.py"],
     long_description = """ """,
