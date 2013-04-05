@@ -1,6 +1,6 @@
-=============
-suzu README
-=============
+====
+SUZU
+====
 
 version 0.0.1
 
@@ -11,8 +11,36 @@ Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
 About suzu
 ==========
 
-suzu is faken gui program compatible with tin.exe in SRIM (http://www.srim.org/)
+SUZU is gui program compatible with tin.exe in SRIM (http://www.srim.org/)
 
+Download
+========
+
+distribution package
+--------------------
+
+see http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist
+
+the directory includes severaly types of distribution packages. See `Install & Run`_ section.
+
+- suzu-(version).w32standalone.zip
+    w32 standalone 
+- suzu-(version).exe
+    installer for windows python environment
+- suzu-(version).tar.gz, suzu-(version).zip
+    installer for standard python environment
+    (use 'setup.py install', 'easy_install', or 'pip)
+
+Source code repository
+----------------------
+
+Source code is maintaned at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+
+Code is managed using mercurial (http://mercurial.selenic.com/). So you can access the latest source code set by ...
+
+::
+
+  hg clone http://[user]:[passwd]@sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
 
 Install & Run
 =============
@@ -25,7 +53,7 @@ Option 1: Use standalone package (for Windows)
 
 1. Download Standalone package
 
-   Download suzu-(version).w32standalone.zip. Expand contents of zip file and put them in appropriate place 
+  Download suzu-(version).w32standalone.zip. Expand contents of zip file and put them in appropriate place 
 
 2. run
 
@@ -48,8 +76,8 @@ Option 1: Use standalone package (for Windows)
      KERNEL32.dll - C:\Windows\system32\KERNEL32.dll
 
 
-Option 2: Install as python package
------------------------------------
+Option 2: Install as python script and package
+----------------------------------------------
 
 The second option is that intall suzu as a package of python library
 
@@ -68,16 +96,16 @@ suzu is developed on python 2.7. In addition Tkinter (linked with tcl8.5) is ado
 Install (for Windows)
 +++++++++++++++++++++
 
-Download and start suzu-(version).win32.exe. The installer will find the path to install automatically (i.e. C:\Python27).
+Download and start suzu-(version).win32.exe. The installer will find the path to install automatically (i.e. C:\\Python27).
 The installer will put following files and folders, for example,
 
-- C:\Python27\Script\suzu.py
-- C:\Python27\lib\site-package\malowe_ui
-- C:\Python27\lib\site-package\suzu-0.01-pyxxx.egg-info
+- C:\\Python27\\Script\\suzu.py
+- C:\\Python27\\lib\\site-package\\dummy_tin
+- C:\\Python27\\lib\\site-package\\suzu-(version)-pyxxx.egg-info
 
 To install on virtualenv, see
 http://stackoverflow.com/questions/3271590/can-i-install-python-windows-packages-into-virtualenvs
-and marlowe_ui/doc/virtualenv_win.txt
+and dummy_tin/doc/virtualenv_win
 
 Install from source code (for unix and mac)
 +++++++++++++++++++++++++++++++++++++++++++
@@ -95,7 +123,7 @@ Install from source code (for unix and mac)
 
     pip install suzu-(version).tar.gz
 
-2'. If you do not have easy_install nor pip, expand above package archive and find setup.py. Then,
+  (If you do not have easy_install nor pip, expand above package archive and find setup.py. Then,)
 
   ::
 
@@ -106,10 +134,10 @@ Run
 +++
 
 - type suzu.py in command prompt
-- find suzu.py using explore (i.e. C:\Python27\Script\suzu.py) and click it.
+- or, find suzu.py using explore (i.e. C:\\Python27\\Script\\suzu.py) and double-click it.
 
-Usage and current limitation
-=============================
+Usage
+=====
 
 Fill parameters as you like and push [Save] button.
 You will save file as TRIM.in and put this file in the folder where SRIM2013
@@ -121,16 +149,10 @@ Currently suzu cannot parse TRIM.in format directory, but suzu saves TRIM.in.jso
 
 [Set Example] [Dump to Console] are still remains for debugging.
 
-Access to source code for developers
-====================================
+More Infomation
+===============
 
-Source code is maintaned at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
-
-Code is managed using mercurial (http://mercurial.selenic.com/). So you can access the latest source code set by ...
-
-::
-
-  hg clone http://[user]:[passwd]@sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+Detail information especially for developpers are found in doc/* (for w32 standalone package) or dummy_tin/doc/* (python script package)
 
 
 Bugs, issues, discussion for developers
