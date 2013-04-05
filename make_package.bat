@@ -1,5 +1,5 @@
 rem create .html from README.rst files
-rst2html.py README.rst README.html
+rst2html.py README README.html
 cd dummy_tin\doc
 call make.bat
 cd ..\..
