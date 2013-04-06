@@ -44,7 +44,6 @@ setup(name = "suzu",
     data_files = [('', ['README', 'README.html', 'LICENSE']),
         ('dummy_tin/doc',glob.glob('dummy_tin/doc/*.rst')),
         ('dummy_tin/doc',glob.glob('dummy_tin/doc/*.html'))],
-    include_package_data = True,
     #'runner' is in the root.
     scripts = ["suzu.py"],
     long_description = """ """,
