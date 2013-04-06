@@ -7,6 +7,15 @@ _version = 1
 proj_default = v0.proj_default
 proj_example = v0.proj_example
 
+atomtbl_elem_default = v0.atomtbl_elem_default
+atomtbl_elem_example = v0.atomtbl_elem_example
+
+atomtbl_default = v0.atomtbl_default
+atomtbl_example = v0.atomtbl_example
+
+layer_elem_default = v0.layer_elem_default
+layer_elem_example = v0.layer_elem_example
+
 layer_default = v0.layer_default
 layer_example = v0.layer_example
 

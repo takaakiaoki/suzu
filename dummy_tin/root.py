@@ -10,22 +10,11 @@ import param1
 import param2
 import layer
 
-class Root(tk.Frame, ga.GUIAbstract):
-    defaultparam = {
-            'model':model.Model.defaultparam,
-            'proj':proj.Proj.defaultparam,
-            'layer':layer.defaultparam,
-            'param1':param1.Param1.defaultparam,
-            'param2':param2.Param2.defaultparam
-            }
-    exampleparam = {
-            'model':model.Model.exampleparam,
-            'proj':proj.Proj.exampleparam,
-            'layer':layer.exampleparam,
-            'param1':param1.Param1.exampleparam,
-            'param2':param2.Param2.exampleparam
-            }
+import context
 
+class Root(tk.Frame, ga.GUIAbstract):
+    defaultparam = context.root_default
+    exampleparam = context.root_example
     def __init__(self, master, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
         ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)

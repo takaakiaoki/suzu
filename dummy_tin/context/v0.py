@@ -2,17 +2,41 @@ _version = 0
 
 proj_default = {'symbol':'H', 'z':1, 'w':1.008, 'energy':10, 'angle':0}
 
-proj_example = {'symbol':'Si', 'z':14, 'w':29.977, 'energy':1000, 'angle':45}
+proj_example = \
+        {'symbol':'Si', 'z':14, 'w':29.977, 'energy':1000, 'angle':45}
 
-layer_default = [{
+atomtbl_elem_default = \
+        {'symbol':'', 'z':0, 'w':0, 'stoich':0, 'disp':[0, 0, 0]}
+atomtbl_elem_example = \
+        {'symbol':'Si', 'z':14, 'w':28.088, 'stoich':1, 'disp':[15, 2, 4.7]}
+
+atomtbl_default = []
+
+atomtbl_example = [
+        {'symbol':'Si', 'z':14, 'w':28.088, 'stoich':1, 'disp':[15, 2, 4.7]},
+        {'symbol':'H', 'z':1, 'w':1.008, 'stoich':2, 'disp':[10, 3, 2]},
+        {'symbol':'O', 'z':8, 'w':15.99, 'stoich':1, 'disp':[28, 3, 2]}
+        ]
+
+layer_elem_default = {
         'name':'Layer',
         'width': 100000,
         'wunit': 'Ang',
         'dens': 0.0,
         'corr': 1.0,
         'gas': False,
-        'atomtbl':[]
-        }]
+        'atomtbl':atomtbl_default
+        }
+
+layer_elem_example = {'name':'Silicon',
+            'width': 100000,
+            'wunit': 'um',
+            'dens': 2.312,
+            'corr': 1.0,
+            'gas': True,
+            'atomtbl':atomtbl_example}
+
+layer_default = [layer_elem_default]
 
 layer_example = [
         {'name':'Silicon', 'width':100, 'wunit':'Ang', 'dens':2.3212,

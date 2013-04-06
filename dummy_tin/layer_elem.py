@@ -9,29 +9,15 @@ import tktool.validateentry
 
 import atomtbl
 
+import context
+
 class LayerElem(tk.Frame, ga.GUIAbstract):
-    defaultparam = {
-            'name':'Layer',
-            'width': 100000,
-            'wunit': 'Ang',
-            'dens': 0.0,
-            'corr': 1.0,
-            'gas': False,
-            'atomtbl':[]
-            }
-    exampleparam = {
-            'name':'Silicon',
-            'width': 100000,
-            'wunit': 'um',
-            'dens': 2.312,
-            'corr': 1.0,
-            'gas': True,
-            'atomtbl':atomtbl.exampleparam
-            }
+    defaultparam = context.layer_elem_default
+    exampleparam = context.layer_elem_example
 
     def __init__(self, master=None, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
-        ga.GUIAbstract.__init__(self, defaultparam=LayerElem.defaultparam)
+        ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
         prow = 0
         epadx = (15, 0) # x inner padding for Entries

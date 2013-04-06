@@ -5,16 +5,13 @@ import db.disp as disp
 
 import tktool
 import tktool.validateentry
+import context
 
 maxatoms = 8
 
-defaultparam_elem = {'symbol':'', 'z':0, 'w':0, 'stoich':0, 'disp':[0, 0, 0]}
+defaultparam_elem = context.atomtbl_elem_default
 
-exampleparam = [
-        {'symbol':'Si', 'z':14, 'w':28.088, 'stoich':1, 'disp':[15, 2, 4.7]},
-        {'symbol':'H', 'z':1, 'w':1.008, 'stoich':2, 'disp':[10, 3, 2]},
-        {'symbol':'O', 'z':8, 'w':15.99, 'stoich':1, 'disp':[28, 3, 2]}
-        ]
+exampleparam = context.atomtbl_example
 
 class AtomTbl(tk.Frame):
     def __init__(self, master=None, nsymbol=1, *args, **kw):

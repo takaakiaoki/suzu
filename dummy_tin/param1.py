@@ -4,25 +4,14 @@ import tktool
 import tktool.gui_abstract as ga
 import tktool.validateentry
 
-class Param1(tk.LabelFrame, ga.GUIAbstract):
-    defaultparam = {
-            'calcname':'',
-            'autosave':10000,
-            'totalion':99999,
-            'randseed':0,
-            'windowmin':0,
-            'windowmax':0}
-    exampleparam = {
-            'calcname':'suzu test',
-            'autosave':100,
-            'totalion':1,
-            'randseed':117,
-            'windowmin':100,
-            'windowmax':1000}
+import context
 
+class Param1(tk.LabelFrame, ga.GUIAbstract):
+    defaultparam = context.param1_default
+    exampleparam = context.param1_example
     def __init__(self, master, *args, **kw):
         tk.LabelFrame.__init__(self, master, *args, **kw)
-        ga.GUIAbstract.__init__(self, defaultparam=Param1.defaultparam)
+        ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
         # calcuname
         self.calcnamelabel = tk.Label(self, text='Name of Calculation')

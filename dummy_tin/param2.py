@@ -5,25 +5,15 @@ import tktool.gui_abstract as ga
 import tktool.validateentry
 import tktool.codedoptionmenu as coption
 
+import context
+
 class Param2(tk.LabelFrame, ga.GUIAbstract):
-    defaultparam = {
-            'ionrange':False,
-            'bscatter':False,
-            'transmit':0,
-            'sputter':False,
-            'collidetail':0,
-            'einterval':0}
-    exampleparam = {
-            'ionrange':True,
-            'bscatter':True,
-            'transmit':1,
-            'sputter':True,
-            'collidetail':1,
-            'einterval':25}
+    defaultparam = context.param2_default
+    exampleparam = context.param2_example
 
     def __init__(self, master, *args, **kw):
         tk.LabelFrame.__init__(self, master, *args, **kw)
-        ga.GUIAbstract.__init__(self, defaultparam=Param2.defaultparam)
+        ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
         self.config(text='Output Disk Files')
     
