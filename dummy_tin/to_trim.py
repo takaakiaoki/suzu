@@ -1,3 +1,5 @@
+import copy
+
 def t1(d):
     s = '{z:d} {w:f} {energy:f} {angle:f} {totalion:d} 1 {autosave:d}'.format(
             z = d['proj']['z'],
@@ -137,6 +139,9 @@ Stopping Power Version (1=2011, 0=2011)
 """
 
 def to_trim(d, stream):
+    # make copy of d
+    d = copy.deepcopy(d)
+
     # linealize atomtable
     linatomtbl = []
     for lay in d['layer']:
