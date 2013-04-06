@@ -11,7 +11,7 @@ def t1(d):
 
 def t2(d):
     s = '{damage:d} {randseed:d} 0'.format(
-            damage = d['damage'],
+            damage = d['model']['damage'],
             randseed = d['param1']['randseed']
             )
     return s
@@ -28,7 +28,7 @@ def t4(d):
 
 def t5(d):
     # trim calcname in 40 chars
-    s = '{0:d} {1:f} {2:f}'.format(d['plots'],
+    s = '{0:d} {1:f} {2:f}'.format(d['model']['plots'],
             d['param1']['windowmin'], d['param1']['windowmax'])
     return s
 
