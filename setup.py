@@ -36,7 +36,8 @@ setup(name = "suzu",
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 
     #recursively.)
-    packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics'],
+    packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics',
+        'dummy_tin.db'],
     package_dir = {'dummy_tin':'dummy_tin'},
     #package_data = {'dummy_tin':['doc/*.rst', 'doc/*.html']},
     # for py2win (py2win does not understand MANIFEST.in ?)

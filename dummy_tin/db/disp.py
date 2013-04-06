@@ -100,8 +100,8 @@ disp = {
 
 if __name__ == '__main__':
     import sys
-    sys.path.append('..')
-    import physics.element as e
+    sys.path.append('../..') # to start dummy_tin.xxx
+    import dummy_tin.physics.element as e
 
     for i, s in enumerate(e.table_bynum):
         print i, s.sym, disp.get(s.sym, default)
