@@ -19,7 +19,7 @@ layout = {
         # set 'root' for key 'in', otherwise it is placed in ctrl frame
         'index':{'in':'ctrl', 'row':0, 'column':0, 'sticky':tk.W},
         'totallabel':{'row':0, 'column':1, 'sticky':tk.W}, # 'in' key can be ommitted.
-        'append':{'row':1, 'column':0, 'columnspan':2, 'sticky':tk.EW},
+        'append':{'row':1, 'column':0, 'columnspan':2, 'pady':(10,0), 'sticky':tk.EW},
         'delete':{'row':2, 'column':0, 'columnspan':2, 'sticky':tk.EW}
         }
 

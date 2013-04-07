@@ -19,20 +19,23 @@ class Root(tk.Frame, ga.GUIAbstract):
         tk.Frame.__init__(self, master, *args, **kw)
         ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
-        prow = 0
+        # [proj]    [model]
+        # [    layer      ]
+        # [param1] [param2]
 
-        # model
-        self.model = model.Model(self)
-        self.add_widget('model', self.model)
-        self.model.grid(row=prow, column=0, columnspan=2)
-        prow += 1
+        prow = 0
 
         # projectile
         self.projframe = tk.LabelFrame(self, text='Projectile')
         self.proj = proj.Proj(self.projframe)
         self.add_widget('proj', self.proj)
         self.proj.pack()
-        self.projframe.grid(row=prow, column=0, columnspan=2)
+        self.projframe.grid(row=prow, column=0, columnspan=1)
+
+        # model
+        self.model = model.Model(self)
+        self.add_widget('model', self.model)
+        self.model.grid(row=prow, column=1, padx=(20,0), columnspan=1)
         prow += 1
 
         # layer
