@@ -12,6 +12,7 @@ import tktool.error
 import root as _root
 import to_trim
 
+import context
 import profile
 
 profile_pathinfo = None
@@ -98,8 +99,11 @@ def run():
             with open(fname, 'rt') as stream:
                 # save as json format
                 d = json.load(stream)
+                # check version of json data and solve it
+                d = context.solve_version(d)
                 root.set(d)
-                # save lastdir
+
+                # load successed save lastdir
                 profile_config['lastdir'] = os.path.dirname(fname)
                 profile.dump_config(profile_config,
                         open(profile_pathinfo['config'], 'w'))
@@ -140,6 +144,8 @@ def run():
             stream = open(fname, 'wt')
             to_trim.to_trim(d, stream)
             # save as json format
+            # add context version
+            d['version'] = context.currentversion
             stream = open(fname+u'.json', 'wt')
             json.dump(d, stream, indent=2, sort_keys=True)
 

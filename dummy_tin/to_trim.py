@@ -1,3 +1,5 @@
+import copy
+
 def t1(d):
     s = '{z:d} {w:f} {energy:f} {angle:f} {totalion:d} 1 {autosave:d}'.format(
             z = d['proj']['z'],
@@ -11,7 +13,7 @@ def t1(d):
 
 def t2(d):
     s = '{damage:d} {randseed:d} 0'.format(
-            damage = d['damage'],
+            damage = d['model']['damage'],
             randseed = d['param1']['randseed']
             )
     return s
@@ -28,7 +30,7 @@ def t4(d):
 
 def t5(d):
     # trim calcname in 40 chars
-    s = '{0:d} {1:f} {2:f}'.format(d['plots'],
+    s = '{0:d} {1:f} {2:f}'.format(d['model']['plots'],
             d['param1']['windowmin'], d['param1']['windowmax'])
     return s
 
@@ -137,6 +139,9 @@ Stopping Power Version (1=2011, 0=2011)
 """
 
 def to_trim(d, stream):
+    # make copy of d
+    d = copy.deepcopy(d)
+
     # linealize atomtable
     linatomtbl = []
     for lay in d['layer']:

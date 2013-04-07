@@ -6,13 +6,15 @@ import tktool
 import tktool.gui_abstract as ga
 import tktool.validateentry
 
+import context
+
 class Proj(tk.Frame, ga.GUIAbstract):
-    defaultparam = {'symbol':'H', 'z':1, 'w':1.008, 'energy':10, 'angle':0}
-    exampleparam = {'symbol':'Si', 'z':14, 'w':29.977, 'energy':1000, 'angle':45}
+    defaultparam = context.proj_default
+    exampleparam = context.proj_example
 
     def __init__(self, master, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
-        ga.GUIAbstract.__init__(self, defaultparam=Proj.defaultparam)
+        ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
         # symbol
         self.symbollabel = tk.Label(self, text='Symbol')

@@ -5,16 +5,13 @@ import db.disp as disp
 
 import tktool
 import tktool.validateentry
+import context
 
 maxatoms = 8
 
-defaultparam_elem = {'symbol':'', 'z':0, 'w':0, 'stoich':0, 'disp':[0, 0, 0]}
+defaultparam_elem = context.atomtbl_elem_default
 
-exampleparam = [
-        {'symbol':'Si', 'z':14, 'w':28.088, 'stoich':1, 'disp':[15, 2, 4.7]},
-        {'symbol':'H', 'z':1, 'w':1.008, 'stoich':2, 'disp':[10, 3, 2]},
-        {'symbol':'O', 'z':8, 'w':15.99, 'stoich':1, 'disp':[28, 3, 2]}
-        ]
+exampleparam = context.atomtbl_example
 
 class AtomTbl(tk.Frame):
     def __init__(self, master=None, nsymbol=1, *args, **kw):
@@ -26,19 +23,14 @@ class AtomTbl(tk.Frame):
 
         # number of valid atoms
         self.nsymbolfrm = tk.Frame(self)
-        self.nsymbollabel = tk.Label(self.nsymbolfrm, text='size')
+        self.nsymbollabel = tk.Label(self.nsymbolfrm, text='Size')
         self.nsymbolvar = tk.IntVar(self)
 
         self.nsymbol = tk.Spinbox(self.nsymbolfrm, textvariable=self.nsymbolvar,
                 values=range(0,maxatoms+1),
                 command=self.nsymbol_action)
-        self.nsymbol.config(width=5)
+        self.nsymbol.config(width=3)
 
-        self.nsymbollabel.pack(side=tk.LEFT)
-        self.nsymbol.pack(side=tk.LEFT)
-
-        self.nsymbolfrm.grid(row=prow, column=0, columnspan=8, sticky=tk.W)
-        prow += 1
 
         # generate widgets
         self.widgets = []
@@ -64,33 +56,41 @@ class AtomTbl(tk.Frame):
             self.widgets.append({'symbol':symbol, 'fill':fill, 'z':z, 'w':w,
                 'stoich':stoich, 'disp':disp})
 
+
         # layout widgets with labels
-        #
-        #   | sym | (fill button) | z | m | (pad) | stoich | (pad) | Damage
-        # --+-----+---------------+---+---+-------+--------+-------+-------
-        #  1| ....|
+        # [size]
+        # [var ] | sym | (fill button) | z | m | (pad) | stoich | (pad) | Damage
+        # -------+-----+---------------+---+---+-------+--------+-------+-------
+        #       1| ....|
+
+        stoichpadx = (10,10)
 
 
         # header
+
+        # layout 'size', and 'var'
+        self.nsymbollabel.grid(row=0, column=0, sticky=tk.W)
+        self.nsymbol.grid(row=1, column=0, sticky=tk.W)
+        self.nsymbolfrm.grid(row=prow, column=0, sticky=tk.SE)
+
         tk.Label(self, text='Sym.').grid(row=prow, column=1, sticky=tk.S)
         tk.Label(self, text='z').grid(row=prow, column=3, sticky=tk.S)
         tk.Label(self, text='w').grid(row=prow, column=4, sticky=tk.S)
-        tk.Label(self, text='Stoich.').grid(row=prow, column=6, sticky=tk.S)
-        tk.Label(self, text='Damage(eV)\ndisp. / latt. / surf.').grid(row=prow, column=8)
+        tk.Label(self, text='Stoich.').grid(row=prow, column=5, sticky=tk.S)
+        tk.Label(self, text='Damage(eV)\ndisp. / latt. / surf.').grid(row=prow, column=6)
 
         prow += 1
         for i in range(maxatoms):
             # label
-            tk.Label(self, text='{0:d}'.format(i+1)).grid(row=prow, column=0)
+            tk.Label(self, text='{0:d}'.format(i+1)).grid(row=prow, column=0,
+                    sticky=tk.E)
 
             self.widgets[i]['symbol'].grid(row=prow, column=1)
             self.widgets[i]['fill'].grid(row=prow, column=2)
             self.widgets[i]['z'].grid(row=prow, column=3)
             self.widgets[i]['w'].grid(row=prow, column=4)
-            tk.Frame(self, width='10').grid(row=prow, column=5)
-            self.widgets[i]['stoich'].grid(row=prow, column=6)
-            tk.Frame(self, width='10').grid(row=prow, column=7)
-            self.widgets[i]['disp'].grid(row=prow, column=8)
+            self.widgets[i]['stoich'].grid(row=prow, column=5, padx=stoichpadx)
+            self.widgets[i]['disp'].grid(row=prow, column=6)
 
             prow += 1
 

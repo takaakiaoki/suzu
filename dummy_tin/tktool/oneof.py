@@ -11,25 +11,48 @@ import validateentry
 import codedoptionmenu
 import error
 
-def OneofFactory(GUIElem, defaultelem):
+gridlayout_default = {
+        # ctrl frame, relative to root frame
+        'ctrl':{'row':0, 'column':0, 'sticky':tk.S},
+        # element view, relative to root frame
+        'view':{'row':1, 'column':0, 'sticky':tk.N},
+        # control parts which are placed in ctrlfrm in usual
+        # if a widget should be placed in relative to root frame
+        # set 'root' for key 'in', otherwise it is placed in ctrl frame
+        'index':{'in':'ctrl', 'row':0, 'rowspan':2, 'column':0, 'sticky':tk.E},
+        'totallabel':{'row':0, 'rowspan':2, 'column':1, 'sticky':tk.W}, # 'in' key can be ommitted.
+        'append':{'row':0, 'column':2, 'sticky':'w'},
+        'delete':{'row':1, 'column':2, 'sticky':tk.W}
+        }
+
+def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
     """genelates one-of class which represents array of GUIElem
     @param GUIElem gui class implemented with 
     @param defaultelem default value to initialize GUIElem
     """
     class C(tk.Frame):
+        # class static variables
         class Error(Exception):
             def __init__(self, err):
                 Exception.__init__(self)
                 self.err = err
 
-        def __init__(self, master=None, *args, **kw):
-            tk.Frame.__init__(self, master)
+        defaultgridlayout = gridlayout
+        GUIElem = GUIElem_
+        defaultelem = defaultelem_
+
+        def __init__(self, master=None, gridlayout=None, *args, **kw):
+            tk.Frame.__init__(self, master, *args, **kw)
 
             self.elemdata = []
             self.currentview = None # index number for elemdata which
                                     # elemdata is shown on self.view
+            self.gridlayout = copy.deepcopy(self.defaultgridlayout)
 
-            prow = 0
+            if gridlayout:
+                for k in self.gridlayout.keys():
+                    if k in gridlayout:
+                        self.gridlayout[k] = gridlayout[k]
 
             # index it returns None when elemdata is null
             # or (0, 1, 2, ...) when elemdata has member
@@ -38,28 +61,42 @@ def OneofFactory(GUIElem, defaultelem):
                     self.indexoption)
 
             self.index.config(width=3)
-            self.index.grid(row=prow, rowspan=2, column=0, sticky=tk.E)
 
             # number of elems
             self.totallabel = tk.Label(self,
                     text='of {0:d}'.format(len(self.elemdata)))
-            self.totallabel.grid(row=prow, rowspan=2, column=1, sticky=tk.W)
 
             # add elem in the tail
             self.append = tk.Button(self, text='add (& move) to last',
                     command=self.append_action)
-            self.append.grid(row=prow, column=2, sticky=tk.W)
 
             # delete current view
             self.delete = tk.Button(self, text='delete this view',
                     command=self.delete_action)
-            self.delete.grid(row=prow+1, column=2, sticky=tk.W)
-            prow += 2
 
             # view
-            self.view = GUIElem(self)
-            self.view.grid(row=prow, column=0, columnspan=3)
-            prow += 1
+            self.view = self.GUIElem(self)
+
+            # layout
+            # ctrl frame
+            self.ctrlfrm = tk.Frame(self)
+            # now ctrlfrm is top of stack which covers all widget
+            self.ctrlfrm.lower()
+
+            for k, w in (
+                    ('index', self.index), 
+                    ('totallabel', self.totallabel),
+                    ('append', self.append),
+                    ('delete', self.delete)):
+                kw = self.gridlayout[k].copy()
+                if 'in' in kw and kw['in'] == 'root':
+                    kw['in'] = self
+                else:
+                    kw['in'] = self.ctrlfrm
+                w.grid(**kw)
+
+            self.ctrlfrm.grid(**self.gridlayout['ctrl'])
+            self.view.grid(**self.gridlayout['view'])
 
             self.disabled = False
 
@@ -126,7 +163,7 @@ def OneofFactory(GUIElem, defaultelem):
                 return 
 
             # add default element
-            self.elemdata.append(copy.deepcopy(defaultelem))
+            self.elemdata.append(copy.deepcopy(self.defaultelem))
             self.update_menuoption()
             # view newly added elem
             self.currentview = len(self.elemdata) - 1
@@ -174,7 +211,7 @@ def OneofFactory(GUIElem, defaultelem):
 
         def clear(self):
             # first fill view with default
-            self.view.set(defaultelem)
+            self.view.set(self.defaultelem)
             # and cleare truly
             self.set([])
 
@@ -237,7 +274,7 @@ if __name__ == '__main__':
             self.w.config(state=tk.DISABLED)
 
 
-    C = OneOfFactory(Elem, 1)
+    C = OneofFactory(Elem, 1)
 
     gui = C(app)
     gui.pack(side=tk.TOP)
