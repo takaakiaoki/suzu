@@ -140,15 +140,27 @@ def run():
                 initialdir=profile_config['lastdir'],
                 filetypes=[('TRIM input', '*.in'), ('All', '*')])
         if fname:
-            # save as trim data format 
-            stream = open(fname, 'wt')
-            to_trim.to_trim(d, stream)
-            # save as json format
             # add context version
             d['version'] = context.currentversion
-            stream = open(fname+u'.json', 'wt')
+
+            # 0. remove existing .json
+            json_name = fname + u'.json'
+            if os.path.exists(json_name):
+                os.unlink(json_name)
+
+            # 1. dump .json.temp
+            jsont_name = fname + u'.json.t'
+            stream = open(jsont_name, 'wt')
             json.dump(d, stream, indent=2, sort_keys=True)
 
+            # 2. save as trim data format 
+            stream = open(fname, 'wt')
+            to_trim.to_trim(d, stream)
+
+            # 3. rename .json.temp to .json 
+            os.rename(jsont_name, json_name)
+
+            # file dump succeeded, save lastdir in the profile
             profile_config['lastdir'] = os.path.dirname(fname)
             profile.dump_config(profile_config,
                     open(profile_pathinfo['config'],'w'))
