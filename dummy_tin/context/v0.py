@@ -6,7 +6,7 @@ proj_example = \
         {'symbol':'Si', 'z':14, 'w':29.977, 'energy':1000, 'angle':45}
 
 atomtbl_elem_default = \
-        {'symbol':'', 'z':0, 'w':0, 'stoich':0, 'disp':[0, 0, 0]}
+        {'symbol':'', 'z':0, 'w':0, 'stoich':1.0, 'disp':[0, 0, 0]}
 atomtbl_elem_example = \
         {'symbol':'Si', 'z':14, 'w':28.088, 'stoich':1, 'disp':[15, 2, 4.7]}
 
