@@ -242,6 +242,10 @@ class AtomTbl(tk.Frame):
             if len(v) < 1 or len(v) > 2:
                 stat = False
                 err.append(('symbol', 'char length is not valid'))
+                w['symbol'].config(bg='red')
+            else:
+                w['symbol'].config(bg='white')
+
         except:
             err.append(('symbol', 'exception orruced'))
 
@@ -272,13 +276,18 @@ class AtomTbl(tk.Frame):
 
         # it should have at least one element
         if v == 0:
-            return 'No element is set'
+            # turn index red
+            self.nsymbol.config(bg='red')
+            return 'No atom is set'
+        else:
+            # clear self.nsymbol alert
+            self.nsymbol.config(bg='white')
 
         err = []
         for i in range(self.nsymbolvar.get()):
             e = self.validate_wunit(self.widgets[i])
             if e:
-                err.append(('atom {0:d}'.format(i+1), e))
+                err.append(('atom{0:d}'.format(i+1), e))
 
         if err:
             return err
