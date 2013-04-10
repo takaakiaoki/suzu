@@ -8,15 +8,18 @@ Apr 07, 2013
 
 Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
 
+.. contents::
+  :local:
+
 About SUZU
 ==========
 
-SUZU is gui program compatible with tin.exe in SRIM (http://www.srim.org/)
+SUZU is aimed to be a gui program compatible with tin.exe in SRIM (http://www.srim.org/).
 
 Download
 ========
 
-distribution packages
+Distribution packages
 ---------------------
 
 installation packages are availabel at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist
@@ -30,6 +33,11 @@ the directory includes several types of package. See `Install & Run`_ section.
 - suzu-(version).tar.gz, suzu-(version).zip
     installer for standard python environment
     (use 'setup.py install', 'easy_install', or 'pip)
+
+.. warning::
+
+  Version number suffixed with **'pre'** is *preliminary and developing* version.
+  It is **not recommended** for ordinal users.
 
 Source code repository
 ----------------------
@@ -45,7 +53,7 @@ Code is managed using mercurial (http://mercurial.selenic.com/). So you can acce
 Install & Run
 =============
 
-For windows, 2 options are avaliable to setup this program.
+For windows, 2 options are available to setup this program.
 The second option is also available for unix or mac user.
 
 Option 1: Use standalone package (for Windows)
@@ -55,7 +63,7 @@ Option 1: Use standalone package (for Windows)
 
   Download suzu-(version).w32standalone.zip. Expand contents of zip file and put them in appropriate place 
 
-2. run
+2. Run
 
   Double-click suzu.exe  
 
@@ -79,7 +87,7 @@ Option 1: Use standalone package (for Windows)
 Option 2: Install as python script and package
 ----------------------------------------------
 
-The second option is that intall suzu as a package of python library
+The second option is that install suzu as a package of python library
 
 Environment
 +++++++++++
@@ -150,26 +158,32 @@ When you save data with the filename of 'TRIM.in' and you put this file in the s
 [Load .json]
 ------------
 
-Currently suzu cannot parse TRIM.in format directory, but suzu saves TRIM.in.json data with TRIM.in simultaneoulsy.
+Currently suzu cannot parse TRIM.in format directory, but suzu saves TRIM.in.json data with TRIM.in simultaneously.
 You may load this .json file by [Load .json] button.
 
-Validation
+[Validate]
 ----------
 
-[Validation] button tests a contents of widgets. this validation routine also runs before [Save (&Run Trim)] action.
+[Validate] button tests a contents of widgets. This validation routine also runs before [Save (&Run Trim)] action.
+
+.. note::
+
+  Validation does not run automatically. The user should push
+  [Validate] button explicitly to confirm the modification on GUI 
+  is correct or not.
 
 Other Buttons
 -------------
 
-[Set Example] [Dump to Console] are still remains for debugging.
+[Set Example] [Dump to Console] [Clear] buttons are still remains for debugging.
 
-More Infomation
-===============
+More Information
+================
 
-Detail information especially for developpers are found in dummy_tin/doc/* (python script package).
+Detail information especially for developers are found in dummy_tin/doc/* (python script package).
 
 
 Bugs, issues, discussion for developers
 =======================================
 
-The author is pleased to here bug & issue reports and suggest & request for the softoware.
+The author is pleased to here bug & issue reports and suggest & request for the software.
