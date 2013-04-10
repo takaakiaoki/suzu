@@ -76,12 +76,13 @@ def gui_testframe_multiexam(master, FrameClass, examples=[]):
     # title -> index mappin
     example_option = [(i, t) for (i, (t, d)) in enumerate(examples)]
 
-    print examples
-
     gui = FrameClass(master)
     gui.pack(side=tk.TOP)
 
     buttonframe = tk.Frame(master)
+
+    selectlabel = tk.Label(buttonframe, text='Example:')
+    selectlabel.pack(side=tk.LEFT)
 
     # set default
     def select_action(textvalue):
@@ -89,9 +90,8 @@ def gui_testframe_multiexam(master, FrameClass, examples=[]):
 
     select = co.CodedOptionMenu(buttonframe, example_option, command=select_action)
     select.config(width=20, anchor=tk.W, justify=tk.LEFT)
-    print select.cget('textvariable')
-
     select.pack(side=tk.LEFT, pady=2)
+
     # get
     def get_action():
         print gui.get()
