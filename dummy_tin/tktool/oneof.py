@@ -104,13 +104,13 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
 
             self.clear()
 
-        def store_currentview(self):
+        def store_currentview(self, validation=True):
             """store widget data to self.elemdata[self.currentview].
             self.view is validated and may cause exception.
             """
             if self.currentview is not None:
                 e = self.view.validate()
-                if e:
+                if e and validation:
                     raise self.Error(e)
                 self.elemdata[self.currentview] = self.view.get()
 
@@ -230,13 +230,13 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
             if self.is_disabled():
                 return None
             # store current view 
-            self.store_currentview()
+            self.store_currentview(validation=False)
             d = copy.deepcopy(self.elemdata)
             return d
 
         def get_nostatechk(self):
             # store current view 
-            self.store_currentview()
+            self.store_currentview(validation=False)
             d = copy.deepcopy(self.elemdata)
             return d
 
