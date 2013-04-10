@@ -6,8 +6,8 @@ import layer_elem
 
 import context
 
-defaultparam = context.layer_default
-exampleparam = context.layer_example
+defaultparam = context.target_default
+exampleparam = context.target_example
 
 layout = {
         # ctrl frame, relative to root frame
@@ -23,20 +23,20 @@ layout = {
         'delete':{'row':2, 'column':0, 'columnspan':2, 'sticky':tk.EW}
         }
 
-LayerBase = tktool.oneof.OneofFactory(layer_elem.LayerElem,
+TargetBase = tktool.oneof.OneofFactory(layer_elem.LayerElem,
         layer_elem.LayerElem.defaultparam,
         layout)
 
-class Layer(LayerBase):
+class Target(TargetBase):
     def __init__(self, master=None, gridlayout=None, *args, **kw):
-        LayerBase.__init__(self, master, gridlayout, *args, **kw)
+        TargetBase.__init__(self, master, gridlayout, *args, **kw)
 
     def validate(self):
         if self.is_disabled():
             return None
 
         # 1st level validation for each widget
-        err = LayerBase.validate(self)
+        err = TargetBase.validate(self)
         if err:
             return err
 
@@ -86,6 +86,6 @@ if __name__ == '__main__':
     examples = [('standard', exampleparam),
             ('stoich. error in 2nd layer', ex2)]
 
-    tktool.gui_testframe_multiexam(app, Layer, examples)
+    tktool.gui_testframe_multiexam(app, Target, examples)
 
     app.mainloop()

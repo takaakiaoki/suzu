@@ -8,7 +8,7 @@ import model
 import proj
 import param1
 import param2
-import layer
+import target
 
 import context
 
@@ -20,7 +20,7 @@ class Root(tk.Frame, ga.GUIAbstract):
         ga.GUIAbstract.__init__(self, defaultparam=self.defaultparam)
 
         # [proj]    [model]
-        # [    layer      ]
+        # [    target      ]
         # [param1] [param2]
 
         prow = 0
@@ -38,13 +38,13 @@ class Root(tk.Frame, ga.GUIAbstract):
         self.model.grid(row=prow, column=1, padx=(20,0), columnspan=1)
         prow += 1
 
-        # layer
-        self.layerframe = tk.LabelFrame(self, text='Target')
-        self.layer = layer.Layer(self.layerframe)
-        self.add_widget('layer', self.layer)
-        self.layer.pack()
+        # target
+        self.targetframe = tk.LabelFrame(self, text='Target')
+        self.target = target.Target(self.targetframe)
+        self.add_widget('target', self.target)
+        self.target.pack()
 
-        self.layerframe.grid(row=prow, column=0, columnspan=2, sticky=tk.W+tk.E)
+        self.targetframe.grid(row=prow, column=0, columnspan=2, sticky=tk.W+tk.E)
         prow += 1
 
         # buttom parameter frame
