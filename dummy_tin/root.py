@@ -64,9 +64,9 @@ class Root(tk.Frame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
-    import tktool.gui_testframe as gt
+    import tktool
     app = tk.Tk()
 
-    gt.gui_testframe(app, Root, Root.exampleparam)
+    tktool.gui_testframe(app, Root, Root.exampleparam)
 
     app.mainloop()

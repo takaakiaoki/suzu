@@ -49,9 +49,9 @@ class Model(tk.Frame, ga.GUIAbstract):
 
 
 if __name__ == '__main__':
-    import tktool.gui_testframe as gt
+    import tktool
     app = tk.Tk()
 
-    gt.gui_testframe(app, Model, Model.exampleparam)
+    tktool.gui_testframe(app, Model, Model.exampleparam)
 
     app.mainloop()
