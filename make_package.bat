@@ -16,8 +16,8 @@ cd ..\..
 
 @rem create python package
 python setup.py %setupopt% sdist --formats=zip,gztar
-python setup.py %setupopt% -q bdist_wininst
-python setup.py %setupopt% -q py2exe
+python setup.py %setupopt% bdist_wininst
+python setup.py %setupopt% py2exe
 
 @rem compress w32standalone
 python tools\dirzip.py dist\suzu-%SUZUVER%.w32standalone
