@@ -90,11 +90,13 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
         self.clear()
 
+
+
 if __name__ == '__main__':
-    import tktool.gui_testframe as gt
+    import tktool
 
     app = tk.Tk()
 
-    gt.gui_testframe(app, LayerElem, LayerElem.exampleparam)
+    tktool.gui_testframe(app, LayerElem, LayerElem.exampleparam)
 
     app.mainloop()
