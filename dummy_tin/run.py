@@ -150,12 +150,12 @@ def run():
 
             # 1. dump .json.temp
             jsont_name = fname + u'.json.t'
-            stream = open(jsont_name, 'wt')
-            json.dump(d, stream, indent=2, sort_keys=True)
+            with open(jsont_name, 'wt') as stream: 
+                json.dump(d, stream, indent=2, sort_keys=True)
 
             # 2. save as trim data format 
-            stream = open(fname, 'wt')
-            to_trim.to_trim(d, stream)
+            with open(fname, 'wt') as stream:
+                to_trim.to_trim(d, stream)
 
             # 3. rename .json.temp to .json 
             os.rename(jsont_name, json_name)
