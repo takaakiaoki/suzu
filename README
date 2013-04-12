@@ -152,7 +152,7 @@ Usage
 
 Fill parameters as you like and push [Save (& Run Trim)] button.
 
-When you save data with the filename of 'TRIM.in' and you put this file in the same folder where TRIM.exe exists 
+When you save the data with the filename of 'TRIM.in' and you put it in the same folder where TRIM.exe exists 
 (== where SRIM is setup), a dialog window pops-up to confirm run TRIM.exe calculation with this new TRIM data.
 
 [Load .json]
@@ -175,7 +175,7 @@ You may load this .json file by [Load .json] button.
 Other Buttons
 -------------
 
-[Set Example] [Dump to Console] [Clear] buttons are still remains for debugging.
+[Set Example] [Dump to Console] [Clear] buttons still remains for debugging.
 
 More Information
 ================
