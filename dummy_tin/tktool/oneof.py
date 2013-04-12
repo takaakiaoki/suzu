@@ -56,6 +56,8 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
 
             # index it returns None when elemdata is null
             # or (0, 1, 2, ...) when elemdata has member
+            # Note that the value which index returns and text of index
+            # widiget is different; if value==1, then text=='2'.
             self.indexoption = [(None, '--')]
             self.index = codedoptionmenu.CodedOptionMenu(self,
                     self.indexoption)
@@ -102,13 +104,13 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
 
             self.clear()
 
-        def store_currentview(self):
+        def store_currentview(self, validation=True):
             """store widget data to self.elemdata[self.currentview].
             self.view is validated and may cause exception.
             """
             if self.currentview is not None:
                 e = self.view.validate()
-                if e:
+                if e and validation:
                     raise self.Error(e)
                 self.elemdata[self.currentview] = self.view.get()
 
@@ -122,12 +124,22 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
                 self.view.validate()
             self.index.set(self.currentview)
 
-        def index_action(self, value):
-            """action when self.index is changed
-            this function is bound with self.index, so that 'value' argument is passed
+        def _index_action(self, textvalue):
+            """Action when self.index is changed.
+            textvalue is text bound with self.index,
             """
+            
+            # translate textvalue->value
+            value = self.index.text_to_v.get(textvalue, None)
+
+            if value is None:
+                return
+
+            if value == self.currentview:
+                # do nothing
+                return
+
             # firstly, store context shown at self.view
-            # validation might be required but not yet
             try:
                 self.store_currentview()
             except self.Error as e:
@@ -137,8 +149,27 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
                 return 
             
             # then load new elem data and show it
-            # self.index returns None or 0, 1, 2 ...
-            self.currentview = self.index.get()
+            self.currentview = value
+            self.index.set(value)
+              # for the case if the caller is not self.index.command
+
+            self.show_currentview()
+
+        def index_action_force(self, idxvalue):
+            """force change currentview index,
+            the value in self.view is discarded"""
+
+            # test range of value
+            if not idxvalue in list(range(len(self.elemdata))):
+                return
+
+            if idxvalue == self.currentview:
+                # do nothing
+                return
+
+            # load new elem data and show it
+            self.currentview = idxvalue
+            self.index.set(idxvalue)
 
             self.show_currentview()
 
@@ -149,7 +180,7 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
             else:
                 self.indexoption = [(None, '--')]
 
-            self.index.set_new_option(self.indexoption, command=self.index_action)
+            self.index.set_new_option(self.indexoption, command=self._index_action)
 
             self.totallabel.config(text='of {0:d}'.format(len(self.elemdata)))
 
@@ -199,13 +230,13 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
             if self.is_disabled():
                 return None
             # store current view 
-            self.store_currentview()
+            self.store_currentview(validation=False)
             d = copy.deepcopy(self.elemdata)
             return d
 
         def get_nostatechk(self):
             # store current view 
-            self.store_currentview()
+            self.store_currentview(validation=False)
             d = copy.deepcopy(self.elemdata)
             return d
 

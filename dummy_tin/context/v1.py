@@ -73,9 +73,9 @@ def _update(d):
 if __name__ == '__main__':
     # test update
     print 'test default'
-    updef = update(v0.default)
+    updef = _update(v0.default)
     assert(default == updef)
 
     print 'test example'
-    upex = update(v0.example)
+    upex = _update(v0.example)
     assert(example == upex)

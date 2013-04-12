@@ -62,10 +62,10 @@ class Param1(tk.LabelFrame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
-    import tktool.gui_testframe as gt
+    import tktool
 
     app = tk.Tk()
 
-    gt.gui_testframe(app, Param1, Param1.exampleparam)
+    tktool.gui_testframe(app, Param1, Param1.exampleparam)
 
     app.mainloop()

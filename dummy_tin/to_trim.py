@@ -56,7 +56,7 @@ def t9(d):
     #stoich table
     allstotbl = []
     sidx = 0
-    for lay in d['layer']:
+    for lay in d['target']:
         sto = [0.0] * d['tatoms']
         # set sto[sidx:sidx+latoms]
         latoms = len(lay['atomtbl'])
@@ -81,7 +81,7 @@ def t9(d):
             'm':1e10,
             'km':1e13
             }
-    for i, (lay, sto) in enumerate(zip(d['layer'], allstotbl), 1):
+    for i, (lay, sto) in enumerate(zip(d['target'], allstotbl), 1):
         s = '{0:2d} "{1:s}" {2:f} {3:f} {4:s}'.format(
                 i,
                 lay['name'],
@@ -93,10 +93,10 @@ def t9(d):
     return '\n'.join(ss)
 
 def t10(d):
-    return ' '.join(['{0:d}'.format(v['gas']) for v in d['layer']])
+    return ' '.join(['{0:d}'.format(v['gas']) for v in d['target']])
 
 def t11(d):
-    return ' '.join(['{0:f}'.format(v['corr']) for v in d['layer']])
+    return ' '.join(['{0:f}'.format(v['corr']) for v in d['target']])
 
 def t12(d):
     return ' '.join(['{0:f}'.format(a['disp'][0]) for a in d['linatomtbl']])
@@ -144,13 +144,13 @@ def to_trim(d, stream):
 
     # linealize atomtable
     linatomtbl = []
-    for lay in d['layer']:
+    for lay in d['target']:
         linatomtbl += lay['atomtbl']
 
     d['linatomtbl'] = linatomtbl
 
     # get total layer and atoms
-    d['tlayers'] = len(d['layer'])
+    d['tlayers'] = len(d['target'])
     d['tatoms'] = len(linatomtbl)
 
 

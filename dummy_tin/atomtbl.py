@@ -7,13 +7,13 @@ import tktool
 import tktool.validateentry
 import context
 
-maxatoms = 8
 
 defaultparam_elem = context.atomtbl_elem_default
 
 exampleparam = context.atomtbl_example
 
 class AtomTbl(tk.Frame):
+    maxatoms = 8
     def __init__(self, master=None, nsymbol=1, *args, **kw):
         tk.Frame.__init__(self, master)
 
@@ -27,7 +27,7 @@ class AtomTbl(tk.Frame):
         self.nsymbolvar = tk.IntVar(self)
 
         self.nsymbol = tk.Spinbox(self.nsymbolfrm, textvariable=self.nsymbolvar,
-                values=range(0,maxatoms+1),
+                values=range(0,self.maxatoms+1),
                 command=self.nsymbol_action)
         self.nsymbol.config(width=3)
 
@@ -35,7 +35,7 @@ class AtomTbl(tk.Frame):
         # generate widgets
         self.widgets = []
 
-        for i in range(maxatoms):
+        for i in range(self.maxatoms):
             # symbol
             symbol = tktool.TruncatedEntry(self, limitwidth=2, width=3)
             # fill button
@@ -80,7 +80,7 @@ class AtomTbl(tk.Frame):
         tk.Label(self, text='Damage(eV)\ndisp. / latt. / surf.').grid(row=prow, column=6)
 
         prow += 1
-        for i in range(maxatoms):
+        for i in range(self.maxatoms):
             # label
             tk.Label(self, text='{0:d}'.format(i+1)).grid(row=prow, column=0,
                     sticky=tk.E)
@@ -111,7 +111,7 @@ class AtomTbl(tk.Frame):
 
     def set(self, d):
         # decide nsymbol
-        self.nsymbolvar.set(min(len(d), maxatoms))
+        self.nsymbolvar.set(min(len(d), self.maxatoms))
 
         nsymbol = self.nsymbolvar.get()
 
@@ -130,7 +130,7 @@ class AtomTbl(tk.Frame):
             self._enable_elem(i)
 
         # invalid widgets
-        for i in range(nsymbol, maxatoms):
+        for i in range(nsymbol, self.maxatoms):
             self.widgets[i]['symbol'].set(defaultparam_elem['symbol'])
             self.widgets[i]['z'].set(defaultparam_elem['z'])
             self.widgets[i]['w'].set(defaultparam_elem['w'])
@@ -164,17 +164,17 @@ class AtomTbl(tk.Frame):
         """change number of valid atom symbol widgets
         contents of atom symbol widgets are not changed.
         """
-        # cap v range to [0..maxatoms]
+        # cap v range to [0..self.maxatoms]
         if v < 0:
             self.nsymbolvar.set(0)
-        elif v > maxatoms:
-            self.nsymbolvar.set(maxatoms)
+        elif v > self.maxatoms:
+            self.nsymbolvar.set(self.maxatoms)
         else:
             self.nsymbolvar.set(v)
 
         nsymbol = self.nsymbolvar.get()
 
-        for i in range(maxatoms):
+        for i in range(self.maxatoms):
             if i < nsymbol:
                 self._enable_elem(i)
             else:
@@ -215,7 +215,7 @@ class AtomTbl(tk.Frame):
         self.disabled = False
         self.nsymbol.config(state=tk.NORMAL)
         nsymbol = self.nsymbolvar.get()
-        for i in range(maxatoms):
+        for i in range(self.maxatoms):
             if i < nsymbol:
                 self._enable_elem(i)
             else:
@@ -223,7 +223,7 @@ class AtomTbl(tk.Frame):
 
     def disable(self):
         self.nsymbol.config(state=tk.DISABLED)
-        for i in range(maxatoms):
+        for i in range(self.maxatoms):
             self._disable_elem(i)
         self.disabled = True
 
@@ -242,6 +242,10 @@ class AtomTbl(tk.Frame):
             if len(v) < 1 or len(v) > 2:
                 stat = False
                 err.append(('symbol', 'char length is not valid'))
+                w['symbol'].config(bg='red')
+            else:
+                w['symbol'].config(bg='white')
+
         except:
             err.append(('symbol', 'exception orruced'))
 
@@ -253,25 +257,74 @@ class AtomTbl(tk.Frame):
 
         return err if err else None
 
+    def alert_stoich_column(self):
+        """turn color of stoich columm"""
+        for w in self.widgets:
+            w['stoich'].config(bg='red')
+
+    def noalert_stoich_column(self):
+        """turn color of stoich columm"""
+        for w in self.widgets:
+            w['stoich'].config(bg='white')
+
 
     def validate(self):
         if self.is_disabled():
             return None
 
+        v = self.nsymbolvar.get()
+
+        # it should have at least one element
+        if v == 0:
+            # turn index red
+            self.nsymbol.config(bg='red')
+            return 'No atom is set'
+        else:
+            # clear self.nsymbol alert
+            self.nsymbol.config(bg='white')
+
         err = []
         for i in range(self.nsymbolvar.get()):
             e = self.validate_wunit(self.widgets[i])
             if e:
-                err.append(('atom {0:d}'.format(i+1), e))
+                err.append(('atom{0:d}'.format(i+1), e))
+
+        if err:
+            return err
+
+        # 2nd level validation
+        # sum of stoich. should not be small
+
+        ss = 0.0
+        for i in range(self.nsymbolvar.get()):
+            # self.widgets[i]['stoich'].get() must collect
+            # because these are already validated.
+            ss += self.widgets[i]['stoich'].get()
+
+        if ss < 1e-6:
+            err = 'Sum of stoich. is zero or too small'
+            # change face of stoich column
+            self.alert_stoich_column()
+        else:
+            # turn off alert face
+            self.noalert_stoich_column()
+            
 
         return err if err else None
 
 
 if __name__ == '__main__':
-    import tktool.gui_testframe as gt
+    import tktool
 
     app = tk.Tk()
 
-    gt.gui_testframe(app, AtomTbl, exampleparam)
+    examples = [
+        ('ex1:standard', exampleparam),
+        ('ex2:stoich. validation\n    check', [ 
+            {'symbol':'H', 'z':1, 'w':1.008, 'stoich':0, 'disp':[10, 3, 2]},
+            {'symbol':'O', 'z':8, 'w':15.99, 'stoich':0, 'disp':[28, 3, 2]}]
+        )]
+
+    tktool.gui_testframe_multiexam(app, AtomTbl, examples)
 
     app.mainloop()
