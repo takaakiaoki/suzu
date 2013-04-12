@@ -22,4 +22,10 @@ python setup.py %setupopt% py2exe
 @rem compress w32standalone
 python tools\dirzip.py dist\suzu-%SUZUVER%.w32standalone
 
+@rem web pabe contents
+mkdir html
+mkdir html\dist
+copy README.html html\index.html
+for %%i in (w32standalone.zip, win32.exe, tar.gz, zip) do copy dist\suzu-%SUZUVER%.%%i html\dist
+
 :end

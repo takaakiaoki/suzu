@@ -2,3 +2,4 @@ syntax: glob
 dist
 build
 MANIFEST
+html
