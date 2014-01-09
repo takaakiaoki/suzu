@@ -1,0 +1,53 @@
+import Tkinter as tk
+import tkSimpleDialog
+
+class MatDB(tkSimpleDialog.Dialog):
+    def __init__(self, parent, title=None):
+        self.result = 0
+        tkSimpleDialog.Dialog.__init__(self, parent, title)
+
+    def body(self, master):
+        # material title (sorted order)
+
+        self.opts = [{'name':"A", 'summary':'summary of A'},
+                {'name':"B", 'summary':'summary of B'},
+                {'name':"C", 'summary':'summary of C'},
+                {'name':"D", 'summary':'summary of D'},
+                {'name':"E", 'summary':'summary of E'},
+                {'name':"F", 'summary':'summary of F'},
+                {'name':"G", 'summary':'summary of G'},
+                {'name':"H", 'summary':'summary of H'},
+                {'name':"I", 'summary':'summary of I'},
+                {'name':"J", 'summary':'summary of J'},
+                {'name':"K", 'summary':'summary of K'},
+                {'name':"L", 'summary':'summary of L'},
+                {'name':"M", 'summary':'summary of M'},
+                {'name':"N", 'summary':'summary of N'}]
+
+        self.listbox = tk.Listbox(master)
+        self.listbox.yview()
+        self.listbox.config(width=20)
+        self.listbox.grid(row=0, column=0)
+        self.listbox.insert(tk.END, *[a['name'] for a in self.opts])
+        self.listbox.bind('<<ListboxSelect>>', self.lbselect)
+
+        self.summary = tk.Label(master, text='not selected')
+        self.summary.config(width=40)
+        self.summary.grid(row=0, column=1)
+
+    def lbselect(self, evt):
+        idx = int(self.listbox.curselection()[0])
+        self.summary.config(text=self.opts[idx]['summary'])
+
+    def apply(self):
+        i = self.listbox.curselection()
+        self.result = i
+
+if __name__ == '__main__':
+    app = tk.Tk()
+
+    d = MatDB(app)
+
+    print type(d)
+    print d.__dict__
+    print d.result
