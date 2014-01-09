@@ -15,7 +15,7 @@ class MatDB(tkSimpleDialog.Dialog):
         self.scrlistbox.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.listbox = tk.Listbox(listframe, bd=0, yscrollcommand=self.scrlistbox.set)
-        self.listbox.pack(side=tk.LEFT, fill=tk.Y)
+        self.listbox.pack()
         
         self.scrlistbox.config(command=self.listbox.yview)
 
@@ -25,13 +25,19 @@ class MatDB(tkSimpleDialog.Dialog):
 
         listframe.grid(row=0, column=0)
 
-        self.summary = tk.Label(master, text='not selected')
-        self.summary.config(width=40)
+        self.summary = tk.Text(master)
+        self.summary.insert(tk.END, 'not selected')
+        self.summary.config(state=tk.DISABLED)
+
+        self.summary.config(height=20, width=40, wrap=tk.WORD)
         self.summary.grid(row=0, column=1)
 
     def lbselect(self, evt):
         idx = int(self.listbox.curselection()[0])
-        self.summary.config(text=self.opts[idx]['summary'])
+        self.summary.config(state=tk.NORMAL)
+        self.summary.delete(1.0, tk.END)
+        self.summary.insert(tk.END, self.opts[idx]['summary'])
+        self.summary.config(state=tk.DISABLED)
 
     def apply(self):
         i = self.listbox.curselection()
