@@ -1,47 +1,91 @@
 import Tkinter as tk
-import tkSimpleDialog
+import os
 
-class MatDB(tkSimpleDialog.Dialog):
-    def __init__(self, parent, opts, title=None):
+import matdb_frame
+
+class Dialog(tk.Toplevel):
+
+    def __init__(self, parent, opts, title = None):
+
+        tk.Toplevel.__init__(self, parent)
+        self.transient(parent)
+
+        if title:
+            self.title(title)
+
+        self.parent = parent
+
         self.result = None
-        self.opts = opts
-        tkSimpleDialog.Dialog.__init__(self, parent, title)
 
+        self.initial_focus = None
+        self.bodyframe = matdb_frame.MatDBFrame(self, opts)
+
+        self.bodyframe.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+
+        self.buttonframe = tk.Frame(self)
+        self.buttonbox(self.buttonframe)
+        self.buttonframe.grid(row=1, column=0, sticky=tk.N+tk.S)
+
+        self.grab_set()
+
+        if not self.initial_focus:
+            self.initial_focus = self
+
+        self.protocol("WM_DELETE_WINDOW", self.cancel)
+
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+50,
+                                  parent.winfo_rooty()+50))
+
+        self.rowconfigure(0,weight=1)
+        self.columnconfigure(0,weight=1)
+
+        self.initial_focus.focus_set()
+
+    #
+    # construction hooks
     def body(self, master):
-        # create scrolled listbox
-        listframe = tk.Frame(master, bd=2, relief=tk.SUNKEN)
+        # create dialog body.  return widget that should have
+        # initial focus.  this method should be overridden
+        pass
 
-        self.scrlistbox = tk.Scrollbar(listframe)
-        self.scrlistbox.pack(side=tk.RIGHT, fill=tk.Y)
+    def buttonbox(self, master):
+        # add standard button box. override if you don't want the
+        # standard buttons
 
-        self.listbox = tk.Listbox(listframe, bd=0, yscrollcommand=self.scrlistbox.set)
-        self.listbox.pack()
-        
-        self.scrlistbox.config(command=self.listbox.yview)
+        w = tk.Button(master, text="OK", width=10, command=self.ok, default=tk.ACTIVE)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tk.Button(master, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tk.LEFT, padx=5, pady=5)
 
-        self.listbox.config(width=20)
-        self.listbox.insert(tk.END, *[a['name'] for a in self.opts])
-        self.listbox.bind('<<ListboxSelect>>', self.lbselect)
+        self.bind("<Return>", self.ok)
+        self.bind("<Escape>", self.cancel)
 
-        listframe.grid(row=0, column=0)
+    #
+    # standard button semantics
+    def ok(self, event=None):
+        if not self.validate():
+            self.initial_focus.focus_set() # put focus back
+            return
 
-        self.summary = tk.Text(master)
-        self.summary.insert(tk.END, 'not selected')
-        self.summary.config(state=tk.DISABLED)
+        self.withdraw()
+        self.update_idletasks()
 
-        self.summary.config(height=20, width=40, wrap=tk.WORD)
-        self.summary.grid(row=0, column=1)
+        self.apply()
 
-    def lbselect(self, evt):
-        idx = int(self.listbox.curselection()[0])
-        self.summary.config(state=tk.NORMAL)
-        self.summary.delete(1.0, tk.END)
-        self.summary.insert(tk.END, self.opts[idx]['summary'])
-        self.summary.config(state=tk.DISABLED)
+        self.cancel()
+
+    def cancel(self, event=None):
+        # put focus back to the parent window
+        self.parent.focus_set()
+        self.destroy()
+
+    #
+    # command hooks
+    def validate(self):
+        return 1 # override
 
     def apply(self):
-        i = self.listbox.curselection()
-        self.result = i
+        self.result = self.bodyframe.get_current_selection()
 
 if __name__ == '__main__':
     app = tk.Tk()
@@ -59,12 +103,26 @@ if __name__ == '__main__':
             {'name':"K", 'summary':'summary of K'},
             {'name':"L", 'summary':'summary of L'},
             {'name':"M", 'summary':'summary of M'},
-            {'name':"N", 'summary':'summary of N'}]
+            {'name':"N", 'summary':
+            '''\
+            summary of N
+            very very very long long long long summary
+            0
+            1
+            2
+            3
+            4
+            5
+            6
+            :
+            a''' }]
 
     # test for less entries
-    # del(opts[3:])
+    #del(entries[3:])
 
-    d = MatDB(app, entries)
+    d = Dialog(app, entries)
+
+    app.wait_window(d)
 
     # print type(d)
     # print d.__dict__
