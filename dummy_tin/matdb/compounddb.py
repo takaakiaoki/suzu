@@ -1,16 +1,34 @@
+# coding: utf-8
 """ parse SRIM compound data base
 """
 
 import cStringIO
 import re
 
+class Category(object):
+    def __init__(self):
+        self.desc = ''
+        self.tables = []
+
+    def get_title(self):
+        """cut meanful category name from description strs """
+        r = re.compile('\xdf+\s*([^\xdf]+?)\s*\xdf+')
+        for l in self.desc.split('\n'):
+            m = r.match(l)
+            if m:
+                return m.group(1)
+        return ''
+        
+    def append_table(self, tbl):
+        self.tables.append(tbl)
+
 class Compound(object):
     def __init__(self):
         self.desc = '' # target description
         self.name = '' # name of table
-        self.mass_percentage = False # F: atom%, T:
+        self.mass_percentage = False # F: atom%, T: mass%
         self.density = 0.0 #density
-        self.elems = []  # (atomnum, atom%)
+        self.elems = []  # (atomnum, atom or mass%)
         self.bonding = [0.0] * 18 
         self.comment = ''
 
@@ -23,40 +41,61 @@ def parse(input):
 
     state = ST_UNDEFINED
 
-    tables = []
+    categories = []
 
-    buf = ''
+    cat = Category()
+    catbuf = ''
+    tblbuf = ''
+
+    """
+              \  !                     |   *                       |   else
+    UNDEFINED |  append_cat.desc/C     |   append_tblbuf/T         |  -
+    CAT_DESC  |  append_cat.desc/C     |   append_tblbuf/T         |  - 
+    TBL_DATA  |  parse_tbl,push_cat/C  |   parse_tbl,push_to_cat/T |  append_tblbuf/T
+    """
+
     for line in input.readlines():
         if line[0] == '!':
             if state == ST_TBL_DATA:
                 # close buffer and parse the contentents
-                toparse = cStringIO.StringIO(buf)
+                toparse = cStringIO.StringIO(tblbuf)
                 # pass to the parser..
-                tables.append(parse_target_table(toparse))
+                cat.append_table(parse_target_table(toparse))
 
-                # clear buffer
-                buf = ''
+                # clear tbl buffer
+                tblbuf = ''
+
+                # prepare new category
+                categories.append(cat)
+                cat = Category()
+                cat.desc += line[1:]
+            elif state == ST_CAT_DESC or state == ST_UNDEFINED:
+                # append description line
+                cat.desc += line[1:]
             state = ST_CAT_DESC
 
         elif line[0] == '*':
             if state == ST_TBL_DATA:
                 # close buffer and parse the contentents
-                toparse = cStringIO.StringIO(buf)
+                toparse = cStringIO.StringIO(tblbuf)
                 # pass to the parser..
-                tables.append(parse_target_table(toparse))
+                cat.append_table(parse_target_table(toparse))
 
                 # enter new target entry
-                buf = line
+                tblbuf = line
             else:
                 # enter new target entry
-                buf = line
+                tblbuf = line
             state = ST_TBL_DATA
 
         else: # other line
             if state == ST_TBL_DATA:
-                buf += line
+                tblbuf += line
 
-    return tables
+    if cat.tables:
+        categories.append(cat)
+
+    return categories
 
 def parse_target_table(input):
     t = Compound()
@@ -103,14 +142,21 @@ def parse_target_data(s):
 
 if __name__ == '__main__':
     import sys
-    tbl = parse(sys.stdin)
 
-    for t in tbl:
-        print '****'
-        print t.desc
-        print t.name
-        print t.mass_percentage
-        print t.elems
-        print t.bonding
-        print t.comment
+    cat = parse(sys.stdin)
+
+    for c in cat:
+        print '!!!!!'
+        #print c.desc
+        print c.get_title()
+
+        for t in c.tables:
+            print '****'
+            #print t.desc
+            print t.name
+            print t.density
+            print t.mass_percentage
+            print t.elems
+            print t.bonding
+            print t.comment
 
