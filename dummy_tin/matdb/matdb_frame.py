@@ -1,38 +1,39 @@
-import Tkinter as tk
-import tkSimpleDialog
+import Tix as tix
 
 import autoscrolled
 
-class MatDBFrame(tk.Frame):
+class MatDBFrame(tix.Frame):
     def __init__(self, parent, opts, title=None):
-        tk.Frame.__init__(self, parent, title)
+        tix.Frame.__init__(self, parent, title)
 
         self.opts = opts
 
         # create scrolled listbox
-        listframe = tk.Frame(self, bd=2, relief=tk.SUNKEN)
+        listframe = tix.Frame(self, bd=2, relief=tix.SUNKEN)
 
         self.scrlistbox = autoscrolled.AutoScrollbar(listframe)
-        self.scrlistbox.grid(row=0, column=1, sticky=tk.N+tk.S)
+        self.scrlistbox.grid(row=0, column=1, sticky=tix.N+tix.S)
 
-        self.listbox = tk.Listbox(listframe, bd=0, yscrollcommand=self.scrlistbox.set)
-        self.listbox.grid(row=0, column=0, sticky=tk.N+tk.E+tk.S+tk.W)
+        self.listbox = tix.Listbox(listframe, bd=0, yscrollcommand=self.scrlistbox.set)
+        self.listbox.grid(row=0, column=0, sticky=tix.N+tix.E+tix.S+tix.W)
         self.scrlistbox.config(command=self.listbox.yview)
 
         self.listbox.config(width=20)
-        self.listbox.insert(tk.END, *[a['name'] for a in self.opts])
+        self.listbox.insert(tix.END, *[a['name'] for a in self.opts])
         self.listbox.bind('<<ListboxSelect>>', self._lbselect)
 
         listframe.grid_rowconfigure(0, weight=1)
         listframe.grid_columnconfigure(0, weight=1)
-        listframe.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+        listframe.grid(row=0, column=0, sticky=tix.N+tix.S+tix.E+tix.W)
 
-        self.summary = autoscrolled.AutoScrolledText(self, bd=2, relief=tk.SUNKEN)
-        self.summary.text_config(width=60)
-        self.summary.text_insert(tk.END, 'not selected')
-        self.summary.text_config(state=tk.DISABLED, wrap=tk.NONE)
+        # for some version of tix, auto option does not work but acts like 'both'
+        self.summary = tix.ScrolledText(self, bd=2, scrollbar='auto', relief=tix.SUNKEN)
 
-        self.summary.grid(row=0, column=1, sticky=tk.N+tk.S+tk.E+tk.W)
+        self.summary.text.config(width=60)
+        self.summary.text.insert(tix.END, 'not selected')
+        self.summary.text.config(state=tix.DISABLED, wrap=tix.NONE)
+
+        self.summary.grid(row=0, column=1, sticky=tix.N+tix.S+tix.E+tix.W)
 
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=0)
@@ -40,10 +41,10 @@ class MatDBFrame(tk.Frame):
 
     def _lbselect(self, evt):
         idx = int(self.listbox.curselection()[0])
-        self.summary.text_config(state=tk.NORMAL)
-        self.summary.text_delete(1.0, tk.END)
-        self.summary.text_insert(tk.END, self.opts[idx]['summary'])
-        self.summary.text_config(state=tk.DISABLED)
+        self.summary.text.config(state=tix.NORMAL)
+        self.summary.text.delete(1.0, tix.END)
+        self.summary.text.insert(tix.END, self.opts[idx]['summary'])
+        self.summary.text.config(state=tix.DISABLED)
         # self.summary.update_idletasks()
 
     def get_current_selection(self):
@@ -54,7 +55,7 @@ class MatDBFrame(tk.Frame):
         return 0 # 0 means no item is selected
 
 if __name__ == '__main__':
-    app = tk.Tk()
+    app = tix.Tk()
 
     entries = [{'name':"A", 'summary':'summary of A'},
             {'name':"B", 'summary':'summary of B'},
@@ -86,16 +87,16 @@ a''' }]
     # test for less entries
     #del(entries[3:])
 
-    top = tk.Toplevel()
+    top = tix.Toplevel()
     d = MatDBFrame(top, entries)
-    d.grid(row=0, column=0, sticky=tk.N+tk.E+tk.S+tk.W)
+    d.grid(row=0, column=0, sticky=tix.N+tix.E+tix.S+tix.W)
     top.rowconfigure(0, weight=1)
     top.columnconfigure(0, weight=1)
 
     def c():
         print d.get_current_selection()
 
-    tk.Button(app, text='get value', command=c).pack()
+    tix.Button(app, text='get value', command=c).pack()
 
     top.wait_window()
 
