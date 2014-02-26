@@ -1,13 +1,13 @@
-import Tkinter as tk
+import Tix as tix
 import os
 
 import matdb_frame
 
-class Dialog(tk.Toplevel):
+class Dialog(tix.Toplevel):
 
     def __init__(self, parent, opts, title = None):
 
-        tk.Toplevel.__init__(self, parent)
+        tix.Toplevel.__init__(self, parent)
         self.transient(parent)
 
         if title:
@@ -20,11 +20,11 @@ class Dialog(tk.Toplevel):
         self.initial_focus = None
         self.bodyframe = matdb_frame.MatDBFrame(self, opts)
 
-        self.bodyframe.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
+        self.bodyframe.grid(row=0, column=0, sticky=tix.N+tix.S+tix.E+tix.W)
 
-        self.buttonframe = tk.Frame(self)
+        self.buttonframe = tix.Frame(self)
         self.buttonbox(self.buttonframe)
-        self.buttonframe.grid(row=1, column=0, sticky=tk.N+tk.S)
+        self.buttonframe.grid(row=1, column=0, sticky=tix.N+tix.S)
 
         self.grab_set()
 
@@ -52,10 +52,10 @@ class Dialog(tk.Toplevel):
         # add standard button box. override if you don't want the
         # standard buttons
 
-        w = tk.Button(master, text="OK", width=10, command=self.ok, default=tk.ACTIVE)
-        w.pack(side=tk.LEFT, padx=5, pady=5)
-        w = tk.Button(master, text="Cancel", width=10, command=self.cancel)
-        w.pack(side=tk.LEFT, padx=5, pady=5)
+        w = tix.Button(master, text="OK", width=10, command=self.ok, default=tix.ACTIVE)
+        w.pack(side=tix.LEFT, padx=5, pady=5)
+        w = tix.Button(master, text="Cancel", width=10, command=self.cancel)
+        w.pack(side=tix.LEFT, padx=5, pady=5)
 
         self.bind("<Return>", self.ok)
         self.bind("<Escape>", self.cancel)
@@ -88,7 +88,7 @@ class Dialog(tk.Toplevel):
         self.result = self.bodyframe.get_current_selection()
 
 if __name__ == '__main__':
-    app = tk.Tk()
+    app = tix.Tk()
 
     entries = [{'name':"A", 'summary':'summary of A'},
             {'name':"B", 'summary':'summary of B'},
