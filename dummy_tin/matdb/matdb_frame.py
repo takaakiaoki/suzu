@@ -7,9 +7,14 @@ class MatDBFrame(tix.Frame):
         tix.Frame.__init__(self, parent, title)
 
         self.opts = opts
+        
+        self.pwindow = tix.PanedWindow(self, orientation='horizontal')
+
+        self.p1 = self.pwindow.add('p1', at=0, expand=0)
+        self.p2 = self.pwindow.add('p2', at=1, expand=1)
 
         # create scrolled listbox
-        listframe = tix.Frame(self, bd=2, relief=tix.SUNKEN)
+        listframe = tix.Frame(self.p1, bd=2, relief=tix.SUNKEN)
 
         self.scrlistbox = autoscrolled.AutoScrollbar(listframe)
         self.scrlistbox.grid(row=0, column=1, sticky=tix.N+tix.S)
@@ -24,20 +29,25 @@ class MatDBFrame(tix.Frame):
 
         listframe.grid_rowconfigure(0, weight=1)
         listframe.grid_columnconfigure(0, weight=1)
-        listframe.grid(row=0, column=0, sticky=tix.N+tix.S+tix.E+tix.W)
+
+        listframe.grid(row=0, column=0, padx=(0,5), sticky=tix.N+tix.S+tix.E+tix.W)
+        self.p1.rowconfigure(0,weight=1)
+        self.p1.columnconfigure(0,weight=1)
 
         # for some version of tix, auto option does not work but acts like 'both'
-        self.summary = tix.ScrolledText(self, bd=2, scrollbar='auto', relief=tix.SUNKEN)
+        self.summary = tix.ScrolledText(self.p2, bd=2, scrollbar='auto', relief=tix.SUNKEN)
 
         self.summary.text.config(width=60)
         self.summary.text.insert(tix.END, 'not selected')
         self.summary.text.config(state=tix.DISABLED, wrap=tix.NONE)
 
-        self.summary.grid(row=0, column=1, sticky=tix.N+tix.S+tix.E+tix.W)
+        self.summary.grid(row=0, column=0, padx=(5,0), sticky=tix.N+tix.S+tix.E+tix.W)
+        self.p2.rowconfigure(0,weight=1)
+        self.p2.columnconfigure(0,weight=1)
 
+        self.pwindow.grid(row=0, column=0, sticky=tix.N+tix.S+tix.E+tix.W)
         self.rowconfigure(0, weight=1)
-        self.columnconfigure(0, weight=0)
-        self.columnconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1)
 
     def _lbselect(self, evt):
         idx = int(self.listbox.curselection()[0])
