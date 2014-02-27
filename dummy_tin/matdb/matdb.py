@@ -90,20 +90,20 @@ class Dialog(tix.Toplevel):
 if __name__ == '__main__':
     app = tix.Tk()
 
-    entries = [{'name':"A", 'summary':'summary of A'},
-            {'name':"B", 'summary':'summary of B'},
-            {'name':"C", 'summary':'summary of C'},
-            {'name':"D", 'summary':'summary of D'},
-            {'name':"E", 'summary':'summary of E'},
-            {'name':"F", 'summary':'summary of F'},
-            {'name':"G", 'summary':'summary of G'},
-            {'name':"H", 'summary':'summary of H'},
-            {'name':"I", 'summary':'summary of I'},
-            {'name':"J", 'summary':'summary of J'},
-            {'name':"K", 'summary':'summary of K'},
-            {'name':"L", 'summary':'summary of L'},
-            {'name':"M", 'summary':'summary of M'},
-            {'name':"N", 'summary':
+    entries = [{'path':"A", 'summary':'summary of A'},
+            {'path':"B", 'summary':'summary of B'},
+            {'path':"C", 'summary':'summary of C'},
+            {'path':"D", 'summary':'summary of D'},
+            {'path':"E", 'summary':'summary of E'},
+            {'path':"F", 'summary':'summary of F'},
+            {'path':"G", 'summary':'summary of G'},
+            {'path':"H", 'summary':'summary of H'},
+            {'path':"I", 'summary':'summary of I'},
+            {'path':"J", 'summary':'summary of J'},
+            {'path':"K", 'summary':'summary of K'},
+            {'path':"L", 'summary':'summary of L'},
+            {'path':"M", 'summary':'summary of M'},
+            {'path':"N", 'summary':
             '''\
             summary of N
             very very very long long long long summary
