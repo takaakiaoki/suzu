@@ -1,6 +1,26 @@
 import Tix as tix
 
-import autoscrolled
+def hlist_path_walk(hlist, root='', topdown=True):
+    """pick-up all path entries in HList is the same manner as os.walk
+    """
+    dirs = []
+    files = []
+    for e in hlist.info_children(root):
+        if hlist.info_children(e):
+            dirs.append(e)
+        else:
+            files.append(e)
+    # topelevel order
+    if topdown:
+        yield root, dirs, files
+        for d in dirs:
+            for e in hlist_path_walk(hlist, d, topdown):
+                yield e
+    else:
+        for d in dirs:
+            for e in hlist_path_walk(hlist, d, topdown):
+                yield e
+        yield root, dirs, files
 
 class MatDBFrame(tix.Frame):
     def __init__(self, parent, opts, title=None):
@@ -46,10 +66,16 @@ class MatDBFrame(tix.Frame):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
+
     def _set_listbox_entries(self, entries):
         for e in entries:
             self.pathmap[e['path']] = e
-            self.listbox.hlist.add(e['path'], itemtype=tix.TEXT, text=e['path'])
+            self.listbox.hlist.add(e['path'], itemtype=tix.TEXT, text=e['title'])
+        # walk hlist hierarchy and close all paths
+        for root, dirs, files in hlist_path_walk(self.listbox.hlist, topdown=False):
+            for d in dirs:
+                self.listbox.setmode(d, 'close')
+                self.listbox.close(d)
 
     def _set_summary_text(self, text):
         self.summary.text.config(state=tix.NORMAL)
@@ -68,26 +94,34 @@ class MatDBFrame(tix.Frame):
     def get_current_selection(self):
         v = self.listbox.hlist.info_selection()
         if v:
-            return self.pathmap[v[0]]
+            return self.pathmap[v[0]].get('content', None)
         return None
 
 if __name__ == '__main__':
     app = tix.Tk()
 
-    entries = [{'path':"A", 'summary':'summary of A'},
-            {'path':"B", 'summary':'summary of B'},
-            {'path':"C", 'summary':'summary of C'},
-            {'path':"D", 'summary':'summary of D'},
-            {'path':"E", 'summary':'summary of E'},
-            {'path':"F", 'summary':'summary of F'},
-            {'path':"G", 'summary':'summary of G'},
-            {'path':"H", 'summary':'summary of H'},
-            {'path':"I", 'summary':'summary of I'},
-            {'path':"J", 'summary':'summary of J'},
-            {'path':"K", 'summary':'summary of K'},
-            {'path':"L", 'summary':'summary of L'},
-            {'path':"M", 'summary':'summary of M'},
-            {'path':"N", 'summary':
+    # entries
+    # {'path':, 'path of Hlist seperated with '.'}
+    #   'title': string shown at listbox
+    #   'summary': texts shown in summary field
+    #   'content': (optional) value to be returend
+    #              (None is allowed, and applied for directory entry for example)
+    #}
+    entries = [
+        {'path':"A", 'title':'A', 'summary':'Directory A'},
+        {'path':"A.B", 'title':'B', 'summary':'summary of B', 'content':11},
+        {'path':"A.C", 'title':'C', 'summary':'summary of C', 'content':12},
+        {'path':"A.D", 'title':'D', 'summary':'summary of D', 'content':13},
+        {'path':"A.E", 'title':'E', 'summary':'summary of E', 'content':14},
+        {'path':"F", 'title':'F', 'summary':'Directory F'},
+        {'path':"F.G", 'title':'G', 'summary':'summary of G', 'content':21},
+        {'path':"F.H", 'title':'H', 'summary':'summary of H', 'content':22},
+        {'path':"F.I", 'title':'I', 'summary':'Directory F.I'},
+        {'path':"F.I.J", 'title':'J', 'summary':'summary of J', 'content':231},
+        {'path':"F.I.K", 'title':'K', 'summary':'summary of K', 'content':232},
+        {'path':"L", 'title':'L', 'summary':'Directory L'},
+        {'path':"L.M", 'title':'M', 'summary':'summary of M', 'content':31},
+        {'path':"L.N", 'title':'N', 'summary':
             '''\
 summary of N
 very very very long long long long summary
@@ -99,7 +133,7 @@ very very very long long long long summary
 5
 6
 :
-a''' }]
+a''', 'content':32}]
 
     # test for less entries
     #del(entries[3:])

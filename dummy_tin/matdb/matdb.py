@@ -90,32 +90,40 @@ class Dialog(tix.Toplevel):
 if __name__ == '__main__':
     app = tix.Tk()
 
-    entries = [{'path':"A", 'summary':'summary of A'},
-            {'path':"B", 'summary':'summary of B'},
-            {'path':"C", 'summary':'summary of C'},
-            {'path':"D", 'summary':'summary of D'},
-            {'path':"E", 'summary':'summary of E'},
-            {'path':"F", 'summary':'summary of F'},
-            {'path':"G", 'summary':'summary of G'},
-            {'path':"H", 'summary':'summary of H'},
-            {'path':"I", 'summary':'summary of I'},
-            {'path':"J", 'summary':'summary of J'},
-            {'path':"K", 'summary':'summary of K'},
-            {'path':"L", 'summary':'summary of L'},
-            {'path':"M", 'summary':'summary of M'},
-            {'path':"N", 'summary':
+    # entries
+    # {'path':, 'path of Hlist seperated with '.'}
+    #   'title': string shown at listbox
+    #   'summary': texts shown in summary field
+    #   'content': (optional) value to be returend
+    #              (None is allowed, and applied for directory entry for example)
+    #}
+    entries = [
+        {'path':"A", 'title':'A', 'summary':'Directory A'},
+        {'path':"A.B", 'title':'B', 'summary':'summary of B', 'content':11},
+        {'path':"A.C", 'title':'C', 'summary':'summary of C', 'content':12},
+        {'path':"A.D", 'title':'D', 'summary':'summary of D', 'content':13},
+        {'path':"A.E", 'title':'E', 'summary':'summary of E', 'content':14},
+        {'path':"F", 'title':'F', 'summary':'Directory F'},
+        {'path':"F.G", 'title':'G', 'summary':'summary of G', 'content':21},
+        {'path':"F.H", 'title':'H', 'summary':'summary of H', 'content':22},
+        {'path':"F.I", 'title':'I', 'summary':'Directory F.I'},
+        {'path':"F.I.J", 'title':'J', 'summary':'summary of J', 'content':231},
+        {'path':"F.I.K", 'title':'K', 'summary':'summary of K', 'content':232},
+        {'path':"L", 'title':'L', 'summary':'Directory L'},
+        {'path':"L.M", 'title':'M', 'summary':'summary of M', 'content':31},
+        {'path':"L.N", 'title':'N', 'summary':
             '''\
-            summary of N
-            very very very long long long long summary
-            0
-            1
-            2
-            3
-            4
-            5
-            6
-            :
-            a''' }]
+summary of N
+very very very long long long long summary
+0
+1
+2
+3
+4
+5
+6
+:
+a''', 'content':32}]
 
     # test for less entries
     #del(entries[3:])
