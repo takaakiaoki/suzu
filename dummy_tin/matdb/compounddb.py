@@ -1,5 +1,5 @@
 # coding: utf-8
-""" parse SRIM compound data base
+""" parse SRIM compound database
 """
 
 import cStringIO
@@ -17,7 +17,8 @@ class Category(object):
             m = r.match(l)
             if m:
                 return m.group(1)
-        return ''
+        # if desc lines does not match, returns last line
+        return l
         
     def append_table(self, tbl):
         self.tables.append(tbl)
@@ -31,6 +32,7 @@ class Compound(object):
         self.elems = []  # (atomnum, atom or mass%)
         self.bonding = [0.0] * 18 
         self.comment = ''
+        self.fulltext = '' # full text of table contents
 
 def parse(input):
     """parse into tables
@@ -58,9 +60,7 @@ def parse(input):
         if line[0] == '!':
             if state == ST_TBL_DATA:
                 # close buffer and parse the contentents
-                toparse = cStringIO.StringIO(tblbuf)
-                # pass to the parser..
-                cat.append_table(parse_target_table(toparse))
+                cat.append_table(parse_target_table(tblbuf))
 
                 # clear tbl buffer
                 tblbuf = ''
@@ -76,10 +76,8 @@ def parse(input):
 
         elif line[0] == '*':
             if state == ST_TBL_DATA:
-                # close buffer and parse the contentents
-                toparse = cStringIO.StringIO(tblbuf)
                 # pass to the parser..
-                cat.append_table(parse_target_table(toparse))
+                cat.append_table(parse_target_table(tblbuf))
 
                 # enter new target entry
                 tblbuf = line
@@ -97,13 +95,16 @@ def parse(input):
 
     return categories
 
-def parse_target_table(input):
+def parse_target_table(s):
+    """ parse input string for compound"""
     t = Compound()
+    t.fulltext=s
+    input = cStringIO.StringIO(s)
     # 1st line, description, remove heading '*'
     t.desc = input.readline()[1:]
 
     # 2nd line, name, density, elements
-    t.name, t.mass_percentage, t.dens, t.elems = parse_target_data(input.readline())
+    t.name, t.mass_percentage, t.density, t.elems = parse_target_data(input.readline())
 
     # 3rd line, bonding 
     t.bonding = [float(d) for d in input.readline().split()]
@@ -143,7 +144,8 @@ def parse_target_data(s):
 if __name__ == '__main__':
     import sys
 
-    cat = parse(sys.stdin)
+    #cat = parse(sys.stdin)
+    cat = parse(open('Compound.dat', 'rt'))
 
     for c in cat:
         print '!!!!!'
@@ -152,11 +154,12 @@ if __name__ == '__main__':
 
         for t in c.tables:
             print '****'
-            #print t.desc
+            print t.desc
             print t.name
             print t.density
             print t.mass_percentage
             print t.elems
             print t.bonding
             print t.comment
+            print t.fulltext
 
