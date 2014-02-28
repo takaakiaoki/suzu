@@ -2,8 +2,10 @@
 """ parse SRIM compound database
 """
 
-import cStringIO
+import cStringIO as StringIO
 import re
+
+from ..physics import element as element
 
 class Category(object):
     def __init__(self):
@@ -33,6 +35,68 @@ class Compound(object):
         self.bonding = [0.0] * 18 
         self.comment = ''
         self.fulltext = '' # full text of table contents
+
+def format_compound(c):
+    """format contents of compounddb.Compound in Markdown like strucuture
+    """
+
+    def h1(text):
+        sep = '=' * len(text)
+        return '\n'.join((sep, text, sep)) + '\n'
+
+    def h2(text):
+        sep = '=' * len(text)
+        return '\n'.join((text, sep)) + '\n'
+
+    b = StringIO.StringIO()
+    # material title
+    b.write(h1(c.name))
+    # short description
+    b.write('\n'+c.desc)
+    # density
+    b.write('\n'+h2('Density')+'\n')
+    b.write('{0:g} g/cm3\n'.format(c.density))
+
+    # components
+    # number
+    # symbol
+    # atomic ratio
+    # mass ratio
+    b.write('\n'+h2('Elements and Ratio')+'\n')
+
+    header   = ('Z', 'symbol', 'mass', 'atom ratio', 'mass ratio')
+    colwidth = (  6,        6,      8,           12,          12)
+
+    headerstr = [s.center(col) for col, s in zip(colwidth, header)]
+
+    b.write(' | '.join(headerstr) + '\n')
+    b.write('-+-'.join(['-'*cs for cs in colwidth]) + '\n')
+
+    if c.mass_percentage:
+        form = '{{0:{0:d}d}} | {{1:^{1:d}s}} | {{2:{2:d}g}} | {{3:{3:d}g}} | {{4:{4:d}g}}\n'.format(
+                colwidth[0], colwidth[1], colwidth[2], colwidth[3], colwidth[4])
+        for atomnum, ratio in c.elems:
+            b.write(form.format(atomnum, element.table_bynum[atomnum].sym,
+                element.table_bynum[atomnum].mass,
+                ratio/element.table_bynum[atomnum].mass,
+                ratio))
+    else:
+        form = '{{0:{0:d}d}} | {{1:^{1:d}s}} | {{2:{2:d}g}} | {{3:{3:d}g}} | {4:s}\n'.format(
+                colwidth[0], colwidth[1], colwidth[2], colwidth[3], ' '*colwidth[4])
+        for atomnum, ratio in c.elems:
+            b.write(form.format(atomnum, element.table_bynum[atomnum].sym,
+                element.table_bynum[atomnum].mass, ratio))
+
+    b.write('\n')
+
+    b.write('\n'+h2('Comment')+'\n')
+    b.write(c.comment)
+
+    b.write('\n'+h2('Original text')+'\n')
+    b.write(c.fulltext)
+
+    return b.getvalue()
+
 
 def parse(input):
     """parse into tables
@@ -99,7 +163,7 @@ def parse_target_table(s):
     """ parse input string for compound"""
     t = Compound()
     t.fulltext=s
-    input = cStringIO.StringIO(s)
+    input = StringIO.StringIO(s)
     # 1st line, description, remove heading '*'
     t.desc = input.readline()[1:]
 
