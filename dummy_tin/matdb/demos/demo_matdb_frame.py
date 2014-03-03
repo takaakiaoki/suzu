@@ -8,7 +8,7 @@ import Tix as tix
 # import dummy_tin
 import dummy_tin.physics.element as elem
 import dummy_tin.matdb.matdb_frame as matdb_frame
-import dummy_tin.matdb.compounddb as compounddb
+import dummy_tin.matdb.srim_compounddb as compounddb
 
 if __name__ == '__main__':
     app = tix.Tk()
@@ -65,7 +65,7 @@ a''', 'content':32}]
                 path = '.'.join((cpath, str(tindex)))
                 title = t.name
                 summary = compounddb.format_compound(t)
-                content = t
+                content = t.to_suzu()
                 entries.append({'path':path, 'title':title,
                     'summary':summary, 'content':content})
             # replace contents

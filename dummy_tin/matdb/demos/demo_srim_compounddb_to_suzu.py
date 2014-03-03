@@ -5,7 +5,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
 
 import dummy_tin.matdb.srimtosuzudb as srimtosuzudb
-import dummy_tin.matdb.compounddb as compounddb
+import dummy_tin.matdb.srim_compounddb as compounddb
 
 air = compounddb.Compound()
 
@@ -40,5 +40,5 @@ power of the ion's atomic number.) Above the peak the phase
 difference begins to disappear. This calculation is for the
 LIQUID phase. """
 
-print srimtosuzudb.srim_to_suzu(water)
-print srimtosuzudb.srim_to_suzu(air)
+print compounddb.to_suzu(water)
+print compounddb.to_suzu(air)

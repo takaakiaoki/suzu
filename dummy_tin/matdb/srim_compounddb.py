@@ -6,6 +6,7 @@ import cStringIO as StringIO
 import re
 
 from ..physics import element as element
+from ..db import disp as displacement
 
 class Category(object):
     def __init__(self):
@@ -35,6 +36,32 @@ class Compound(object):
         self.bonding = [0.0] * 18 
         self.comment = ''
         self.fulltext = '' # full text of table contents
+
+    def to_suzu(self):
+        """
+        c: parsed object of srim compound data
+        """
+
+        # if ratio is given as mass percentage, transrate it
+        table = []
+        for z, r in self.elems:
+            sym = element.table_bynum[z].sym
+            w = element.table_bynum[z].mass
+            if self.mass_percentage:
+                r /= w
+            table.append({
+                'symbol':sym,
+                'z':z,
+                'w':w,
+                'stoich':r,
+                'disp':displacement.disp[sym]})
+
+        layer = {
+            'name': self.name,
+            'dens': self.density,
+            'atomtbl':table}
+
+        return layer
 
 def format_compound(c):
     """format contents of compounddb.Compound in Markdown like strucuture
@@ -204,26 +231,4 @@ def parse_target_data(s):
         elems.append((atomnum, ratio))
 
     return name, mass_percentage, dens, elems
-
-if __name__ == '__main__':
-    import sys
-
-    #cat = parse(sys.stdin)
-    cat = parse(open('Compound.dat', 'rt'))
-
-    for c in cat:
-        print '!!!!!'
-        #print c.desc
-        print c.get_title()
-
-        for t in c.tables:
-            print '****'
-            print t.desc
-            print t.name
-            print t.density
-            print t.mass_percentage
-            print t.elems
-            print t.bonding
-            print t.comment
-            print t.fulltext
 
