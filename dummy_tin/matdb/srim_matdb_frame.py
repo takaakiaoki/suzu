@@ -41,8 +41,8 @@ class SRIMMatDBFrame(tix.Frame):
                 self.set(oldpath)
                 raise e
 
-    def __init__(self, parent, srimdata=None, title=None):
-        tix.Frame.__init__(self, parent, title)
+    def __init__(self, master, srimdata=None, title=None):
+        tix.Frame.__init__(self, master, title)
 
         # filepath entry
         label = tix.Label(self, text='SRIM compound.dat:')
