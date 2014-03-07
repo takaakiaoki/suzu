@@ -24,9 +24,17 @@ class _Base(tk.Frame):
     def selectfilepath(self):
         #fname = tkFileDialog.asksaveasfilename(title=self.label,
         #        filetypes=[('All', '*')])
-        fname = self._askaction(title=self.label, initialfile=self.textvariable.get(), filetypes=[('All', '*')])
-        if fname:
-            self.textvariable.set(fname)
+        oldpath = self.textvariable.get()
+        newpath = self._askaction(title=self.label, initialfile=oldpath,
+                filetypes=[('All', '*')])
+        if newpath:
+            self.on_fileselected(newpath, oldpath)
+
+    def on_fileselected_default(self, newpath, oldpath):
+        self.textvariable.set(newpath)
+
+    # customized action when selectfilepath choosed collect filepath
+    on_fileselected = on_fileselected_default
 
     def set(self, v):
         self.textvariable.set(v)

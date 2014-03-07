@@ -1,13 +1,12 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'../../..')))
 
 import Tix as tix
 
 # import dummy_tin
 import dummy_tin.matdb.matdb_frame as matdb_frame
-import dummy_tin.matdb.srim_compounddb as compounddb
 
 if __name__ == '__main__':
     app = tix.Tk()
@@ -46,32 +45,6 @@ very very very long long long long summary
 6
 :
 a''', 'content':32}]
-
-    # test for less entries
-    #del(entries[3:])
-
-    def entries_from_srim(srim_data_path):
-        categories = compounddb.parse(open(srim_data_path, 'rt'))
-        entries = []
-        for cindex, c in enumerate(categories):
-            cpath = str(cindex)
-            ctitle = c.get_title()
-            csummary = c.desc
-            # no content
-            entries.append({'path':cpath, 'title':ctitle, 'summary':csummary})
-            # table element
-            for tindex, t in enumerate(c.tables):
-                path = '.'.join((cpath, str(tindex)))
-                title = t.name
-                summary = compounddb.format_compound(t)
-                content = t.to_suzu()
-                entries.append({'path':path, 'title':title,
-                    'summary':summary, 'content':content})
-            # replace contents
-
-        return entries
-
-    entries = entries_from_srim(os.path.join(os.path.dirname(__file__),'../Compound.dat'))
 
     top = tix.Toplevel()
     d = matdb_frame.MatDBFrame(top, entries)

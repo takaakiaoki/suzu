@@ -24,11 +24,11 @@ def _hlist_path_walk(hlist, root='', topdown=True):
         yield root, dirs, files
 
 class MatDBFrame(tix.Frame):
-    def __init__(self, parent, opts, title=None):
+    def __init__(self, parent, entries=None, title=None):
         tix.Frame.__init__(self, parent, title)
 
-        self.opts = opts
-        self.pathmap = {} # (path in listbox) -> (element of opts)
+        self.entries = entries
+        self.pathmap = {} # (path in listbox) -> (element of entries)
         
         self.pwindow = tix.PanedWindow(self, orientation='horizontal')
 
@@ -41,9 +41,8 @@ class MatDBFrame(tix.Frame):
         self.listbox = tix.Tree(listframe, browsecmd=self._browsecommand)
         self.listbox.hlist.config(width=40)
         self.listbox.pack(expand=True, fill=tix.BOTH)
-        self._set_listbox_entries(self.opts)
 
-        # self.listbox.insert(tix.END, *[a['name'] for a in self.opts])
+        # self.listbox.insert(tix.END, *[a['name'] for a in self.entries])
         # self.listbox.bind('<<ListboxSelect>>', self._lbselect)
 
         listframe.grid_rowconfigure(0, weight=1)
@@ -58,7 +57,6 @@ class MatDBFrame(tix.Frame):
 
         self.summary.text.config(width=80)
         self.summary.text.config(wrap=tix.NONE)
-        self._set_summary_text('not selected')
 
         self.summary.grid(row=0, column=0, padx=(5,0), sticky=tix.N+tix.S+tix.E+tix.W)
         self.p2.rowconfigure(0,weight=1)
@@ -68,8 +66,13 @@ class MatDBFrame(tix.Frame):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
+        self.set_listbox_entries(self.entries)
 
-    def _set_listbox_entries(self, entries):
+    def set_listbox_entries(self, entries):
+        self.clear_listbox_entries()
+        if entries is None:
+            return 
+
         for e in entries:
             self.pathmap[e['path']] = e
             self.listbox.hlist.add(e['path'], itemtype=tix.TEXT, text=e['title'])
@@ -81,13 +84,13 @@ class MatDBFrame(tix.Frame):
 
     def clear_listbox_entries(self):
         self.pathmap = {}
-        self.listbox.hlist.clear()
+        self.listbox.hlist.delete_all()
         self._set_summary_text('not selected')
 
-    def _set_summary_text(self, text):
+    def _set_summary_text(self, t):
         self.summary.text.config(state=tix.NORMAL)
         self.summary.text.delete(1.0, tix.END)
-        self.summary.text.insert(tix.END, text)
+        self.summary.text.insert(tix.END, t)
         self.summary.text.config(state=tix.DISABLED)
 
     def _browsecommand(self, entry):
