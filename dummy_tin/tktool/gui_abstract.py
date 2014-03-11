@@ -14,14 +14,29 @@ class GUIAbstract(object):
         self.widgets[key] = widget
 
     def clear(self):
-        self.set({})
+        """set default param"""
+        self.set(self.defaultparam)
 
-    def set(self, d):
-        """set widget value
-        @param args
+    def set(self, d, setdefault=True):
+        """set widget value.
+        If setdefault is True, defaultparam[key] is set if d[key] is missing,
+          otherwise the value is kept.
         """
+        if setdefault:
+            self._set_defaultformissingkey(d)
+        else:
+            self._set_keepformissingkey(d)
+
+    def _set_defaultformissingkey(self, d):
+        """set widget value, if d[key] is missing, defaultparam[key] is set"""
         for k, w in self.widgets.iteritems():
             w.set(d.get(k, self.defaultparam[k]))
+
+    def _set_keepformissingkey(self, d):
+        """set widget value, if d[key] is missing, the value is kept"""
+        for k, w in self.widgets.iteritems():
+            if k in d:
+                w.set(d[k])
 
     def get(self):
         """get widget value. get() does not validate the widget value,

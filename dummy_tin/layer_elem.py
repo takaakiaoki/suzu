@@ -11,9 +11,19 @@ import atomtbl
 
 import context
 
+import matdb.srim_matdb
+
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = context.layer_elem_default
     exampleparam = context.layer_elem_example
+
+    def matdbbtncmd(self):
+        d = matdb.srim_matdb.Dialog(self, '')
+
+        self.wait_window(d)
+
+        if d.result:
+            self.set(d.result, setdefault=False)
 
     def __init__(self, master=None, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
@@ -21,6 +31,12 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
         prow = 0
         epadx = (15, 0) # x inner padding for Entries
+
+
+        # matdb button
+        self.matdbbtn = tk.Button(self, text='DataBase', command=self.matdbbtncmd)
+        self.matdbbtn.grid(row=prow, column=0, sticky=tk.W+tk.E)
+        prow += 1
 
         # name
         self.namefrm = tk.Frame(self)
@@ -90,13 +106,3 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
         self.clear()
 
-
-
-if __name__ == '__main__':
-    import tktool
-
-    app = tk.Tk()
-
-    tktool.gui_testframe(app, LayerElem, LayerElem.exampleparam)
-
-    app.mainloop()
