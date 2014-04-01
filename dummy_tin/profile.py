@@ -85,4 +85,4 @@ def dump_config(d, stream):
 if __name__ == '__main__':
     p = initialize()
 
-    print p
+    print(p)

@@ -1,7 +1,7 @@
 """ gui error
 """
 
-import tkMessageBox
+import tkinter.messagebox
 
 def walk_errorstruct(err, root=''):
     """ unfold error reason structure
@@ -29,8 +29,8 @@ def format_errorstruct(err, max_item=7, root=''):
     if len(reason) > max_item:
         reason = reason[:max_item]
         reason.append('.. and so on')
-    return u'\n'.join(reason)
+    return '\n'.join(reason)
 
 def show_as_messagebox(err, max_item=7, root='', title='Validation Error'):
-    tkMessageBox.showerror(title,
+    tkinter.messagebox.showerror(title,
             format_errorstruct(err, max_item=max_item, root=root))

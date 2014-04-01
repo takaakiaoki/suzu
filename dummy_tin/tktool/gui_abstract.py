@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 
 class GUIAbstract(object):
     """common interface of gui. This is only reference for 
@@ -20,7 +20,7 @@ class GUIAbstract(object):
         """set widget value
         @param args
         """
-        for k, w in self.widgets.iteritems():
+        for k, w in self.widgets.items():
             w.set(d.get(k, self.defaultparam[k]))
 
     def get(self):
@@ -30,7 +30,7 @@ class GUIAbstract(object):
         @return  widget value
         """
         d = {}
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             if not v.is_disabled():
                 d[k] = v.get()
         return d
@@ -38,7 +38,7 @@ class GUIAbstract(object):
     def get_nostatechk(self):
         """get widget value independent of the state of the widget"""
         d = {}
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             d[k] = v.get_nostatechk()
         return d
 
@@ -53,7 +53,7 @@ class GUIAbstract(object):
             return None
 
         err = []
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             r = v.validate()
             if r:
                 err.append((k, r))

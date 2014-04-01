@@ -1,12 +1,12 @@
-import Tkinter as tk
+import tkinter as tk
 
-import physics.element as elem
+from .physics import element as elem
 
-import tktool
-import tktool.gui_abstract as ga
-import tktool.validateentry
+from . import tktool
+from .tktool import gui_abstract as ga
+from .tktool import validateentry
 
-import context
+from . import context
 
 class Proj(tk.Frame, ga.GUIAbstract):
     defaultparam = context.proj_default
@@ -75,7 +75,7 @@ class Proj(tk.Frame, ga.GUIAbstract):
 
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
 
     app = tk.Tk()
 

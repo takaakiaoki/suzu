@@ -1,10 +1,10 @@
-import Tkinter as tk
+import tkinter as tk
 
-import tktool
-import tktool.gui_abstract as ga
-import tktool.validateentry
+from . import tktool
+from .tktool import gui_abstract as ga
+from .tktool import validateentry
 
-import context
+from . import context
 
 class Param1(tk.LabelFrame, ga.GUIAbstract):
     defaultparam = context.param1_default
@@ -62,7 +62,7 @@ class Param1(tk.LabelFrame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
 
     app = tk.Tk()
 

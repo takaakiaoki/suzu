@@ -1,7 +1,7 @@
 """ extention of tk.OptionMenu which takes of pairs of (value, text)
 """
 
-import Tkinter as tk
+import tkinter as tk
 
 
 class CodedOptionMenu(tk.OptionMenu):
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     set_btn.pack()
 
     def get_action():
-        print menu.get()
+        print(menu.get())
     get_btn = tk.Button(app, text='get', command=get_action)
     get_btn.pack()
 

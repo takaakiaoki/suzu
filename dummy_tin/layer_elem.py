@@ -1,15 +1,15 @@
-import Tkinter as tk
+import tkinter as tk
 
-import physics.element as elem
+from .physics import element as elem
 
-import tktool
-import tktool.gui_abstract as ga
-import tktool.codedoptionmenu as coption
-import tktool.validateentry
+from . import tktool
+from .tktool import gui_abstract as ga
+from .tktool import codedoptionmenu as coption
+from .tktool import validateentry
 
-import atomtbl
+from . import atomtbl
 
-import context
+from . import context
 
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = context.layer_elem_default
@@ -93,7 +93,7 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
 
     app = tk.Tk()
 
