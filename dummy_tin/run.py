@@ -3,7 +3,7 @@ import json
 import os.path
 import subprocess
 
-import tkinter as tk
+import tkinter.tix as tk
 import tkinter.filedialog
 import tkinter.messagebox
 
