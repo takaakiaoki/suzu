@@ -83,7 +83,7 @@ class GUIAbstract(object):
     def disable(self):
         for v in self.widgets.values():
             v.disable()
-        self.disabled = False
+        self.disabled = True
 
     def is_disabled(self):
         return self.disabled
@@ -175,4 +175,27 @@ class TunedCheckbuttonTF(tk.Checkbutton):
         self.config(state=tk.DISABLED)
 
     def is_disabled(self):
+        return self.cget('state') == tk.DISABLED
+
+class TunedButton(tk.Button):
+    """arranged tk.Button class to satisfy GUIAbstract convension"""
+    def set(self, d):
+        pass
+
+    def get(self, d):
+        return None
+
+    def get_nostatechk(self):
+        return None
+
+    def validate(self):
+        return None
+
+    def enable(self):
+        self.config(state=tk.NORMAL)
+
+    def disable(self):
+        self.config(state=tk.DISABLED)
+
+    def is_disable(self):
         return self.cget('state') == tk.DISABLED

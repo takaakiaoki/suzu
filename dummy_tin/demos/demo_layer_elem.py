@@ -1,6 +1,6 @@
 import sys
 import os
-import Tix as tix
+import tkinter.tix as tix
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../..'))
 

@@ -7,11 +7,11 @@ from .tktool import gui_abstract as ga
 from .tktool import codedoptionmenu as coption
 from .tktool import validateentry
 
-from . import atomtbl
-
-from . import context
-
+from . import matdb
 from .matdb import srim_matdb
+
+from . import atomtbl
+from . import context
 
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = context.layer_elem_default
@@ -105,3 +105,11 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
         self.atomtblfrm.grid(row=0, column=4, rowspan=prow, padx=10)
 
         self.clear()
+
+    def enable(self):
+        self.matdbbtn.config(state=tk.NORMAL)
+        ga.GUIAbstract.enable(self)
+
+    def disable(self):
+        self.matdbbtn.config(state=tk.DISABLED)
+        ga.GUIAbstract.disable(self)
