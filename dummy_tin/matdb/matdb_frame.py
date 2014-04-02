@@ -1,4 +1,4 @@
-import Tix as tix
+import tkinter.tix as tix
 
 def _hlist_path_walk(hlist, root='', topdown=True):
     """pick-up all path entries in HList is the same manner as os.walk

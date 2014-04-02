@@ -3,7 +3,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'../../..')))
 
-import Tix as tix
+import tkinter.tix as tix
 
 # import dummy_tin
 import dummy_tin.matdb.srim_matdb_frame as srim_matdb_frame
@@ -22,7 +22,7 @@ if __name__ == '__main__':
     top.columnconfigure(0, weight=1)
 
     def c():
-        print d.dselect.get_current_selection()
+        print(d.dselect.get_current_selection())
 
     tix.Button(app, text='get value', command=c).pack()
 

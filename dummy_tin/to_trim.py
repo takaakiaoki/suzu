@@ -161,8 +161,8 @@ def to_trim(d, stream):
 
 if __name__ == '__main__':
     import sys
-    import root
+    from . import root
 
-    # print root.Root.exampleparam
+    # print(root.Root.exampleparam)
 
     to_trim(root.Root.exampleparam, sys.stdout)

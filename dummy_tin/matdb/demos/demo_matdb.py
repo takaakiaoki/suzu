@@ -3,7 +3,7 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
 
-import Tix as tix
+import tkinter.tix as tix
 
 import dummy_tin.matdb.matdb as matdb
 
@@ -51,6 +51,6 @@ a''', 'content':32}]
     d = matdb.Dialog(app, entries)
 
     app.wait_window(d)
-    print d.result
+    print(d.result)
 
     #app.mainloop()

@@ -1,7 +1,7 @@
-import Tix as tix
+import tkinter.tix as tix
 import os
 
-import matdb_frame
+from . import matdb_frame
 
 class Dialog(tix.Toplevel):
 

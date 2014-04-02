@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 
 class TruncatedEntry(tk.Entry):
     """Entry which length is limitted
@@ -79,10 +79,10 @@ if __name__ == '__main__':
     lentry.pack()
 
     def val_lentry():
-        print lentry.validate()
+        print(lentry.validate())
 
     def get_lentry():
-        print lentry.get()
+        print(lentry.get())
 
     btn_validate = tk.Button(app, text='validate', command=val_lentry)
     btn_validate.pack()

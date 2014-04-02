@@ -1,12 +1,16 @@
-import Tix as tix
+import tkinter.tix as tix
 import os
 
-import srim_matdb_frame
+from . import srim_matdb_frame
 
 class Dialog(tix.Toplevel):
 
     def __init__(self, master, srimdata=None, title=None):
-
+        """
+        @param master master widget
+        @param srimdata path to SRIM compound db, usually encoded in cp437
+        @param title title of the widget
+        """
         tix.Toplevel.__init__(self, master)
         self.transient(master)
 

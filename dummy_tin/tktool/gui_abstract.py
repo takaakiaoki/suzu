@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 
 class GUIAbstract(object):
     """common interface of gui. This is only reference for 
@@ -29,12 +29,12 @@ class GUIAbstract(object):
 
     def _set_defaultformissingkey(self, d):
         """set widget value, if d[key] is missing, defaultparam[key] is set"""
-        for k, w in self.widgets.iteritems():
+        for k, w in self.widgets.items():
             w.set(d.get(k, self.defaultparam[k]))
 
     def _set_keepformissingkey(self, d):
         """set widget value, if d[key] is missing, the value is kept"""
-        for k, w in self.widgets.iteritems():
+        for k, w in self.widgets.items():
             if k in d:
                 w.set(d[k])
 
@@ -45,7 +45,7 @@ class GUIAbstract(object):
         @return  widget value
         """
         d = {}
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             if not v.is_disabled():
                 d[k] = v.get()
         return d
@@ -53,7 +53,7 @@ class GUIAbstract(object):
     def get_nostatechk(self):
         """get widget value independent of the state of the widget"""
         d = {}
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             d[k] = v.get_nostatechk()
         return d
 
@@ -68,7 +68,7 @@ class GUIAbstract(object):
             return None
 
         err = []
-        for k, v in self.widgets.iteritems():
+        for k, v in self.widgets.items():
             r = v.validate()
             if r:
                 err.append((k, r))

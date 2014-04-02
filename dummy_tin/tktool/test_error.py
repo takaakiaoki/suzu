@@ -3,7 +3,7 @@
 import unittest
 import itertools
 
-import error
+from . import error
 
 class Test_walk_errorreason(unittest.TestCase):
     def setUp(self):
@@ -13,7 +13,7 @@ class Test_walk_errorreason(unittest.TestCase):
         pass
 
     def assertion(self, qs, ans):
-        for q, a in itertools.izip_longest(error.walk_errorstruct(qs), ans):
+        for q, a in itertools.zip_longest(error.walk_errorstruct(qs), ans):
             self.assertEqual(q, a)
 
     def test1(self):

@@ -1,10 +1,10 @@
 import copy
 
-import v0
-import v1
-import v2
+from . import v0
+from . import v1
+from . import v2
 
-from v2 import *
+from .v2 import *
 
 currentversion = v2._version
 
@@ -29,14 +29,14 @@ if __name__ == '__main__':
     defs = [v0.default, v1.default, v2.default]
     exs = [v0.example, v1.example, v2.example]
     
-    print 'test default'
+    print('test default')
     for i, d in enumerate(defs):
         upd = solve_version(d)
-        print i
+        print(i)
         assert(upd==defs[currentversion])
 
-    print 'test example'
+    print('test example')
     for i, d in enumerate(exs):
         upd = solve_version(d)
-        print i
+        print(i)
         assert(upd==exs[currentversion])

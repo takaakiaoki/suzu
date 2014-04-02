@@ -2,7 +2,7 @@
 """ parse SRIM compound database
 """
 
-import cStringIO as StringIO
+import io
 import re
 
 from ..physics import element as element
@@ -15,7 +15,8 @@ class Category(object):
 
     def get_title(self):
         """cut meanful category name from description strs """
-        r = re.compile('\xdf+\s*([^\xdf]+?)\s*\xdf+')
+        leadingchr = b'\xdf'.decode('cp437') # used for category in original compound.dat
+        r = re.compile('{0:s}+\s*([^{0:s}]+?)\s*{0:s}+'.format(leadingchr))
         for l in self.desc.split('\n'):
             m = r.match(l)
             if m:
@@ -75,7 +76,7 @@ def format_compound(c):
         sep = '=' * len(text)
         return '\n'.join((text, sep)) + '\n'
 
-    b = StringIO.StringIO()
+    b = io.StringIO()
     # material title
     b.write(h1(c.name))
     # short description
@@ -190,7 +191,7 @@ def parse_target_table(s):
     """ parse input string for compound"""
     t = Compound()
     t.fulltext=s
-    input = StringIO.StringIO(s)
+    input = io.StringIO(s)
     # 1st line, description, remove heading '*'
     t.desc = input.readline()[1:]
 

@@ -1,13 +1,17 @@
-import Tix as tix
+import tkinter.tix as tix
 
-import matdb_frame
-import srim_compounddb
+from . import matdb_frame
+from . import srim_compounddb
 
 from ..tktool import filepathentry
 
 def _entries_from_srim(srim_data_path):
+    """
+    @param srim_data_path path to SRIM compound db (SRIM_PATH/Data/Compound.dat),
+                          usually encoded in cp437
+    """
     try:
-        categories = srim_compounddb.parse(open(srim_data_path, 'rt'))
+        categories = srim_compounddb.parse(open(srim_data_path, 'rt', encoding='cp437'))
         entries = []
         for cindex, c in enumerate(categories):
             cpath = str(cindex)
@@ -42,6 +46,11 @@ class SRIMMatDBFrame(tix.Frame):
                 raise e
 
     def __init__(self, master, srimdata=None, title=None):
+        """
+        @param master master widget
+        @param srimdata path to SRIM compound db, usually encoded in cp437
+        @param title title of the widget
+        """
         tix.Frame.__init__(self, master, title)
 
         # filepath entry
@@ -62,5 +71,9 @@ class SRIMMatDBFrame(tix.Frame):
             self.load_srimdata(srimdata)
 
     def load_srimdata(self, path):
+        """
+        @param self
+        @param srimdata path to SRIM compound db, usually encoded in cp437
+        """
         self.dselect.set_listbox_entries(_entries_from_srim(path))
         self.filepath.set(path)

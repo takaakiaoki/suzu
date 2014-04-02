@@ -4,7 +4,6 @@ import os
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
 
-import dummy_tin.matdb.srimtosuzudb as srimtosuzudb
 import dummy_tin.matdb.srim_compounddb as compounddb
 
 air = compounddb.Compound()
@@ -31,14 +30,14 @@ water.density = 1.0
 water.mass_percentage = False
 water.elems = [(1, 2.0), (8, 1.0)]
 water.bonding = [0.0, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-water.comment = """Chemical Formula:      H ÄÄ O ÄÄ H
+water.comment = b"""Chemical Formula:      H \u00c4\u00c4 O \u00c4\u00c4 H
 
 There is about an 8% increase in the peak of the stopping power
 for ions in water vapour relative to the liquid. (The peak of the
 stopping occurs at an energy of about 100 keV/amu times the 2/3
 power of the ion's atomic number.) Above the peak the phase
 difference begins to disappear. This calculation is for the
-LIQUID phase. """
+LIQUID phase. """.decode('cp437')
 
-print compounddb.to_suzu(water)
-print compounddb.to_suzu(air)
+print(water.to_suzu())
+print(air.to_suzu())

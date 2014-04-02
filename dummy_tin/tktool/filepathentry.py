@@ -1,6 +1,5 @@
-import Tkinter as tk
-
-import tkFileDialog
+import tkinter as tk
+import tkinter.filedialog
 
 class _Base(tk.Frame):
     _askaction = None
@@ -22,7 +21,7 @@ class _Base(tk.Frame):
         self.btn.pack(side=tk.LEFT)
 
     def selectfilepath(self):
-        #fname = tkFileDialog.asksaveasfilename(title=self.label,
+        #fname = tkinter.filedialog.asksaveasfilename(title=self.label,
         #        filetypes=[('All', '*')])
         oldpath = self.textvariable.get()
         newpath = self._askaction(title=self.label, initialfile=oldpath,
@@ -49,7 +48,7 @@ class _Base(tk.Frame):
         return None
 
 class Saveas(_Base):
-    _askaction = staticmethod(tkFileDialog.asksaveasfilename)
+    _askaction = staticmethod(tkinter.filedialog.asksaveasfilename)
 
 class Open(_Base):
-    _askaction = staticmethod(tkFileDialog.askopenfilename)
+    _askaction = staticmethod(tkinter.filedialog.askopenfilename)

@@ -171,8 +171,8 @@ if __name__ == '__main__':
                 pass
 
         if elem:
-            print '----'
-            print elem.name
-            print elem.sym
-            print elem.z
-            print elem.mass
+            print('----')
+            print(elem.name)
+            print(elem.sym)
+            print(elem.z)
+            print(elem.mass)

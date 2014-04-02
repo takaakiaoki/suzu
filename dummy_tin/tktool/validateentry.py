@@ -9,7 +9,7 @@
     it would be recommended to run .validate() befor get()
 """
 
-import Tkinter as tk
+import tkinter as tk
 
 class ValidateAbstract(object):
     def validate(self):

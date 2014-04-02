@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 
 class AutoScrollbar(tk.Scrollbar):
     # a scrollbar that hides itself if it's not needed.  only
@@ -13,9 +13,9 @@ class AutoScrollbar(tk.Scrollbar):
             self.grid()
         tk.Scrollbar.set(self, lo, hi)
     def pack(self, **kw):
-        raise TclError, "cannot use pack with this widget"
+        raise tk.TclError("cannot use pack with this widget")
     def place(self, **kw):
-        raise TclError, "cannot use place with this widget"
+        raise tk.TclError("cannot use place with this widget")
 
 class AutoScrolledText(tk.Frame):
     def __init__(self, master=None, cnf={}, **kw):

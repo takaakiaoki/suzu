@@ -104,6 +104,6 @@ if __name__ == '__main__':
     import dummy_tin.physics.element as e
 
     for i, s in enumerate(e.table_bynum):
-        print i, s.sym, disp.get(s.sym, default)
+        print(i, s.sym, disp.get(s.sym, default))
 
 
