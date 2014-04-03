@@ -2,9 +2,9 @@
 SUZU
 ====
 
-version 0.0.4
+version 0.1.0
 
-Apr 12, 2013
+Apr 3, 2014
 
 Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
 
@@ -19,25 +19,22 @@ SUZU is aimed to be a gui program compatible with tin.exe in SRIM (http://www.sr
 Download
 ========
 
-Distribution packages
+Distributed packages
 ---------------------
 
 installation packages are availabel at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist
 
 the directory includes several types of package. See `Install & Run`_ section.
 
-- suzu-(version).w32standalone.zip
-    w32 standalone 
-- suzu-(version).exe
-    installer for windows python environment
-- suzu-(version).tar.gz, suzu-(version).zip
+- suzu-(version)-win32.msi
+    Windows 32bit standalone 
+
+- suzu-(version)-amd64.msi
+    Windows 64bit standalone 
+
+- suzu-(version).zip
     installer for standard python environment
     (use 'setup.py install', 'easy_install', or 'pip)
-
-.. warning::
-
-  Version number suffixed with **'pre'** is *preliminary and developing* version.
-  It is **not recommended** for ordinal users.
 
 Source code repository
 ----------------------
@@ -46,14 +43,14 @@ Source code is maintaned at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
 
 Code is managed using mercurial (http://mercurial.selenic.com/). So you can access the latest source code set by ...
 
-::
+.. code-block:: console
 
   hg clone http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
 
 Install & Run
 =============
 
-For windows, 2 options are available to setup this program.
+For windows, two options are available to setup this program.
 The second option is also available for unix or mac user.
 
 Option 1: Use standalone package (for Windows)
@@ -61,28 +58,11 @@ Option 1: Use standalone package (for Windows)
 
 1. Download Standalone package
 
-  Download suzu-(version).w32standalone.zip. Expand contents of zip file and put them in appropriate place 
+  Download suzu-(version)-win32.msi, or suzu-(version)-amd64.msi, and run it. Softwares are expanded at appropriate place.
 
 2. Run
 
-  Double-click suzu.exe  
-
-3. (you may need following DLLs installed.)
-
-  ::
-    
-     OLEAUT32.dll - C:\Windows\system32\OLEAUT32.dll
-     USER32.dll - C:\Windows\system32\USER32.dll
-     IMM32.dll - C:\Windows\system32\IMM32.dll
-     SHELL32.dll - C:\Windows\system32\SHELL32.dll
-     ole32.dll - C:\Windows\system32\ole32.dll
-     COMDLG32.dll - C:\Windows\system32\COMDLG32.dll
-     COMCTL32.dll - C:\Windows\system32\COMCTL32.dll
-     ADVAPI32.dll - C:\Windows\system32\ADVAPI32.dll
-     WS2_32.dll - C:\Windows\system32\WS2_32.dll
-     GDI32.dll - C:\Windows\system32\GDI32.dll
-     KERNEL32.dll - C:\Windows\system32\KERNEL32.dll
-
+  Find and Double-click suzu.exe  
 
 Option 2: Install as python script and package
 ----------------------------------------------
@@ -92,44 +72,23 @@ The second option is that install suzu as a package of python library
 Environment
 +++++++++++
 
-suzu is developed on python 2.7. In addition Tkinter (linked with tcl8.5) is adopted as GUI toolkit. In order to confirm the version of Tcl/Tk
+version >= 0.1.0 is developed to run on python 3.3.5 (or above). Setup python core program from http://www.python.org/
 
-::
-
-  import Tkinter
-  print Tkinter.TclVersion
-  print Tkinter.TkVersion
-
-
-Install (for Windows)
-+++++++++++++++++++++
-
-Download and start suzu-(version).win32.exe. The installer will find the path to install automatically (i.e. C:\\Python27).
-The installer will put following files and folders, for example,
-
-- C:\\Python27\\Script\\suzu.py
-- C:\\Python27\\lib\\site-package\\dummy_tin
-- C:\\Python27\\lib\\site-package\\suzu-(version)-pyxxx.egg-info
-
-To install on virtualenv, see
-http://stackoverflow.com/questions/3271590/can-i-install-python-windows-packages-into-virtualenvs
-and dummy_tin/doc/virtualenv_win
-
-Install from source code (for unix and mac)
+Install from source code
 +++++++++++++++++++++++++++++++++++++++++++
 
-1. Download package archive suzu-(version).tar.gz or suzu-(version).zip
+1. Download package archive suzu-(version).zip
 2. If you have already installed easy_install or pip, run
 
   ::
 
-    easy_install suzu-(version).tar.gz
+    easy_install suzu-(version).zip
 
   , or
 
   ::
 
-    pip install suzu-(version).tar.gz
+    pip install suzu-(version).zip
 
   (If you do not have easy_install nor pip, expand above package archive and find setup.py. Then,)
 
@@ -142,7 +101,7 @@ Run
 +++
 
 - type suzu.py in command prompt
-- or, find suzu.py using explore (i.e. C:\\Python27\\Script\\suzu.py) and double-click it.
+- or, find suzu.py using explore (i.e. C:\\Python33\\Script\\suzu.py) and double-click it.
 
 Usage
 =====
@@ -158,7 +117,7 @@ When you save the data with the filename of 'TRIM.in' and you put it in the same
 [Load .json]
 ------------
 
-Currently suzu cannot parse TRIM.in format directory, but suzu saves TRIM.in.json data with TRIM.in simultaneously.
+Currently suzu cannot parse TRIM.in format directly, but suzu saves TRIM.in.json data with TRIM.in simultaneously.
 You may load this .json file by [Load .json] button.
 
 [Validate]
@@ -171,6 +130,13 @@ You may load this .json file by [Load .json] button.
   Validation does not run automatically. The user should push
   [Validate] button explicitly to confirm the modification on GUI 
   is correct or not.
+
+[Compound DB]
+-------------
+
+[Compount DB] button is placed at target layer frame. This button provides an access to the compoond database given by SRIM.
+At database dialog, indicate the path to compound.dat (usually, [SRIM INSTALL PATH]/DATA/Compound.dat). You may construct your own database.
+
 
 Other Buttons
 -------------

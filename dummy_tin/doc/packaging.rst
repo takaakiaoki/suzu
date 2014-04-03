@@ -2,38 +2,35 @@
 Packaging
 =========
 
-Create .exe installer
-=====================
+Create .zip, package
+====================
 
-::
+.. code-block:: console
 
-  python setup.py bdist_wininst
-
-.exe installer is created as dist/suzu-(version).win32.exe
-
-Create .zip, or tar.gz package
-==============================
-
-::
-  python setup.py sdist --format=zip,targz
+  python setup.py sdist
 
 Archived packages are created as dist/suzu-(version).tar.gz or dist/suzu-(version).zip
-These packages can be installed using easy_install (a part of setuptools http://pypi.python.org/pypi/setuptools) or pip (http://pypi.python.org/pypi/pip/1.2.1)
+These packages can be installed using easy_install (a part of setuptools http://pypi.python.org/pypi/setuptools) or pip (http://pypi.python.org/pypi/pip)
 
-with easy_install ::
+with easy_install
 
-  easy_install <path to .zip or .tar.gz>
+.. code-block:: console
 
-with pip ::
+  easy_install <path to .zip>
 
-  pip install <path to .zip or .tar.gz>
+with pip
+
+.. code-block:: console
+
+  pip install <path to .zip>
 
 Create w32 standalone package
 =============================
 
-Use py2exe (http://www.py2exe.org) package.
+cs_Freeze (http://cx-freeze.sourceforge.net/) and pywin32 (http://sourceforge.net/projects/pywin32/) should be set up to build w32 standalone package
 
-::
-  python setup.py py2exe
+.. code-block:: console
 
-Stand alone package is created as dist/suzu-(version).w32standalone .
+  python setup_cx.py bdist_msi
+
+Stand alone package is created as dist/suzu-(version)-win32.msi or -amd64.msi. 
