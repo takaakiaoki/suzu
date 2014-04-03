@@ -43,18 +43,18 @@ def create_include_tix():
 
     return []
 
-
 def create_include_doc():
     htmls = glob.glob('dummy_tin/doc/*.html')
     rsts = glob.glob('dummy_tin/doc/*.rst')
     fs = []
     for f in htmls + rsts:
-        fs.append((f, 'doc'))
+        basename = os.path.basename(f)
+        fs.append((f, os.path.join('doc', basename)))
     return fs
 
 # we need to include tix libs explicitly
 build_exe_options = {
-        'include_files':create_include_doc() + create_include_tix()
+        'include_files':[('README','README'), ('README.html','README.html')] + create_include_doc() + create_include_tix()
         }
 
 setup(name = "suzu",
