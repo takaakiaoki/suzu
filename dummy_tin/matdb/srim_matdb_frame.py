@@ -1,3 +1,4 @@
+import tkinter.messagebox
 import tkinter.tix as tix
 
 from . import matdb_frame
@@ -37,13 +38,8 @@ def _entries_from_srim(srim_data_path):
 class SRIMMatDBFrame(tix.Frame):
     class Open(filepathentry.Open):
         def on_fileselected(self, newpath, oldpath):
-            try:
-                if self.master.load_srimdata:
-                    self.master.load_srimdata(newpath)
-                    self.set(newpath) # verborse operation ...
-            except Exception as e:
-                self.set(oldpath)
-                raise e
+            if self.master.load_srimdata:
+                self.master.load_srimdata(newpath)
 
     def __init__(self, master, srimdata=None, title=None):
         """
@@ -75,5 +71,9 @@ class SRIMMatDBFrame(tix.Frame):
         @param self
         @param srimdata path to SRIM compound db, usually encoded in cp437
         """
-        self.dselect.set_listbox_entries(_entries_from_srim(path))
-        self.filepath.set(path)
+        try:
+            self.dselect.set_listbox_entries(_entries_from_srim(path))
+            self.filepath.set(path)
+        except Exception as e:
+            tkinter.messagebox.showerror('error on loading SRIM compound data',
+                    'error on loading SRIM compound data.\n{}\n'.format(path)+ repr(e))

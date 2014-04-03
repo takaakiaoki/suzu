@@ -15,9 +15,6 @@ from . import to_trim
 from . import context
 from . import profile
 
-profile_pathinfo = None
-profile_config = None
-
 def spawn_trim(trim_in_path):
     """spawn trim.exe"""
     fname = os.path.basename(trim_in_path)
@@ -33,18 +30,14 @@ def spawn_trim(trim_in_path):
 
 
 def run():
-    # load profile data
-    global profile_config
-    global profile_pathinfo
-
+    # test profile data
     try:
-        profile_pathinfo = profile.initialize()
-        profile_config = profile.load_config(open(profile_pathinfo['config'],'r'))
+        profile_config = profile.load()
     except profile.Error as e:
-        tkinter.messagebox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ e)
+        tkinter.messagebox.showerror('error on loading profile data', 'error on loading profile data.\n\n'+ e)
         sys.exit(2)
     except Exception as e:
-        tkinter.messagebox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ str(e))
+        tkinter.messagebox.showerror('error on loading profile data', 'error on loading profile data.\n\n'+ repr(e))
         sys.exit(2)
 
     app = tk.Tk()
@@ -89,8 +82,8 @@ def run():
     pcol += 1
 
     def load_action():
-        global profile_pathinfo
-        global profile_config
+        # get profile.config
+        profile_config = profile.load()
         fname = tkinter.filedialog.askopenfilename(title='Load json file',
                 defaultextension='.json', initialfile='TRIM.in.json',
                 initialdir=profile_config['lastdir'],
@@ -105,8 +98,7 @@ def run():
 
                 # load successed save lastdir
                 profile_config['lastdir'] = os.path.dirname(fname)
-                profile.dump_config(profile_config,
-                        open(profile_pathinfo['config'], 'w'))
+                profile.update(profile_config)
 
     loadbtn = tk.Button(menuframe, text='Load .json', command=load_action)
     loadbtn.grid(row=0, column=pcol, padx=5)
@@ -131,8 +123,8 @@ def run():
             tkinter.messagebox.showerror('exception error', 'exception received, save is aborted.\n'+e)
             return
 
-        global profile_pathinfo
-        global profile_config
+        # get profile.config
+        profile_config = profile.load()
 
         fname = tkinter.filedialog.asksaveasfilename(
                 title='Save TRIM input file',
@@ -162,8 +154,7 @@ def run():
 
             # file dump succeeded, save lastdir in the profile
             profile_config['lastdir'] = os.path.dirname(fname)
-            profile.dump_config(profile_config,
-                    open(profile_pathinfo['config'],'w'))
+            profile.update(profile_config)
 
             spawn_trim(fname)
 

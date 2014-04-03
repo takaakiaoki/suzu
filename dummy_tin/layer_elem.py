@@ -12,18 +12,26 @@ from .matdb import srim_matdb
 
 from . import atomtbl
 from . import context
+from . import profile
 
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = context.layer_elem_default
     exampleparam = context.layer_elem_example
 
     def matdbbtncmd(self):
-        d = matdb.srim_matdb.Dialog(self, '')
+        profile_config = profile.load()
+
+        d = matdb.srim_matdb.Dialog(self, profile_config['srimcompoundpath'])
 
         self.wait_window(d)
 
         if d.result:
             self.set(d.result, setdefault=False)
+            # save last srimcompoundpath
+            newpath = d.bodyframe.filepath.get()
+            if newpath != profile_config['srimcompoundpath']:
+                profile_config['srimcompoundpath'] = newpath
+                profile.update(profile_config)
 
     def __init__(self, master=None, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
@@ -34,7 +42,7 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
 
         # matdb button
-        self.matdbbtn = tk.Button(self, text='DataBase', command=self.matdbbtncmd)
+        self.matdbbtn = tk.Button(self, text='Compound DB', command=self.matdbbtncmd)
         self.matdbbtn.grid(row=prow, column=0, sticky=tk.W+tk.E)
         prow += 1
 
