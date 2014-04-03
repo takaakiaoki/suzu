@@ -1,6 +1,6 @@
 import sys
 import os
-from distutils.core import setup
+from setuptools import setup, find_packages
 import glob
 
 ver_file = os.path.join(os.path.dirname(__file__), 'dummy_tin', 'version.py')
@@ -20,13 +20,16 @@ setup(name = "suzu",
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 
     #recursively.)
-    packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics',
-        'dummy_tin.db', 'dummy_tin.context'],
+    #packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics',
+    #    'dummy_tin.db', 'dummy_tin.context', 'dummy_tin.config',
+    #    'dummy_tin.matdb'],
+    packages = find_packages(),
     package_dir = {'dummy_tin':'dummy_tin'},
     package_data = {'dummy_tin':['doc/*.rst', 'doc/*.html']},
     scripts = ["suzu.py"],
     long_description=open('README').read(),
     options={},
+    install_requires=['lockfile >= 0.9.0'],
     #This next part it for the Cheese Shop, look a little down the page.
     classifiers = [
         "Programming Language :: Python",
