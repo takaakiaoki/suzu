@@ -1,15 +1,60 @@
 import sys
 import os
+import glob
+
 from cx_Freeze import setup, Executable
 
 ver_file = os.path.join(os.path.dirname(__file__), 'dummy_tin', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
 
+def create_include_tix():
+    """ find tixxx.dll and related files, manually
+    see http://www.py2exe.org/index.cgi/TixSetup 
+    """
+    # get tcl/tk install information
+    import tkinter
+    import _tkinter
+
+    tk = _tkinter.create()
+    # get tcl, tk, tix versions
+    tcl_version = _tkinter.TCL_VERSION 
+    tk_version = _tkinter.TK_VERSION 
+    tix_version = tk.call('package', 'version', 'Tix')
+
+    # get tcl library directory
+    tcl_dir = tk.call('info', 'library')
+
+    del tkinter, _tkinter
+
+    print('tcl_version = ', tcl_version)
+    print('tk_version = ', tk_version)
+    print('tix_version = ', tix_version)
+    print('tcl_dir = ', tcl_dir)
+
+    # try to find tix directory
+    tix_basename = 'tix{}'.format(tix_version)
+    tix_dir = os.path.join(os.path.dirname(tcl_dir), tix_basename)
+    print('tix_dir = ', tix_dir)
+    if os.path.isdir(tix_dir):
+        return [(tix_dir, tix_basename)]
+    else:
+        print('tix_dir does not exist.')
+
+    return []
+
+
+def create_include_doc():
+    htmls = glob.glob('dummy_tin/doc/*.html')
+    rsts = glob.glob('dummy_tin/doc/*.rst')
+    fs = []
+    for f in htmls + rsts:
+        fs.append((f, 'doc'))
+    return fs
+
 # we need to include tix libs explicitly
 build_exe_options = {
-        #'include_files':[('dummy_tin/doc/*.rst', 'doc'),
-        #    ('dummy_tin/doc/*.html', 'doc')]
+        'include_files':create_include_doc() + create_include_tix()
         }
 
 setup(name = "suzu",
@@ -22,4 +67,4 @@ setup(name = "suzu",
     long_description=open('README').read(),
     # cx_Freeze option
     options={'build_exe':build_exe_options},
-    executables = [Executable('suzu.py', base='Win32GUI')])
+    executables = [Executable('suzu.py', base='Console')])
