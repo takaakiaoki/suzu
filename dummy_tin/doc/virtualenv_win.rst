@@ -5,9 +5,11 @@ Problems with virtualenv on Windows
 Activate and Deactivate script
 ===================================
 
-In order to use Tcl/Tk (ant Tix) library under virtualenv, some environment variables should be set explicitly.
+In some case, path to Tcl/Tk (and Tix) library might be given explicitly under virtualenv.
 
-activate.bat: ::
+activate.bat:
+
+.. code-block:: bat
 
   @echo off
   set "VIRTUAL_ENV=C:\Users\aoki\work\marlowe_ui"
@@ -53,7 +55,9 @@ activate.bat: ::
 
   :END
 
-deactivate.bat: ::
+deactivate.bat:
+
+.. code-block:: bat
 
   @echo off
 
@@ -98,13 +102,16 @@ program associated with .py
 
 In usual case, the extension '.py' is not associated with the python.exe under virtual environment but with original one.
 
-to confirm it ... ::
+to confirm, 
+
+.. code-block:: console
 
   > assoc .py
   .py=Python.File
   > ftype | findstr -i Python
-  Python.CompiledFile="C:\opt\Python27\python.exe" "%1" %*
-  Python.File="C:\opt\Python27\python.exe" "%1" %*
-  Python.NoConFile="C:\opt\Python27\pythonw.exe" "%1" %*
+  Python.CompiledFile="C:\windows\py.exe" "%1" %*
+  Python.File="C:\windows\py.exe" "%1" %*
+  Python.NoConFile="C:\windows\pyw.exe" "%1" %*
 
+(about py.exe please refer https://docs.python.org/dev/using/windows.html#python-launcher-for-windows)
 Therefore, susu.py should be run in the form of 'python (path to susu.py)\susu.py'

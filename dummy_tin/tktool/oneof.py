@@ -1,15 +1,14 @@
 # oneof --  gui class to represent array of large widget
 #   
 
-import Tkinter as tk
-
-import tkMessageBox
+import tkinter as tk
+import tkinter.messagebox
 
 import copy
 
-import validateentry
-import codedoptionmenu
-import error
+from . import validateentry
+from . import codedoptionmenu
+from . import error
 
 gridlayout_default = {
         # ctrl frame, relative to root frame
@@ -145,7 +144,7 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
             except self.Error as e:
                 # validation error, do not move index and exit
                 self.index.set(self.currentview)
-                tkMessageBox.showerror('Validation error', 'validation error '+error.format_errorstruct(e.err))
+                tkinter.messagebox.showerror('Validation error', 'validation error '+error.format_errorstruct(e.err))
                 return 
             
             # then load new elem data and show it
@@ -160,6 +159,8 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
             the value in self.view is discarded"""
 
             # test range of value
+            # ??? it might be a
+            # if indexvalue >= len(self.elmdata):
             if not idxvalue in list(range(len(self.elemdata))):
                 return
 
@@ -190,7 +191,7 @@ def OneofFactory(GUIElem_, defaultelem_, gridlayout=gridlayout_default):
                 self.store_currentview()
             except self.Error as e:
                 # validation error, do not append element
-                tkMessageBox.showerror('Validation error', 'validation error '+error.format_errorstruct(e.err))
+                tkinter.messagebox.showerror('Validation error', 'validation error '+error.format_errorstruct(e.err))
                 return 
 
             # add default element
@@ -319,7 +320,7 @@ if __name__ == '__main__':
     setbtn.pack(side=tk.LEFT, pady=2)
     # get
     def get_action():
-        print gui.get()
+        print(gui.get())
     getbtn = tk.Button(testframe, text='get', command=get_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # clear
@@ -329,7 +330,7 @@ if __name__ == '__main__':
     clearbtn.pack(side=tk.LEFT, pady=2)
     # validate
     def validate_action():
-        print gui.validate()
+        print(gui.validate())
     getbtn = tk.Button(testframe, text='validate', command=validate_action)
     getbtn.pack(side=tk.LEFT, pady=2)
 

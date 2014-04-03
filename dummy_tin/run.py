@@ -3,29 +3,26 @@ import json
 import os.path
 import subprocess
 
-import Tkinter as tk
-import tkFileDialog
-import tkMessageBox
+import tkinter.tix as tk
+import tkinter.filedialog
+import tkinter.messagebox
 
-import tktool.error
+from .tktool import error
 
-import root as _root
-import to_trim
+from . import root as _root
+from . import to_trim
 
-import context
-import profile
-
-profile_pathinfo = None
-profile_config = None
+from . import context
+from . import profile
 
 def spawn_trim(trim_in_path):
     """spawn trim.exe"""
     fname = os.path.basename(trim_in_path)
     bname = os.path.dirname(trim_in_path)
-    texename = os.path.join(bname, u'trim.exe')
+    texename = os.path.join(bname, 'trim.exe')
 
-    if fname.upper() == u'TRIM.IN' and os.path.exists(texename): 
-        s = tkMessageBox.askyesno('Start TRIM?','You have updated TRIM.in file where TRIM.exe exists\n Will you start TRIM.exe calculation?')
+    if fname.upper() == 'TRIM.IN' and os.path.exists(texename): 
+        s = tkinter.messagebox.askyesno('Start TRIM?','You have updated TRIM.in file where TRIM.exe exists\n Will you start TRIM.exe calculation?')
 
         if s:
             # spawn trim.exe
@@ -33,18 +30,14 @@ def spawn_trim(trim_in_path):
 
 
 def run():
-    # load profile data
-    global profile_config
-    global profile_pathinfo
-
+    # test profile data
     try:
-        profile_pathinfo = profile.initialize()
-        profile_config = profile.load_config(open(profile_pathinfo['config'],'r'))
+        profile_config = profile.load()
     except profile.Error as e:
-        tkMessageBox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ e)
+        tkinter.messagebox.showerror('error on loading profile data', 'error on loading profile data.\n\n'+ e)
         sys.exit(2)
     except Exception as e:
-        tkMessageBox.showerror('error on loding profile data', 'error on loding profile data.\n\n'+ str(e))
+        tkinter.messagebox.showerror('error on loading profile data', 'error on loading profile data.\n\n'+ repr(e))
         sys.exit(2)
 
     app = tk.Tk()
@@ -74,7 +67,7 @@ def run():
 
     # get data and display on console
     def get_action():
-        print root.get()
+        print(root.get())
     getbtn = tk.Button(menuframe, text='Dump to Console', command=get_action)
     getbtn.grid(row=0, column=pcol, padx=5)
     pcol += 1
@@ -89,9 +82,9 @@ def run():
     pcol += 1
 
     def load_action():
-        global profile_pathinfo
-        global profile_config
-        fname = tkFileDialog.askopenfilename(title=u'Load json file',
+        # get profile.config
+        profile_config = profile.load()
+        fname = tkinter.filedialog.askopenfilename(title='Load json file',
                 defaultextension='.json', initialfile='TRIM.in.json',
                 initialdir=profile_config['lastdir'],
                 filetypes=[('JSON', '*.json'), ('All', '*')])
@@ -105,8 +98,7 @@ def run():
 
                 # load successed save lastdir
                 profile_config['lastdir'] = os.path.dirname(fname)
-                profile.dump_config(profile_config,
-                        open(profile_pathinfo['config'], 'w'))
+                profile.update(profile_config)
 
     loadbtn = tk.Button(menuframe, text='Load .json', command=load_action)
     loadbtn.grid(row=0, column=pcol, padx=5)
@@ -125,17 +117,17 @@ def run():
                 raise VExecption(err)
             d = root.get()
         except VExecption as e:
-            tkMessageBox.showerror('Validation error', 'validation error, save is aborted.\n\n'+tktool.error.format_errorstruct(e.err))
+            tkinter.messagebox.showerror('Validation error', 'validation error, save is aborted.\n\n'+tktool.error.format_errorstruct(e.err))
             return
         except Error as e:
-            tkMessageBox.showerror('exception error', 'exception received, save is aborted.\n'+e)
+            tkinter.messagebox.showerror('exception error', 'exception received, save is aborted.\n'+e)
             return
 
-        global profile_pathinfo
-        global profile_config
+        # get profile.config
+        profile_config = profile.load()
 
-        fname = tkFileDialog.asksaveasfilename(
-                title=u'Save TRIM input file',
+        fname = tkinter.filedialog.asksaveasfilename(
+                title='Save TRIM input file',
                 initialfile='TRIM.in',
                 initialdir=profile_config['lastdir'],
                 filetypes=[('TRIM input', '*.in'), ('All', '*')])
@@ -144,12 +136,12 @@ def run():
             d['version'] = context.currentversion
 
             # 0. remove existing .json
-            json_name = fname + u'.json'
+            json_name = fname + '.json'
             if os.path.exists(json_name):
                 os.unlink(json_name)
 
             # 1. dump .json.temp
-            jsont_name = fname + u'.json.t'
+            jsont_name = fname + '.json.t'
             with open(jsont_name, 'wt') as stream: 
                 json.dump(d, stream, indent=2, sort_keys=True)
 
@@ -162,8 +154,7 @@ def run():
 
             # file dump succeeded, save lastdir in the profile
             profile_config['lastdir'] = os.path.dirname(fname)
-            profile.dump_config(profile_config,
-                    open(profile_pathinfo['config'],'w'))
+            profile.update(profile_config)
 
             spawn_trim(fname)
 

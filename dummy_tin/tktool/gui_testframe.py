@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 
 from . import codedoptionmenu as co
 
@@ -26,12 +26,12 @@ def gui_testframe(master, FrameClass, example=None):
     setbtn.pack(side=tk.LEFT, pady=2)
     # get
     def get_action():
-        print gui.get()
+        print(gui.get())
     getbtn = tk.Button(buttonframe, text='get', command=get_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # get_nostatechk
     def get_nostatechk_action():
-        print gui.get_nostatechk()
+        print(gui.get_nostatechk())
     getbtn = tk.Button(buttonframe, text='get_nostatechk', command=get_nostatechk_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # clear
@@ -41,7 +41,7 @@ def gui_testframe(master, FrameClass, example=None):
     clearbtn.pack(side=tk.LEFT, pady=2)
     # validate
     def validate_action():
-        print gui.validate()
+        print(gui.validate())
     getbtn = tk.Button(buttonframe, text='validate', command=validate_action)
     getbtn.pack(side=tk.LEFT, pady=2)
 
@@ -94,12 +94,12 @@ def gui_testframe_multiexam(master, FrameClass, examples=[]):
 
     # get
     def get_action():
-        print gui.get()
+        print(gui.get())
     getbtn = tk.Button(buttonframe, text='get', command=get_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # get_nostatechk
     def get_nostatechk_action():
-        print gui.get_nostatechk()
+        print(gui.get_nostatechk())
     getbtn = tk.Button(buttonframe, text='get_nostatechk', command=get_nostatechk_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # clear
@@ -109,7 +109,7 @@ def gui_testframe_multiexam(master, FrameClass, examples=[]):
     clearbtn.pack(side=tk.LEFT, pady=2)
     # validate
     def validate_action():
-        print gui.validate()
+        print(gui.validate())
     getbtn = tk.Button(buttonframe, text='validate', command=validate_action)
     getbtn.pack(side=tk.LEFT, pady=2)
 
@@ -152,12 +152,12 @@ def gui_testframe(master, FrameClass, example=None):
     setbtn.pack(side=tk.LEFT, pady=2)
     # get
     def get_action():
-        print gui.get()
+        print(gui.get())
     getbtn = tk.Button(buttonframe, text='get', command=get_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # get_nostatechk
     def get_nostatechk_action():
-        print gui.get_nostatechk()
+        print(gui.get_nostatechk())
     getbtn = tk.Button(buttonframe, text='get_nostatechk', command=get_nostatechk_action)
     getbtn.pack(side=tk.LEFT, pady=2)
     # clear
@@ -167,7 +167,7 @@ def gui_testframe(master, FrameClass, example=None):
     clearbtn.pack(side=tk.LEFT, pady=2)
     # validate
     def validate_action():
-        print gui.validate()
+        print(gui.validate())
     getbtn = tk.Button(buttonframe, text='validate', command=validate_action)
     getbtn.pack(side=tk.LEFT, pady=2)
 

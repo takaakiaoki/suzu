@@ -1,19 +1,37 @@
-import Tkinter as tk
+import tkinter as tk
 
-import physics.element as elem
+from .physics import element as elem
 
-import tktool
-import tktool.gui_abstract as ga
-import tktool.codedoptionmenu as coption
-import tktool.validateentry
+from . import tktool
+from .tktool import gui_abstract as ga
+from .tktool import codedoptionmenu as coption
+from .tktool import validateentry
 
-import atomtbl
+from . import matdb
+from .matdb import srim_matdb
 
-import context
+from . import atomtbl
+from . import context
+from . import profile
 
 class LayerElem(tk.Frame, ga.GUIAbstract):
     defaultparam = context.layer_elem_default
     exampleparam = context.layer_elem_example
+
+    def matdbbtncmd(self):
+        profile_config = profile.load()
+
+        d = matdb.srim_matdb.Dialog(self, profile_config['srimcompoundpath'])
+
+        self.wait_window(d)
+
+        if d.result:
+            self.set(d.result, setdefault=False)
+            # save last srimcompoundpath
+            newpath = d.bodyframe.filepath.get()
+            if newpath != profile_config['srimcompoundpath']:
+                profile_config['srimcompoundpath'] = newpath
+                profile.update(profile_config)
 
     def __init__(self, master=None, *args, **kw):
         tk.Frame.__init__(self, master, *args, **kw)
@@ -21,6 +39,12 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
         prow = 0
         epadx = (15, 0) # x inner padding for Entries
+
+
+        # matdb button
+        self.matdbbtn = tk.Button(self, text='Compound DB', command=self.matdbbtncmd)
+        self.matdbbtn.grid(row=prow, column=0, sticky=tk.W+tk.E)
+        prow += 1
 
         # name
         self.namefrm = tk.Frame(self)
@@ -90,13 +114,10 @@ class LayerElem(tk.Frame, ga.GUIAbstract):
 
         self.clear()
 
+    def enable(self):
+        self.matdbbtn.config(state=tk.NORMAL)
+        ga.GUIAbstract.enable(self)
 
-
-if __name__ == '__main__':
-    import tktool
-
-    app = tk.Tk()
-
-    tktool.gui_testframe(app, LayerElem, LayerElem.exampleparam)
-
-    app.mainloop()
+    def disable(self):
+        self.matdbbtn.config(state=tk.DISABLED)
+        ga.GUIAbstract.disable(self)

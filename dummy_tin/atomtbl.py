@@ -1,11 +1,11 @@
-import Tkinter as tk
+import tkinter as tk
 
-import physics.element as elem
-import db.disp as disp
+from .physics import element as elem
+from .db import disp as disp
 
-import tktool
-import tktool.validateentry
-import context
+from . import tktool
+from .tktool import validateentry
+from . import context
 
 
 defaultparam_elem = context.atomtbl_elem_default
@@ -27,7 +27,7 @@ class AtomTbl(tk.Frame):
         self.nsymbolvar = tk.IntVar(self)
 
         self.nsymbol = tk.Spinbox(self.nsymbolfrm, textvariable=self.nsymbolvar,
-                values=range(0,self.maxatoms+1),
+                values=list(range(0,self.maxatoms+1)),
                 command=self.nsymbol_action)
         self.nsymbol.config(width=3)
 
@@ -314,7 +314,7 @@ class AtomTbl(tk.Frame):
 
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
 
     app = tk.Tk()
 

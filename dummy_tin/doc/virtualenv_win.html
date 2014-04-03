@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
 <title>Problems with virtualenv on Windows</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7514 2012-09-14 14:27:12Z milde $
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -313,6 +313,21 @@ table.docutils th.field-name, table.docinfo th.docinfo-name {
   white-space: nowrap ;
   padding-left: 0 }
 
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
 h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
 h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
   font-size: 100% }
@@ -328,106 +343,107 @@ ul.auto-toc {
 
 <div class="section" id="activate-and-deactivate-script">
 <h1>Activate and Deactivate script</h1>
-<p>In order to use Tcl/Tk (ant Tix) library under virtualenv, some environment variables should be set explicitly.</p>
+<p>In some case, path to Tcl/Tk (and Tix) library might be given explicitly under virtualenv.</p>
 <p>activate.bat:</p>
-<pre class="literal-block">
-&#64;echo off
-set &quot;VIRTUAL_ENV=C:\Users\aoki\work\marlowe_ui&quot;
+<pre class="code bat literal-block">
+<span class="punctuation">&#64;</span><span class="keyword">echo</span> <span class="keyword">off</span>
+<span class="keyword">set</span> <span class="literal string double">&quot;VIRTUAL_ENV=C:\Users\aoki\work\marlowe_ui&quot;</span>
 
-if defined _OLD_VIRTUAL_PROMPT (
-    set &quot;PROMPT=%_OLD_VIRTUAL_PROMPT%&quot;
-) else (
-    if not defined PROMPT (
-        set &quot;PROMPT=$P$G&quot;
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PROMPT (
+    <span class="keyword">set</span> <span class="literal string double">&quot;PROMPT=%_OLD_VIRTUAL_PROMPT%&quot;</span>
+) <span class="keyword">else</span> (
+    <span class="keyword">if</span> not <span class="keyword">defined</span> PROMPT (
+        <span class="keyword">set</span> <span class="literal string double">&quot;PROMPT=$P$G&quot;</span>
     )
-  set &quot;_OLD_VIRTUAL_PROMPT=%PROMPT%&quot;
+  <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_PROMPT=%PROMPT%&quot;</span>
 )
-set &quot;PROMPT=(marlowe_ui) %PROMPT%&quot;
+<span class="keyword">set</span> <span class="literal string double">&quot;PROMPT=(marlowe_ui) %PROMPT%&quot;</span>
 
-if not defined _OLD_VIRTUAL_PYTHONHOME (
-    set &quot;_OLD_VIRTUAL_PYTHONHOME=%PYTHONHOME%&quot;
+<span class="keyword">if</span> not <span class="keyword">defined</span> _OLD_VIRTUAL_PYTHONHOME (
+    <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_PYTHONHOME=%PYTHONHOME%&quot;</span>
 )
-set PYTHONHOME=
+<span class="keyword">set</span> <span class="name variable">PYTHONHOME</span><span class="operator">=</span>
 
-rem PYTHONPATH
-if not defined _OLD_VIRTUAL_PYTHONPATH (
-  set &quot;_OLD_VIRTUAL_PYTHONPATH=%PYTHONPATH%&quot;
+<span class="comment">rem PYTHONPATH</span>
+<span class="keyword">if</span> not <span class="keyword">defined</span> _OLD_VIRTUAL_PYTHONPATH (
+  <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_PYTHONPATH=%PYTHONPATH%&quot;</span>
 )
-set PYTHONPATH=
+<span class="keyword">set</span> <span class="name variable">PYTHONPATH</span><span class="operator">=</span>
 
-rem tcl/tk environment
-if not defined _OLD_VIRTUAL_TCL_LIBRARY (
-  set &quot;_OLD_VIRTUAL_TCL_LIBRARY=%TCL_LIBRARY%&quot;
+<span class="comment">rem tcl/tk environment</span>
+<span class="keyword">if</span> not <span class="keyword">defined</span> _OLD_VIRTUAL_TCL_LIBRARY (
+  <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_TCL_LIBRARY=%TCL_LIBRARY%&quot;</span>
 )
-set &quot;TCL_LIBRARY=c:\opt\python27\tcl\tcl8.5&quot;
+<span class="keyword">set</span> <span class="literal string double">&quot;TCL_LIBRARY=c:\opt\python27\tcl\tcl8.5&quot;</span>
 
-if not defined _OLD_VIRTUAL_TK_LIBRARY (
-  set &quot;_OLD_VIRTUAL_TK_LIBRARY=%TCL_LIBRARY%&quot;
+<span class="keyword">if</span> not <span class="keyword">defined</span> _OLD_VIRTUAL_TK_LIBRARY (
+  <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_TK_LIBRARY=%TCL_LIBRARY%&quot;</span>
 )
-set &quot;TK_LIBRARY=c:\opt\python27\tcl\tcl8.5&quot;
+<span class="keyword">set</span> <span class="literal string double">&quot;TK_LIBRARY=c:\opt\python27\tcl\tcl8.5&quot;</span>
 
-if defined _OLD_VIRTUAL_PATH (
-    set &quot;PATH=%_OLD_VIRTUAL_PATH%&quot;
-) else (
-    set &quot;_OLD_VIRTUAL_PATH=%PATH%&quot;
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PATH (
+    <span class="keyword">set</span> <span class="literal string double">&quot;PATH=%_OLD_VIRTUAL_PATH%&quot;</span>
+) <span class="keyword">else</span> (
+    <span class="keyword">set</span> <span class="literal string double">&quot;_OLD_VIRTUAL_PATH=%PATH%&quot;</span>
 )
-set &quot;PATH=%VIRTUAL_ENV%\Scripts;%PATH%&quot;
+<span class="keyword">set</span> <span class="literal string double">&quot;PATH=%VIRTUAL_ENV%\Scripts;%PATH%&quot;</span>
 
-:END
+<span class="name label">:END</span>
 </pre>
 <p>deactivate.bat:</p>
-<pre class="literal-block">
-&#64;echo off
+<pre class="code bat literal-block">
+<span class="punctuation">&#64;</span><span class="keyword">echo</span> <span class="keyword">off</span>
 
-if defined _OLD_VIRTUAL_PROMPT (
-    set &quot;PROMPT=%_OLD_VIRTUAL_PROMPT%&quot;
-  set _OLD_VIRTUAL_PROMPT=
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PROMPT (
+    <span class="keyword">set</span> <span class="literal string double">&quot;PROMPT=%_OLD_VIRTUAL_PROMPT%&quot;</span>
+  <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_PROMPT</span><span class="operator">=</span>
 )
 
-if defined _OLD_VIRTUAL_PYTHONHOME (
-    set &quot;PYTHONHOME=%_OLD_VIRTUAL_PYTHONHOME%&quot;
-    set _OLD_VIRTUAL_PYTHONHOME=
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PYTHONHOME (
+    <span class="keyword">set</span> <span class="literal string double">&quot;PYTHONHOME=%_OLD_VIRTUAL_PYTHONHOME%&quot;</span>
+    <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_PYTHONHOME</span><span class="operator">=</span>
 )
 
-rem PYTHONPATH
-if defined _OLD_VIRTUAL_PYTHONPATH (
-  set &quot;PYTHONPATH=%_OLD_VIRTUAL_PYTHONPATH%&quot;
-  set _OLD_VIRTUAL_PYTHONPATH=
+<span class="comment">rem PYTHONPATH</span>
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PYTHONPATH (
+  <span class="keyword">set</span> <span class="literal string double">&quot;PYTHONPATH=%_OLD_VIRTUAL_PYTHONPATH%&quot;</span>
+  <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_PYTHONPATH</span><span class="operator">=</span>
 )
 
-rem tcl/tk environment
-set TCL_LIBRARY=
-if defined _OLD_VIRTUAL_TCL_LIBRARY (
-  set &quot;TCL_LIBRARY=%_OLD_VIRTUAL_TCL_LIBRARY%&quot;
-  set _OLD_VIRTUAL_TCL_LIBRARY=
+<span class="comment">rem tcl/tk environment</span>
+<span class="keyword">set</span> <span class="name variable">TCL_LIBRARY</span><span class="operator">=</span>
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_TCL_LIBRARY (
+  <span class="keyword">set</span> <span class="literal string double">&quot;TCL_LIBRARY=%_OLD_VIRTUAL_TCL_LIBRARY%&quot;</span>
+  <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_TCL_LIBRARY</span><span class="operator">=</span>
 )
-set TK_LIBRARY=
-if defined _OLD_VIRTUAL_TK_LIBRARY (
-  set &quot;TK_LIBRARY=%_OLD_VIRTUAL_TK_LIBRARY%&quot;
-  set _OLD_VIRTUAL_TK_LIBRARY=
-)
-
-if defined _OLD_VIRTUAL_PATH (
-    set &quot;PATH=%_OLD_VIRTUAL_PATH%&quot;
-  set _OLD_VIRTUAL_PATH=
+<span class="keyword">set</span> <span class="name variable">TK_LIBRARY</span><span class="operator">=</span>
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_TK_LIBRARY (
+  <span class="keyword">set</span> <span class="literal string double">&quot;TK_LIBRARY=%_OLD_VIRTUAL_TK_LIBRARY%&quot;</span>
+  <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_TK_LIBRARY</span><span class="operator">=</span>
 )
 
-:END
+<span class="keyword">if</span> <span class="keyword">defined</span> _OLD_VIRTUAL_PATH (
+    <span class="keyword">set</span> <span class="literal string double">&quot;PATH=%_OLD_VIRTUAL_PATH%&quot;</span>
+  <span class="keyword">set</span> <span class="name variable">_OLD_VIRTUAL_PATH</span><span class="operator">=</span>
+)
+
+<span class="name label">:END</span>
 </pre>
 </div>
 <div class="section" id="program-associated-with-py">
 <h1>program associated with .py</h1>
 <p>In usual case, the extension '.py' is not associated with the python.exe under virtual environment but with original one.</p>
-<p>to confirm it ...</p>
-<pre class="literal-block">
-&gt; assoc .py
-.py=Python.File
-&gt; ftype | findstr -i Python
-Python.CompiledFile=&quot;C:\opt\Python27\python.exe&quot; &quot;%1&quot; %*
-Python.File=&quot;C:\opt\Python27\python.exe&quot; &quot;%1&quot; %*
-Python.NoConFile=&quot;C:\opt\Python27\pythonw.exe&quot; &quot;%1&quot; %*
+<p>to confirm,</p>
+<pre class="code console literal-block">
+<span class="generic prompt">&gt;</span> assoc .py
+<span class="generic output">.py=Python.File
+</span><span class="generic prompt">&gt;</span> ftype | findstr -i Python
+<span class="generic prompt">Python.CompiledFile=&quot;C:\windows\py.exe&quot; &quot;%</span>1<span class="literal string double">&quot; %*
+</span><span class="generic prompt">Python.File=&quot;C:\windows\py.exe&quot; &quot;%</span><span class="literal string double">1&quot;</span> %*
+<span class="generic prompt">Python.NoConFile=&quot;C:\windows\pyw.exe&quot; &quot;%</span>1<span class="error">&quot;</span> %*
 </pre>
-<p>Therefore, susu.py should be run in the form of 'python (path to susu.py)susu.py'</p>
+<p>(about py.exe please refer <a class="reference external" href="https://docs.python.org/dev/using/windows.html#python-launcher-for-windows">https://docs.python.org/dev/using/windows.html#python-launcher-for-windows</a>)
+Therefore, susu.py should be run in the form of 'python (path to susu.py)susu.py'</p>
 </div>
 </div>
 </body>

@@ -1,10 +1,11 @@
-import Tkinter as tk
+import tkinter as tk
 
-import tktool.oneof
+from . import tktool
+from .tktool import oneof
 
-import layer_elem
+from . import layer_elem
 
-import context
+from . import context
 
 defaultparam = context.target_default
 exampleparam = context.target_example
@@ -72,7 +73,7 @@ class Target(TargetBase):
 
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
     import copy
 
     app = tk.Tk()

@@ -1,11 +1,11 @@
-import Tkinter as tk
+import tkinter as tk
 
-import tktool
-import tktool.gui_abstract as ga
-import tktool.validateentry
-import tktool.codedoptionmenu as coption
+from . import tktool
+from .tktool import gui_abstract as ga
+from .tktool import validateentry
+from .tktool import codedoptionmenu as coption
 
-import context
+from . import context
 
 class Param2(tk.LabelFrame, ga.GUIAbstract):
     defaultparam = context.param2_default
@@ -84,7 +84,7 @@ class Param2(tk.LabelFrame, ga.GUIAbstract):
         self.clear()
 
 if __name__ == '__main__':
-    import tktool
+    from . import tktool
 
     app = tk.Tk()
 

@@ -1,13 +1,12 @@
 import os
 import sys
 
+import copy
 import json
 
-# initial profile data 
-config_default = {
-        'version':0,
-        'lastdir':''
-        }
+import lockfile
+
+from . import config
 
 class Error(Exception):
     def __init__(self, mesg):
@@ -20,7 +19,7 @@ class Error(Exception):
 def pathinfo():
     """ get profile directory path
         if SUZUPROFDIR is defined use it
-        windows: APPDATA\suzu
+        windows: %APPDATA%\suzu
         unixs: HOME/.suzu
         @return path infomation of profile data, otherwize None
     """
@@ -68,7 +67,7 @@ def initialize():
     # test profile data file
     if not os.path.isfile(pinfo['config']):
         with open(pinfo['config'], 'w') as stream:
-            json.dump(config_default, stream, indent=2, sort_keys=True)
+            json.dump(config.default, stream, indent=2, sort_keys=True)
 
     # test file (do not care on the contents)
     if not os.path.isfile(pinfo['config']):
@@ -77,12 +76,58 @@ def initialize():
     return pinfo
 
 def load_config(stream):
-    return json.load(stream)
+    """load config file
+    if the version in the config file is older, loaded data is updated
+    (but file contents is not).
+    """
+    cnf = json.load(stream)
+    return config.solve_version(cnf)
 
 def dump_config(d, stream):
     json.dump(d, stream, indent=2, sort_keys=True)
 
+def load():
+    """
+    returns current contetns of 
+    """
+    # get (or create) config path
+    p = initialize()
+    return load_config(open(p['config']))
+
+def update(d):
+    """
+    update contents of config data
+    """
+    # get (or create) config path
+    p= initialize()['config']
+
+    with lockfile.LockFile(p):
+        # load current configuration
+        cnf = load_config(open(p))
+
+        # merge 
+        def dict_merge(a, b):
+            '''recursively merges dict's. not just simple a['key'] = b['key'], if
+            both a and bhave a key who's value is a dict then dict_merge is called
+            on both values and the result stored in the returned dictionary.
+            from https://www.xormedia.com/recursively-merge-dictionaries-in-python/
+            '''
+            if not isinstance(b, dict):
+                return b
+            result = copy.deepcopy(a)
+            for k, v in b.items():
+                if k in result and isinstance(result[k], dict):
+                        result[k] = dict_merge(result[k], v)
+                else:
+                    result[k] = copy.deepcopy(v)
+            return result
+        cnf = dict_merge(cnf, d)
+
+        # save 
+        dump_config(cnf, open(p,'w'))
+
+
 if __name__ == '__main__':
     p = initialize()
 
-    print p
+    print(p)

@@ -1,8 +1,8 @@
-import Tkinter as tk
+import tkinter as tk
 
-import tktool.gui_abstract as ga
+from .tktool import gui_abstract as ga
 
-import tktool.codedoptionmenu as coption
+from .tktool import codedoptionmenu as coption
 
 class Model(tk.Frame, ga.GUIAbstract):
     defaultparam = {'damage':1, 'plots':0}

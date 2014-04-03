@@ -8,5 +8,6 @@ additional python packages required
 - sphinx
     to generate .html file from .rst file
 
-- py2win
+- cx_freeze, pywin32
     to generate w32 standalone package
+

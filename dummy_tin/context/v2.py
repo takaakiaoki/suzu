@@ -1,6 +1,6 @@
 import copy
 
-import v1
+from . import v1
 
 _version = 2
 
@@ -70,10 +70,10 @@ def _update(d):
 
 if __name__ == '__main__':
     # test update
-    print 'test default'
+    print('test default')
     updef = _update(v1.default)
     assert(default == updef)
 
-    print 'test example'
+    print('test example')
     upex = _update(v1.example)
     assert(example == upex)

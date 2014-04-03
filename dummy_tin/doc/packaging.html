@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.10: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.11: http://docutils.sourceforge.net/" />
 <title>Packaging</title>
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 7514 2012-09-14 14:27:12Z milde $
+:Id: $Id: html4css1.css 7614 2013-02-21 15:55:51Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -313,6 +313,21 @@ table.docutils th.field-name, table.docinfo th.docinfo-name {
   white-space: nowrap ;
   padding-left: 0 }
 
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
 h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
 h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
   font-size: 100% }
@@ -326,38 +341,29 @@ ul.auto-toc {
 <div class="document" id="packaging">
 <h1 class="title">Packaging</h1>
 
-<div class="section" id="create-exe-installer">
-<h1>Create .exe installer</h1>
-<pre class="literal-block">
-python setup.py bdist_wininst
+<div class="section" id="create-zip-package">
+<h1>Create .zip, package</h1>
+<pre class="code console literal-block">
+<span class="generic output">python setup.py sdist</span>
 </pre>
-<p>.exe installer is created as dist/suzu-(version).win32.exe</p>
-</div>
-<div class="section" id="create-zip-or-tar-gz-package">
-<h1>Create .zip, or tar.gz package</h1>
-<dl class="docutils">
-<dt>::</dt>
-<dd>python setup.py sdist --format=zip,targz</dd>
-</dl>
 <p>Archived packages are created as dist/suzu-(version).tar.gz or dist/suzu-(version).zip
-These packages can be installed using easy_install (a part of setuptools <a class="reference external" href="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a>) or pip (<a class="reference external" href="http://pypi.python.org/pypi/pip/1.2.1">http://pypi.python.org/pypi/pip/1.2.1</a>)</p>
+These packages can be installed using easy_install (a part of setuptools <a class="reference external" href="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a>) or pip (<a class="reference external" href="http://pypi.python.org/pypi/pip">http://pypi.python.org/pypi/pip</a>)</p>
 <p>with easy_install</p>
-<pre class="literal-block">
-easy_install &lt;path to .zip or .tar.gz&gt;
+<pre class="code console literal-block">
+<span class="generic output">easy_install &lt;path to .zip&gt;</span>
 </pre>
 <p>with pip</p>
-<pre class="literal-block">
-pip install &lt;path to .zip or .tar.gz&gt;
+<pre class="code console literal-block">
+<span class="generic output">pip install &lt;path to .zip&gt;</span>
 </pre>
 </div>
 <div class="section" id="create-w32-standalone-package">
 <h1>Create w32 standalone package</h1>
-<p>Use py2exe (<a class="reference external" href="http://www.py2exe.org">http://www.py2exe.org</a>) package.</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd>python setup.py py2exe</dd>
-</dl>
-<p>Stand alone package is created as dist/suzu-(version).w32standalone .</p>
+<p>cs_Freeze (<a class="reference external" href="http://cx-freeze.sourceforge.net/">http://cx-freeze.sourceforge.net/</a>) and pywin32 (<a class="reference external" href="http://sourceforge.net/projects/pywin32/">http://sourceforge.net/projects/pywin32/</a>) should be set up to build w32 standalone package</p>
+<pre class="code console literal-block">
+<span class="generic output">python setup_cx.py bdist_msi</span>
+</pre>
+<p>Stand alone package is created as dist/suzu-(version)-win32.msi or -amd64.msi.</p>
 </div>
 </div>
 </body>

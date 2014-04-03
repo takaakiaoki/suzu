@@ -15,17 +15,13 @@ cd dummy_tin\doc
 cd ..\..
 
 @rem create python package
-python setup.py %setupopt% sdist --formats=zip,gztar
-python setup.py %setupopt% bdist_wininst
-python setup.py %setupopt% py2exe
-
-@rem compress w32standalone
-python tools\dirzip.py dist\suzu-%SUZUVER%.w32standalone
+python setup.py %setupopt% sdist --formats=zip
+python setup_cx.py %setupopt% bdist_msi
 
 @rem web pabe contents
 mkdir html
 mkdir html\dist
 copy README.html html\index.html
-for %%i in (w32standalone.zip, win32.exe, tar.gz, zip) do copy dist\suzu-%SUZUVER%.%%i html\dist
+for %%i in (-win32.msi, -amd64.msi, .zip) do copy dist\suzu-%SUZUVER%%%i html\dist
 
 :end
