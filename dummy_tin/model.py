@@ -45,13 +45,3 @@ class Model(tk.Frame, ga.GUIAbstract):
         prow += 1
 
         self.clear()
-
-
-
-if __name__ == '__main__':
-    import tktool
-    app = tk.Tk()
-
-    tktool.gui_testframe(app, Model, Model.exampleparam)
-
-    app.mainloop()
