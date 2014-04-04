@@ -52,9 +52,20 @@ def create_include_doc():
         fs.append((f, os.path.join('doc', basename)))
     return fs
 
+include_files = [('README','README'), ('README.html','README.html')] \
+        + create_include_doc() + create_include_tix()
+# modules?
+includes = []
+excludes = []
+# 3rd party packages it would be better than using requires given by distutils?
+packages = ['lockfile']
+
 # we need to include tix libs explicitly
 build_exe_options = {
-        'include_files':[('README','README'), ('README.html','README.html')] + create_include_doc() + create_include_tix()
+        'include_files':include_files,
+        'includes':includes,
+        'excludes':excludes,
+        'packages':packages
         }
 
 setup(name = "suzu",
@@ -67,4 +78,5 @@ setup(name = "suzu",
     long_description=open('README').read(),
     # cx_Freeze option
     options={'build_exe':build_exe_options},
-    executables = [Executable('suzu.py', base='Console')])
+    executables = [Executable('suzu.py', base='Console')]
+    )
