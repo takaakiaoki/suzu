@@ -1,16 +1,16 @@
 import sys
 import os
-import Tkinter as tk
+import tkinter as tk
 
 __dir__ = os.path.dirname(__file__)
-sys.path.insert(0, os.path.join(__dir__, '../../..'))
+sys.path.insert(0, os.path.join(__dir__, '../..'))
 
-import dummy_tin.tktool.filepathentry as filepathentry
+import suzu.tktool.filepathentry as filepathentry
 
 if __name__ == '__main__':
     app = tk.Tk()
 
-    fpath = filepathentry.Open(app)
+    fpath = filepathentry.Saveas(app)
 
     # operation
     # set
@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     # get
     def get_action():
-        print fpath.get()
+        print(fpath.get())
 
     getbtn = tk.Button(app, text='get', command=get_action)
 
