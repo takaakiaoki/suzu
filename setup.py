@@ -37,8 +37,9 @@ setup(name = "suzu",
         "License :: OSI Approved :: MIT License",
         "Development Status :: 4 - Beta",
         "Environment :: Other Environment",
-        "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
         "Operating System :: OS Independent",
+        "Operating System :: Microsoft :: Windows :: Windows 7",
         "Topic :: Scientiric/Engineering :: Physics",
         ]
 ) 

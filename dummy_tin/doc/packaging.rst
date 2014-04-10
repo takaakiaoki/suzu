@@ -2,14 +2,14 @@
 Packaging
 =========
 
-Create .zip, package
+Create .zip package
 ====================
 
 .. code-block:: console
 
   python setup.py sdist
 
-Archived packages are created as dist/suzu-(version).tar.gz or dist/suzu-(version).zip
+Archived packages are created as dist/suzu-(version).zip .
 These packages can be installed using easy_install (a part of setuptools http://pypi.python.org/pypi/setuptools) or pip (http://pypi.python.org/pypi/pip)
 
 with easy_install
@@ -33,4 +33,5 @@ cs_Freeze (http://cx-freeze.sourceforge.net/) and pywin32 (http://sourceforge.ne
 
   python setup_cx.py bdist_msi
 
-Stand alone package is created as dist/suzu-(version)-win32.msi or -amd64.msi. 
+Standalone package is created as dist/suzu-(version)-win32.msi or -amd64.msi . 
+
