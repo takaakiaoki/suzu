@@ -4,7 +4,7 @@ import glob
 
 from cx_Freeze import setup, Executable
 
-ver_file = os.path.join(os.path.dirname(__file__), 'dummy_tin', 'version.py')
+ver_file = os.path.join(os.path.dirname(__file__), 'suzu', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
 
@@ -44,15 +44,16 @@ def create_include_tix():
     return []
 
 def create_include_doc():
-    htmls = glob.glob('dummy_tin/doc/*.html')
-    rsts = glob.glob('dummy_tin/doc/*.rst')
+    htmls = glob.glob('suzu/doc/*.html')
+    rsts = glob.glob('suzu/doc/*.rst')
     fs = []
     for f in htmls + rsts:
         basename = os.path.basename(f)
         fs.append((f, os.path.join('doc', basename)))
     return fs
 
-include_files = [('README','README'), ('README.html','README.html')] \
+include_files = [('README','README'), ('README.html','README.html'),
+        ('README-ja.rst','README-ja.rst'), ('README-ja.html','README-ja.html')] \
         + create_include_doc() + create_include_tix()
 # modules?
 includes = []

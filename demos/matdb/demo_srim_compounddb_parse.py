@@ -3,9 +3,9 @@ import os
 
 __dir__ = os.path.dirname(__file__)
 
-sys.path.insert(0, os.path.join(__dir__, '../../..'))
+sys.path.insert(0, os.path.join(__dir__, '../..'))
 
-import dummy_tin.matdb.srim_compounddb as compounddb
+import suzu.matdb.srim_compounddb as compounddb
 
 
 if __name__ == '__main__':

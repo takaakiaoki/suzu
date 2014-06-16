@@ -1,11 +1,11 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../..'))
 
 import tkinter.tix as tix
 
-import dummy_tin.matdb.matdb as matdb
+import suzu.matdb.matdb as matdb
 
 if __name__ == '__main__':
     app = tix.Tk()

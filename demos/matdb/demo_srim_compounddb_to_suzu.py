@@ -2,9 +2,9 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../../..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../..'))
 
-import dummy_tin.matdb.srim_compounddb as compounddb
+import suzu.matdb.srim_compounddb as compounddb
 
 air = compounddb.Compound()
 

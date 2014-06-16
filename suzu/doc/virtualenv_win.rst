@@ -114,4 +114,4 @@ to confirm,
   Python.NoConFile="C:\windows\pyw.exe" "%1" %*
 
 (about py.exe please refer https://docs.python.org/dev/using/windows.html#python-launcher-for-windows)
-Therefore, susu.py should be run in the form of 'python (path to susu.py)\susu.py'
+Therefore, suzu.py should be run in the form of 'python (path to suzu.py)\suzu.py'

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
-import dummy_tin.run
+import suzu.run
 
-dummy_tin.run.run()
+suzu.run.run()

@@ -2,10 +2,10 @@ import sys
 import os
 import tkinter.tix as tix
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__),'..'))
 
-import dummy_tin.layer_elem as layer_elem
-import dummy_tin.tktool as tktool
+import suzu.layer_elem as layer_elem
+import suzu.tktool as tktool
 
 if __name__ == '__main__':
     app = tix.Tk()

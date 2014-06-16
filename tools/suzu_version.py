@@ -3,7 +3,7 @@
 
 import os
 
-ver_file = os.path.join(os.path.dirname(__file__), '..', 'dummy_tin', 'version.py')
+ver_file = os.path.join(os.path.dirname(__file__), '..', 'suzu', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
 

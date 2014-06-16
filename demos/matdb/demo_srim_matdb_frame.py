@@ -1,13 +1,13 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'../../..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'../..')))
 
 import tkinter.tix as tix
 
-# import dummy_tin
-import dummy_tin.matdb.srim_matdb_frame as srim_matdb_frame
-import dummy_tin.matdb.srim_compounddb as compounddb
+# import suzu
+import suzu.matdb.srim_matdb_frame as srim_matdb_frame
+import suzu.matdb.srim_compounddb as compounddb
 
 if __name__ == '__main__':
     app = tix.Tk()
