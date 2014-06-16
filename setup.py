@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 import glob
 
-ver_file = os.path.join(os.path.dirname(__file__), 'dummy_tin', 'version.py')
+ver_file = os.path.join(os.path.dirname(__file__), 'suzu', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
 
@@ -20,12 +20,12 @@ setup(name = "suzu",
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 
     #recursively.)
-    #packages = ['dummy_tin', 'dummy_tin.tktool', 'dummy_tin.physics',
-    #    'dummy_tin.db', 'dummy_tin.context', 'dummy_tin.config',
-    #    'dummy_tin.matdb'],
+    #packages = ['suzu', 'suzu.tktool', 'suzu.physics',
+    #    'suzu.db', 'suzu.context', 'suzu.config',
+    #    'suzu.matdb'],
     packages = find_packages(),
-    package_dir = {'dummy_tin':'dummy_tin'},
-    package_data = {'dummy_tin':['doc/*.rst', 'doc/*.html']},
+    package_dir = {'suzu':'suzu'},
+    package_data = {'suzu':['doc/*.rst', 'doc/*.html']},
     scripts = ["suzu.py"],
     long_description=open('README').read(),
     options={},

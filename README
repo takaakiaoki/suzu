@@ -8,13 +8,15 @@ Apr 4, 2014
 
 Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
 
+`Japanese <README-ja.html>`_
+
 .. contents::
   :local:
 
 About SUZU
 ==========
 
-SUZU is aimed to be a gui program compatible with tin.exe in SRIM (http://www.srim.org/).
+SRIM (http://www.srim.org/) is the most famous software to simulate the trajectroy and radiation effects of energetic particles in various materials. SRIM is equped with well-made GUI program for parameter setup (TIN.exe), however, it cannot run correctly on the Windows OS based multibyte characters, such as Japanese. SUZU (a japanese tranlation of tin :-) is aimed to be a gui program with compatible functions to tin.exe and run on multilingual windows (and possibly other OS platforms). 
 
 Download
 ========
@@ -34,7 +36,8 @@ the directory includes several types of package. See `Install & Run`_ section.
 
 - suzu-(version).zip
     installer for standard python environment
-    (use 'setup.py install', 'easy_install', or 'pip)
+
+    use 'setup.py install', 'easy_install', or 'pip'
 
 Source code repository
 ----------------------
@@ -58,7 +61,7 @@ Option 1: Use standalone package (for Windows)
 
 1. Download Standalone package
 
-  Download suzu-(version)-win32.msi, or suzu-(version)-amd64.msi, and run it. Softwares are expanded at appropriate place.
+  Download suzu-(version)-win32.msi, or suzu-(version)-amd64.msi, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
 
 2. Run
 
@@ -67,7 +70,7 @@ Option 1: Use standalone package (for Windows)
 Option 2: Install as python script and package
 ----------------------------------------------
 
-The second option is that install suzu as a package of python library
+The second option is installing suzu as a package of python library
 
 Environment
 +++++++++++
