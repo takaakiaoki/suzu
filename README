@@ -28,10 +28,10 @@ installation packages are availabel at http://sakura.nucleng.kyoto-u.ac.jp/~aoki
 
 the directory includes several types of package. See `Install & Run`_ section.
 
-- suzu-(version)-win32.msi
+- suzu-(version)-win32.exe
     Windows 32bit standalone 
 
-- suzu-(version)-amd64.msi
+- suzu-(version)-win-amd64.exe
     Windows 64bit standalone 
 
 - suzu-(version).zip
@@ -61,7 +61,7 @@ Option 1: Use standalone package (for Windows)
 
 1. Download Standalone package
 
-  Download suzu-(version)-win32.msi, or suzu-(version)-amd64.msi, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
+  Download suzu-(version)-win32.exe, or suzu-(version)-win-amd64.exe, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
 
 2. Run
 

@@ -31,10 +31,10 @@ SUZU (tin==錫の連想から命名)は TIN.exe と同等の機能を提供し, 
 ここには幾つかの形式でインストール出来るプログラムを配置しています. 
 詳しくは `インストールと実行`_ を参照してください.
 
-- suzu-(version)-win32.msi
+- suzu-(version)-win32.exe
     32bit Windows 用実行ファイルをセットアップします.
 
-- suzu-(version)-amd64.msi
+- suzu-(version)-win-amd64.exe
     64bit Windows 用実行ファイルをセットアップします.
 
 - suzu-(version).zip
@@ -66,7 +66,7 @@ Windowsでは2通りのインストール方法があります. また後者は 
 
 1. .msi ファイルを取得
 
-  suzu-(version)-win32.msi, または suzu-(version)-amd64.msi をダウンロードし,
+  suzu-(version)-win32.exe, または suzu-(version)-win-amd64.exe をダウンロードし,
   これらを実行します. 実行ファイルは c:\\Program Files\\suzu といったフォルダに展開され, またスタートメニューにエントリが追加されます.
 
 2. 実行
