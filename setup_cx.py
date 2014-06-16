@@ -52,7 +52,8 @@ def create_include_doc():
         fs.append((f, os.path.join('doc', basename)))
     return fs
 
-include_files = [('README','README'), ('README.html','README.html')] \
+include_files = [('README','README'), ('README.html','README.html'),
+        ('README-ja.rst','README-ja.rst'), ('README-ja.html','README-ja.html')] \
         + create_include_doc() + create_include_tix()
 # modules?
 includes = []
