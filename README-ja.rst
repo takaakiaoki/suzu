@@ -2,9 +2,9 @@
 SUZU
 ====
 
-version 0.2.0
+version 0.3.0
 
-Apr 4, 2014
+June 19, 2014
 
 Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
 
@@ -18,7 +18,7 @@ SUZU について
 
 SRIM (http://www.srim.org/) は高速粒子の飛跡並びに照射効果のシミュレーションソフトウェアとして最も有名なものです.
 SRIM には TIN.exe というパラメータセットアップの為のGUIプログラムが有りますが, このプログラムは, 日本語, 中国語, 等々のマルチバイト環境でのwindows上では動作しません.
-SUZU (tin==錫の連想から命名)は TIN.exe と同等の機能を提供し, これらのWindows (そして他のOSプラットホーム)上で動作することを目指しています.
+SUZU (tin==錫)は TIN.exe と同等の機能を提供し, これらのWindows (そして他のOSプラットホーム)上で動作することを目指しています.
 
 ダウンロード
 =============
@@ -64,7 +64,7 @@ Windowsでは2通りのインストール方法があります. また後者は 
 オプション1: 実行ファイルのインストール (Windows用)
 ---------------------------------------------------------
 
-1. .msi ファイルを取得
+1. .exe ファイルを取得
 
   suzu-(version)-win32.exe, または suzu-(version)-win-amd64.exe をダウンロードし,
   これらを実行します. 実行ファイルは c:\\Program Files\\suzu といったフォルダに展開され, またスタートメニューにエントリが追加されます.
@@ -85,7 +85,7 @@ Windowsでは2通りのインストール方法があります. また後者は 
 
 また, setuptools (https://pypi.python.org/pypi/setuptools) または pip (http://www.pip-installer.org/en/latest/installing.html) を追加でセットアップして下さい.
 
-Install from source code
+ソースコードからの利用
 +++++++++++++++++++++++++++++++++++++++++++
 
 1. suzu-(version).zip をダウンロードします.
