@@ -2,11 +2,11 @@
 SUZU
 ====
 
-version 0.3.0
+version 0.3.1
 
-June 19, 2014
+April 17, 2018
 
-Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
+Takaaki AOKI (aoki.takaaki.6v@kyoto-u.ac.jp)
 
 `English <README.html>`_
 
@@ -17,7 +17,7 @@ SUZU について
 ==============
 
 SRIM (http://www.srim.org/) は高速粒子の飛跡並びに照射効果のシミュレーションソフトウェアとして最も有名なものです.
-SRIM には TIN.exe というパラメータセットアップの為のGUIプログラムが有りますが, このプログラムは, 日本語, 中国語, 等々のマルチバイト環境でのwindows上では動作しません.
+SRIM には TIN.exe というパラメータセットアップの為のGUIプログラムが有りますが, このプログラムは, 日本語, 中国語, 等々のマルチバイト環境でのwindows上では正しく動作しないことがあります.
 SUZU (tin==錫)は TIN.exe と同等の機能を提供し, これらのWindows (そして他のOSプラットホーム)上で動作することを目指しています.
 
 ダウンロード
@@ -46,15 +46,21 @@ SUZU (tin==錫)は TIN.exe と同等の機能を提供し, これらのWindows (
 ソースコードの入手
 ----------------------
 
-ソースコードは http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu で公開しています.
+ソースコードは https://github.com/takaakiaoki/suzu で公開しています.
 
-mercurial (http://mercurial.selenic.com/) で管理しているので, 最新のソースコードが必要な場合,
+git (https://git-scm.com/) で管理しているので, 最新のソースコードが必要な場合,
 
 .. code-block:: console
 
-  hg clone http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+   git clone https://github.com/takaakiaoki/suzu.git
 
-で取得出来ます
+または
+
+.. code-block:: console
+
+   git clone git@github.com/takaakiaoki/suzu.git
+
+で取得出来ます(あるいはご自身のレポジトリにForkしてください).
 
 インストールと実行
 ===================

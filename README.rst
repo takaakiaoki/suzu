@@ -2,11 +2,11 @@
 SUZU
 ====
 
-version 0.3.0
+version 0.3.1
 
-June 19, 2014
+April 17, 2018
 
-Takaaki AOKI (aoki@sakura.nucleng.kyoto-u.ac.jp)
+Takaaki AOKI (aoki.takaaki.6v@kyoto-u.ac.jp)
 
 `Japanese <README-ja.html>`_
 
@@ -42,13 +42,21 @@ the directory includes several types of package. See `Install & Run`_ section.
 Source code repository
 ----------------------
 
-Source code is maintaned at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+Source code is maintaned at https://github.com/takaakiaoki/suzu
 
-Code is managed using mercurial (http://mercurial.selenic.com/). So you can access the latest source code set by ...
+Code is managed using git (https://git-scm.com/). So you can access the latest source code set by ...
 
 .. code-block:: console
 
-  hg clone http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu
+   git clone https://github.com/takaakiaoki/suzu.git
+
+or
+
+.. code-block:: console
+
+   git clone git@github.com/takaakiaoki/suzu.git
+
+, or you may freely fork and modify it.
 
 Install & Run
 =============
