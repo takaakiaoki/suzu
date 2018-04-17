@@ -12,7 +12,7 @@ rem get suzu version
 @echo VERSION=%SUZUVER%
 
 @rem create .html from README files
-rst2html.py README README.html
+rst2html.py README.rst README.html
 rst2html.py README-ja.rst README-ja.html
 cd suzu\doc
 @call make.bat
