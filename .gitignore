@@ -6,5 +6,7 @@ suzu.egg-info
 setup.iss
 README.html
 README-ja.html
+__pycache__
 suzu/doc/*.html
 *~
+*.swp

@@ -2,7 +2,7 @@
 SUZU
 ====
 
-version 0.3.1
+version 0.4.0
 
 April 17, 2018
 
@@ -18,29 +18,43 @@ About SUZU
 
 SRIM (http://www.srim.org/) is the most famous software to simulate the trajectroy and radiation effects of energetic particles in various materials. SRIM is equped with well-made GUI program for parameter setup (TIN.exe), however, it cannot run correctly on the Windows OS based multibyte characters, such as Japanese. SUZU (a japanese tranlation of tin :-) is aimed to be a gui program with compatible functions to tin.exe and run on multilingual windows (and possibly other OS platforms). 
 
-Download
-========
+Install & Run
+=============
 
-Distributed packages
----------------------
+For windows, two options are available to setup this program.
+The second option is also available for unix or mac user.
 
-installation packages are availabel at http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist
+Option 1: Use standalone package (for Windows)
+-----------------------------------------------
 
-the directory includes several types of package. See `Install & Run`_ section.
+1. Download Standalone package
 
-- suzu-(version)-win32.exe
-    Windows 32bit standalone 
+   Go to http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist , suzu-(version)-win32.exe, or suzu-(version)-win-amd64.exe, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
 
-- suzu-(version)-win-amd64.exe
-    Windows 64bit standalone 
+2. Run
 
-- suzu-(version).zip
-    installer for standard python environment
+  Find and Double-click suzu.exe  
 
-    use 'setup.py install', 'easy_install', or 'pip'
+Option 2: Install as python script and package
+----------------------------------------------
+
+The second option is installing suzu as a package of python library.
+suzu version >= 0.1.0 is developed to run on python 3.3.5 (or above). Setup python core program from http://www.python.org/
+
+suzu is available at PyPI (https://pypi.org/project/suzu/), then
+
+.. code-block::
+
+    pip install suzu
+
+Run
++++
+
+- type suzu in command prompt
+- or, find suzu executable file (i.e. C:\\Python33\\Script\\suzu.exe) and double-click it.
 
 Source code repository
-----------------------
+======================
 
 Source code is maintaned at https://github.com/takaakiaoki/suzu
 
@@ -58,61 +72,6 @@ or
 
 , or you may freely fork and modify it.
 
-Install & Run
-=============
-
-For windows, two options are available to setup this program.
-The second option is also available for unix or mac user.
-
-Option 1: Use standalone package (for Windows)
------------------------------------------------
-
-1. Download Standalone package
-
-  Download suzu-(version)-win32.exe, or suzu-(version)-win-amd64.exe, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
-
-2. Run
-
-  Find and Double-click suzu.exe  
-
-Option 2: Install as python script and package
-----------------------------------------------
-
-The second option is installing suzu as a package of python library
-
-Environment
-+++++++++++
-
-version >= 0.1.0 is developed to run on python 3.3.5 (or above). Setup python core program from http://www.python.org/
-
-Install from source code
-+++++++++++++++++++++++++++++++++++++++++++
-
-1. Download package archive suzu-(version).zip
-2. If you have already installed easy_install or pip, run
-
-  ::
-
-    easy_install suzu-(version).zip
-
-  , or
-
-  ::
-
-    pip install suzu-(version).zip
-
-  (If you do not have easy_install nor pip, expand above package archive and find setup.py. Then,)
-
-  ::
-
-    python setup.py install
-
-
-Run
-+++
-
-- type suzu.py in command prompt
-- or, find suzu.py using explore (i.e. C:\\Python33\\Script\\suzu.py) and double-click it.
 
 Usage
 =====

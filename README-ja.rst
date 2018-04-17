@@ -2,7 +2,7 @@
 SUZU
 ====
 
-version 0.3.1
+version 0.4.0
 
 April 17, 2018
 
@@ -20,31 +20,54 @@ SRIM (http://www.srim.org/) は高速粒子の飛跡並びに照射効果のシ�
 SRIM には TIN.exe というパラメータセットアップの為のGUIプログラムが有りますが, このプログラムは, 日本語, 中国語, 等々のマルチバイト環境でのwindows上では正しく動作しないことがあります.
 SUZU (tin==錫)は TIN.exe と同等の機能を提供し, これらのWindows (そして他のOSプラットホーム)上で動作することを目指しています.
 
-ダウンロード
-=============
+インストールと実行
+===================
 
-配布されているプログラム・パッケージ
---------------------------------------
+Windowsでは2通りのインストール方法があります. また後者は unix や mac にも適用出来ます.
 
-ソフトウェアは http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist より入手できます.
+オプション1: 実行ファイルのインストール (Windows用)
+---------------------------------------------------------
 
-ここには幾つかの形式でインストール出来るプログラムを配置しています. 
-詳しくは `インストールと実行`_ を参照してください.
+1. .exe ファイルを取得
 
-- suzu-(version)-win32.exe
-    32bit Windows 用実行ファイルをセットアップします.
+  http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist より
+  suzu-(version)-win32.exe, または suzu-(version)-win-amd64.exe をダウンロードし,
+  これらを実行します. 実行ファイルは c:\\Program Files\\suzu といったフォルダに展開され, またスタートメニューにエントリが追加されます.
 
-- suzu-(version)-win-amd64.exe
-    64bit Windows 用実行ファイルをセットアップします.
+2. 実行
 
-- suzu-(version).zip
-    Python が事前にセットアップされている場合,
-    python のライブラリとしてセットアップします.
+  1.でセットアップしたフォルダ内の suzu.exe をダブルクリック, 実行します.
 
-    'setup.py install', 'easy_install', 'pip' 等でインストールできます.
+オプション2: Python のスクリプト, ライブラリとしてインストール
+----------------------------------------------------------------
+
+もう一つの方法は suzu を python のライブラリとしてインストールする方法です.
+
+バージョン0.1.0以降の suzu は python 3.3.5 (またはそれ以上) で動作します.  http://www.python.org/ からpython 本体を入手インストールしてください.
+
+PyPI (https://pypi.org/project/suzu/) に公開されているパッケージを pip によりインストールします.
+
+.. code-block::
+
+    pip install suzu
+
+
+実行
+++++++
+
+- コマンドラインより 
+
+  .. code-block:: 
+
+    suzu 
+   
+  とタイプします.
+
+- あるいは, suzu の実行ファイルを見つけ(例えば. C:\\Python33\\Script\\suzu.exe に見つかります.), これを実行します.
+
 
 ソースコードの入手
-----------------------
+==================
 
 ソースコードは https://github.com/takaakiaoki/suzu で公開しています.
 
@@ -61,68 +84,6 @@ git (https://git-scm.com/) で管理しているので, 最新のソースコー
    git clone git@github.com/takaakiaoki/suzu.git
 
 で取得出来ます(あるいはご自身のレポジトリにForkしてください).
-
-インストールと実行
-===================
-
-Windowsでは2通りのインストール方法があります. また後者は unix や mac にも適用出来ます.
-
-オプション1: 実行ファイルのインストール (Windows用)
----------------------------------------------------------
-
-1. .exe ファイルを取得
-
-  suzu-(version)-win32.exe, または suzu-(version)-win-amd64.exe をダウンロードし,
-  これらを実行します. 実行ファイルは c:\\Program Files\\suzu といったフォルダに展開され, またスタートメニューにエントリが追加されます.
-
-2. 実行
-
-  1.でセットアップしたフォルダ内の suzu.exe をダブルクリック, 実行します.
-
-オプション2: Python のスクリプト, ライブラリとしてインストール
-----------------------------------------------------------------
-
-もう一つの方法は suzu を python のライブラリとしてインストールする方法です.
-
-環境
-+++++++++++
-
-バージョン0.1.0以降の suzu は python 3.3.5 (またはそれ以上) で動作します.  http://www.python.org/ からpython 本体を入手インストールしてください.
-
-また, setuptools (https://pypi.python.org/pypi/setuptools) または pip (http://www.pip-installer.org/en/latest/installing.html) を追加でセットアップして下さい.
-
-ソースコードからの利用
-+++++++++++++++++++++++++++++++++++++++++++
-
-1. suzu-(version).zip をダウンロードします.
-2. pip がインストールされているならば,
-
-  .. code-block:: console
-
-    pip install suzu-(version).zip
-
-  もしないならば 
-
-  .. code-block:: console
-
-    python setup.py install
-
-  を実行してください.
-
-
-実行
-++++++
-
-- コマンドラインより 
-
-  .. code-block:: 
-
-    suzu.py 
-   
-  とタイプします.
-
-
-- あるいは, suzu.py を見つけ(例えば. C:\\Python33\\Script\\suzu.py に見つかります.), これを実行します.
 
 利用方法
 ===========
