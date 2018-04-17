@@ -1,0 +1,9 @@
+dist
+build
+MANIFEST
+html
+suzu.egg-info
+setup.iss
+README.html
+README-ja.html
+suzu/doc/*.html
