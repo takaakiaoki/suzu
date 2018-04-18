@@ -75,7 +75,7 @@ def run():
     def val_action():
         err = root.validate()
         if err:
-            tktool.error.show_as_messagebox(err)
+            error.show_as_messagebox(err)
 
     valbtn = tk.Button(menuframe, text='Validate', command=val_action)
     valbtn.grid(row=0, column=pcol, padx=5)
@@ -117,7 +117,7 @@ def run():
                 raise VExecption(err)
             d = root.get()
         except VExecption as e:
-            tkinter.messagebox.showerror('Validation error', 'validation error, save is aborted.\n\n'+tktool.error.format_errorstruct(e.err))
+            tkinter.messagebox.showerror('Validation error', 'validation error, save is aborted.\n\n'+error.format_errorstruct(e.err))
             return
         except Error as e:
             tkinter.messagebox.showerror('exception error', 'exception received, save is aborted.\n'+e)
