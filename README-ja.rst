@@ -2,9 +2,9 @@
 SUZU
 ====
 
-version 0.4.0
+version 0.4.1
 
-April 17, 2018
+April 18, 2018
 
 Takaaki AOKI (aoki.takaaki.6v@kyoto-u.ac.jp)
 
@@ -30,7 +30,7 @@ Windowsでは2通りのインストール方法があります. また後者は 
 
 1. .exe ファイルを取得
 
-  http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist より
+  https://github.com/takaakiaoki/suzu/releases より
   suzu-(version)-win32.exe, または suzu-(version)-win-amd64.exe をダウンロードし,
   これらを実行します. 実行ファイルは c:\\Program Files\\suzu といったフォルダに展開され, またスタートメニューにエントリが追加されます.
 
