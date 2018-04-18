@@ -91,11 +91,11 @@ build_exe_options = {
 
 setup(name = "suzu",
     version = vars['__version__'],
-    description = "fake UI program for SRIM parameter input program (tin.exe)",
+    description = "Yet another UI program for SRIM parameter input program (tin.exe)",
     author = "Takaaki AOKI",
     author_email = "aoki.takaaki.6v@kyoto-u.ac.jp",
     url = "https://github.com/takaakiaoki/suzu",
-    download_url = "http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu/",
+    # download_url = "https://github.com/takaakiaoki/suzu",
     long_description=open('README.rst').read(),
     # cx_Freeze option
     options={'build_exe':build_exe_options},
