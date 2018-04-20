@@ -62,9 +62,10 @@ class Compound(object):
                 'disp':displacement.disp[sym]})
 
         layer = {
+            'gas': self.gas_material,
             'name': self.name,
             'dens': self.density,
-            'atomtbl':table}
+            'atomtbl': table}
 
         return layer
 
