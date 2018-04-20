@@ -4,7 +4,7 @@
 #define MyAppName "suzu"
 #define MyAppVersion "${suzu_version}"
 #define MyAppPublisher "Takaaki AOKI"
-#define MyAppURL "http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/"
+#define MyAppURL "https://github.com/takaakiaoki/suzu"
 #define MyAppExeName "suzu.exe"
 
 [Setup]
@@ -22,7 +22,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-InfoAfterFile=${setup_root}\README
+InfoAfterFile=${setup_root}\README.rst
 OutputDir=${dist_directory}
 OutputBaseFilename=suzu-{#MyAppVersion}-${python_platform}
 Compression=lzma

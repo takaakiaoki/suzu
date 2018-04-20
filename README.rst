@@ -2,9 +2,9 @@
 SUZU
 ====
 
-version 0.4.0
+version 0.4.1
 
-April 17, 2018
+April 18, 2018
 
 Takaaki AOKI (aoki.takaaki.6v@kyoto-u.ac.jp)
 
@@ -29,7 +29,7 @@ Option 1: Use standalone package (for Windows)
 
 1. Download Standalone package
 
-   Go to http://sakura.nucleng.kyoto-u.ac.jp/~aoki/suzu/dist , suzu-(version)-win32.exe, or suzu-(version)-win-amd64.exe, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
+   Go to https://github.com/takaakiaoki/suzu/releases , download suzu-(version)-win32.exe, or suzu-(version)-win-amd64.exe, and run it. Softwares are expanded at appropriate place, such as C:\\Program Files\\suzu, and the shortcut is added on the start menu.
 
 2. Run
 

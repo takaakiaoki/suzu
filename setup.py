@@ -11,11 +11,11 @@ docfiles = glob.glob('doc/*.rst')
     
 setup(name = "suzu",
     version = vars['__version__'],
-    description = "fake UI program for SRIM parameter input program (tin.exe)",
+    description = "Yet another UI program for SRIM parameter input program (tin.exe)",
     author = "Takaaki AOKI",
     author_email = "aoki.takaaki.6v@kyoto-u.ac.jp",
     url="https://github.com/takaakiaoki/suzu",
-    download_url = "http://sakura.nucleng.kyoto-u.ac.jp/~aoki/hg/suzu/",
+    # download_url = "https://github.com/takaakiaoki/suzu",
     #Name the folder where your packages live:
     #(If you have other packages (dirs) or modules (py files) then
     #put them into the package directory - they will be found 
