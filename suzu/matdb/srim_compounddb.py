@@ -31,16 +31,20 @@ class Compound(object):
     def __init__(self):
         self.desc = '' # target description
         self.name = '' # name of table
+        self.gas_material = False # F: non-Gas, T: Gas
         self.mass_percentage = False # F: atom%, T: mass%
         self.density = 0.0 #density
         self.elems = []  # (atomnum, atom or mass%)
-        self.bonding = [0.0] * 18 
+        self.bonding = [0.0] * 18
         self.comment = ''
         self.fulltext = '' # full text of table contents
 
     def to_suzu(self):
         """
-        c: parsed object of srim compound data
+        prepare parameters to pass suzu main dialog.
+        
+        Return:
+            layer data structure
         """
 
         # if ratio is given as mass percentage, transrate it
@@ -81,6 +85,13 @@ def format_compound(c):
     b.write(h1(c.name))
     # short description
     b.write('\n'+c.desc)
+    # gas material ?
+    b.write('\n'+h2('Phase')+'\n')
+    if c.gas_material:
+        b.write('Gas Material\n')
+    else:
+        b.write('non-Gas Material\n')
+
     # density
     b.write('\n'+h2('Density')+'\n')
     b.write('{0:g} g/cm3\n'.format(c.density))
@@ -142,6 +153,7 @@ def parse(input):
     tblbuf = ''
 
     """
+    State Transfer Table
               \  !                     |   *                       |   else
     UNDEFINED |  append_cat.desc/C     |   append_tblbuf/T         |  -
     CAT_DESC  |  append_cat.desc/C     |   append_tblbuf/T         |  - 
@@ -194,6 +206,11 @@ def parse_target_table(s):
     input = io.StringIO(s)
     # 1st line, description, remove heading '*'
     t.desc = input.readline()[1:]
+
+    # check if this materias is gas or not.
+    # if (gas) is found in the t.desc this material might be gas material.
+    if '(gas)' in t.desc:
+        t.gas_material = True
 
     # 2nd line, name, density, elements
     t.name, t.mass_percentage, t.density, t.elems = parse_target_data(input.readline())
